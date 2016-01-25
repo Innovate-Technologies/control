@@ -139,22 +139,6 @@ a.list-group-item:hover .list-group-item-heading, a.list-group-item:focus .list-
     color: #1eb45a;
 }
 
-.jumbotron, .footer {
-    color: #fff;
-    background: url('https://shoutca.st/images/bg.png') no-repeat #232a31;
-    background-size: cover;
-    background-attachment: fixed;
-    overflow: hidden;
-}
-
-.footer {
-    color: #fff;
-    background: url('https://shoutca.st/images/bg_footer.png') no-repeat #232a31;
-    background-size: cover;
-    background-attachment: fixed;
-    overflow: hidden;
-}
-
 .flexslider {
     margin: 0;
     background: transparent;
@@ -374,38 +358,6 @@ ul {
 
 .purechat-name-input {
     height: 30px !important;
-}
-
-#main-footer {
-    margin-top: 50px;
-}
-
-.footer .container {
-    padding-top: 35px;
-    padding-bottom: 35px;
-}
-
-.footer .copyright {
-    margin-top: 20px;
-}
-
-.footer h5 {
-    font-size: 1.3em;
-    font-weight: bold !important;
-    text-transform: uppercase;
-}
-
-.footer a {
-    color: white;
-}
-
-.footer ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.footer ul li {
-    margin-bottom: 5px;
 }
 
 input, textarea {

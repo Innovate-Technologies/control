@@ -1,3 +1,5 @@
+import "./footer.css";
+
 import { angular, angularRoute } from "../vendor";
 import Session from "./session";
 import AuthChecker from "./auth-checker";
