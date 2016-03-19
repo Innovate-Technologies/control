@@ -38,17 +38,17 @@ describe("Session", function () {
       var testToken = "xxxxx-test-token";
       it("should create a session", function () {
         expect(this.Session.token).toBeUndefined();
-        this.Session.create(testToken);
+        this.Session.create({ token: testToken });
         expect(this.Session.token).toBe(testToken);
       });
       it("should store the token in local storage", function () {
-        expect(this.localStorageService.get("token")).toBeNull();
-        this.Session.create(testToken);
-        expect(this.localStorageService.get("token")).toBe(testToken);
+        expect(this.localStorageService.get("sessionData")).toBeNull();
+        this.Session.create({ token: testToken });
+        expect(this.localStorageService.get("sessionData")).toEqual({ token: testToken });
       });
       it("should broadcast the sessionCreated event", function () {
         expect(this.Session.token).toBeUndefined();
-        this.Session.create(testToken);
+        this.Session.create({ token: testToken });
         expect(this.$rootScope.$broadcast).toHaveBeenCalledWith("sessionCreated");
       });
     });
@@ -57,20 +57,20 @@ describe("Session", function () {
       var oldTestToken = "xxxxx-test-token";
       var newTestToken = "xxxxx-test-token-new";
       it("should update the session token", function () {
-        this.Session.create(oldTestToken);
+        this.Session.create({ token: oldTestToken });
         expect(this.Session.token).toBe(oldTestToken);
-        this.Session.update(newTestToken);
+        this.Session.update({ token: newTestToken });
         expect(this.Session.token).toBe(newTestToken);
       });
       it("should update the token in local storage", function () {
-        this.Session.create(oldTestToken);
-        expect(this.localStorageService.get("token")).toBe(oldTestToken);
-        this.Session.update(newTestToken);
-        expect(this.localStorageService.get("token")).toBe(newTestToken);
+        this.Session.create({ token: oldTestToken });
+        expect(this.localStorageService.get("sessionData")).toEqual({ token: oldTestToken });
+        this.Session.update({ token: newTestToken });
+        expect(this.localStorageService.get("sessionData")).toEqual({ token: newTestToken });
       });
       it("should broadcast the sessionUpdated event", function () {
-        this.Session.create(oldTestToken);
-        this.Session.update(newTestToken);
+        this.Session.create({ token: oldTestToken });
+        this.Session.update({ token: newTestToken });
         expect(this.$rootScope.$broadcast).toHaveBeenCalledWith("sessionUpdated");
       });
     });
@@ -78,19 +78,19 @@ describe("Session", function () {
     describe("the destroy method", function () {
       var testToken = "xxxxx-test-token";
       it("should destroy the session", function () {
-        this.Session.create(testToken);
-        expect(this.Session.token).toBe(testToken);
+        this.Session.create({ token: testToken });
+        expect(this.Session.token).toEqual(testToken);
         this.Session.destroy();
         expect(this.Session.token).toBeNull();
       });
       it("should remove the token from local storage", function () {
-        this.Session.create(testToken);
-        expect(this.localStorageService.get("token")).toBe(testToken);
+        this.Session.create({ token: testToken });
+        expect(this.localStorageService.get("sessionData")).toEqual({ token: testToken });
         this.Session.destroy();
-        expect(this.localStorageService.get("token")).toBeNull();
+        expect(this.localStorageService.get("sessionData")).toBeNull();
       });
       it("should broadcast the sessionDestroyed event", function () {
-        this.Session.create(testToken);
+        this.Session.create({ token: testToken });
         expect(this.Session.token).toBeDefined();
         this.Session.destroy();
         expect(this.$rootScope.$broadcast).toHaveBeenCalledWith("sessionDestroyed");

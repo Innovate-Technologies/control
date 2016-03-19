@@ -18,6 +18,7 @@ describe("ServicesService", function () {
     });
     $provide.value("Session", {
       token: "xxxxx-xxxxx",
+      sessionData: { token: "xxxxx-xxxxx" },
     });
   }));
   beforeEach(inject(function (_$rootScope_, _ServicesService_, _$httpBackend_) {

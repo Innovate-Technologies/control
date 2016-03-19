@@ -7,22 +7,21 @@ export default class AuthService {
     ENV,
     AUTH_EVENTS,
     Session,
-    promiseCache,
-    featureFlags,
   ) {
     this.keepAlivePromise = null;
-    this.logIn = function (credentials) {
-      return $http
-        .post(ENV.apiEndpoint + "/authenticate", credentials)
+    this.logIn = (credentials) => {
+      return $http.post(`${ENV.apiEndpoint}/authenticate`, credentials)
         .then((res) => {
           $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-          Session.create(res.data.token);
+          Session.create({ token: res.data.token });
+          $http.get(`${ENV.apiEndpoint}/control/user-info`)
+            .then(({ data }) => Session.update(data, false));
         }, () => {
           $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
         });
     };
 
-    this.logOut = function () {
+    this.logOut = () => {
       return $http
         .post(`${ENV.apiEndpoint}/control/log-out`)
         .then(() => {
@@ -35,28 +34,12 @@ export default class AuthService {
 
     this.keepAlive = function () {
       $http.post(`${ENV.apiEndpoint}/control/keep-alive`)
-        .then((res) => {
-          Session.update(res.data.token);
-        }, function () {
-          $interval.cancel(AuthService.keepAlivePromise);
-          AuthService.keepAlivePromise = null;
+        .then(({ data }) => {
+          Session.update({ token: data.token }, false);
+        }, () => {
+          $interval.cancel(this.keepAlivePromise);
+          this.keepAlivePromise = null;
         });
-    };
-
-    const USER_INFO_CACHE_KEY = "userInfo";
-    this.getUserInfo = () => {
-      if (!Session.token) {
-        return Promise.reject("no valid token");
-      }
-      return promiseCache({
-        promise: () => $http.get(`${ENV.apiEndpoint}/control/user-info`)
-          .then(response => response.data),
-        key: USER_INFO_CACHE_KEY,
-        ttl: -1,
-      });
-    };
-    let invalidateUserInfoCache = () => {
-      promiseCache.remove(USER_INFO_CACHE_KEY);
     };
 
     $rootScope.$on("sessionCreated", () => {
@@ -64,13 +47,8 @@ export default class AuthService {
         return;
       }
       this.keepAlivePromise = $interval(this.keepAlive, 1000 * 60 * 15);
-      this.getUserInfo().then(({ flags = [] }) => {
-        featureFlags.set(flags);
-        featureFlags.enable({ key: "none" });
-      });
     });
     $rootScope.$on("sessionDestroyed", () => {
-      invalidateUserInfoCache();
       if (!this.keepAlivePromise) {
         return;
       }

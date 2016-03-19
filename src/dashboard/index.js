@@ -12,10 +12,8 @@ export default angular.module("control.dashboard", [])
         template: require("./dashboard.html"),
         authorizedRoles: [USER_ROLES.all],
         title: "Dashboard",
-        resolve: {
-          summary: /*@ngInject*/ (AuthService) => AuthService.getUserInfo(),
-        },
         controller: "DashboardCtrl",
+        controllerAs: "ctrl",
       });
   })
   .name;
