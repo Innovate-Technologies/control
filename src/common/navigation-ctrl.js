@@ -1,4 +1,12 @@
-export default /*@ngInject*/ function ($scope, $location, $rootScope, $route, USER_ROLES, AUTH_EVENTS, AuthChecker, AuthService, Session, ServicesService, $window, $alert) {
+export default /*@ngInject*/ function (
+  $rootScope,
+  $scope,
+  $location,
+  $alert,
+  AuthChecker,
+  AuthService,
+  ServicesService,
+) {
 
   $scope.isActive = function (viewLocation) {
     return (viewLocation === "/") ? viewLocation === $location.path() : $location.path().indexOf(viewLocation) > -1;
@@ -8,9 +16,9 @@ export default /*@ngInject*/ function ($scope, $location, $rootScope, $route, US
     AuthService.logOut();
   };
 
-    //////////////////
-    // Top bar player
-    //////////////////
+  //////////////////
+  // Top bar player
+  //////////////////
 
   var audio;
   $scope.player = {};
@@ -51,12 +59,12 @@ export default /*@ngInject*/ function ($scope, $location, $rootScope, $route, US
     $scope.player.state = $scope.player.states.buffering;
   };
 
-    ////////////
-    // Services
-    ////////////
+  ////////////
+  // Services
+  ////////////
 
   $scope.initServices = function initServices() {
-        // returns a promise.
+    // returns a promise.
     return ServicesService.initAndGetService().then(function onInitServiceSuccess(service) {
       $rootScope.servicesLoaded = true;
       $rootScope.services = ServicesService.getServicesList();

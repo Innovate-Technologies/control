@@ -17,15 +17,15 @@
  */
 
 import {
-    angular,
-    angularRoute,
-    angularAnimate,
-    angularSanitize,
-    angularMessages,
-    angularFormly,
-    angularFormlyTemplatesBootstrap,
-    angularLoadingBar,
-    angularSmartTable,
+  angular,
+  angularRoute,
+  angularAnimate,
+  angularSanitize,
+  angularMessages,
+  angularFormly,
+  angularFormlyTemplatesBootstrap,
+  angularLoadingBar,
+  angularSmartTable,
 } from "./vendor";
 
 import config from "./config";

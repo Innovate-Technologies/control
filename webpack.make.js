@@ -114,33 +114,33 @@ module.exports = function makeWebpackConfig(options) {
   ];
   if (!TEST) {
     config.plugins.push(
-            new HtmlWebpackPlugin({
-              inject: true,
-              template: path.join(APP_ROOT, "index.html"),
-              minify: BUILD ? {
-                collapseBooleanAttributes: true,
-                collapseWhitespace: true,
-                conservativeCollapse: true,
-                removeAttributeQuotes: true,
-                removeComments: true,
-                removeEmptyAttributes: true,
-                removeRedundantAttributes: true,
-                removeScriptTypeAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                minifyCSS: true,
-              } : false,
-            }),
-            new webpack.optimize.CommonsChunkPlugin({ name: "vendor", minChunks: Infinity }),
-            new webpack.optimize.CommonsChunkPlugin({ name: "loader", chunks: ["vendor"] })
-        );
+      new HtmlWebpackPlugin({
+        inject: true,
+        template: path.join(APP_ROOT, "index.html"),
+        minify: BUILD ? {
+          collapseBooleanAttributes: true,
+          collapseWhitespace: true,
+          conservativeCollapse: true,
+          removeAttributeQuotes: true,
+          removeComments: true,
+          removeEmptyAttributes: true,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          minifyCSS: true,
+        } : false,
+      }),
+      new webpack.optimize.CommonsChunkPlugin({ name: "vendor", minChunks: Infinity }),
+      new webpack.optimize.CommonsChunkPlugin({ name: "loader", chunks: ["vendor"] })
+    );
   }
   if (BUILD) {
     config.plugins.push(
-            new webpack.NoErrorsPlugin(),
-            new webpack.optimize.DedupePlugin(),
-            new webpack.optimize.OccurenceOrderPlugin(true),
-            new webpack.optimize.UglifyJsPlugin()
-        );
+      new webpack.NoErrorsPlugin(),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.OccurenceOrderPlugin(true),
+      new webpack.optimize.UglifyJsPlugin()
+    );
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////

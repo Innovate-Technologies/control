@@ -17,8 +17,8 @@ export default class AuthChecker {
         if (authorizedRoles.indexOf(USER_ROLES.all) !== -1 && this.isAuthenticated()) {
           return true;
         }
-        return (this.isAuthenticated() &&
-                    authorizedRoles.indexOf(Session.userRole) !== -1);
+        return this.isAuthenticated() &&
+          authorizedRoles.indexOf(Session.userRole) !== -1;
       };
     }
 }
