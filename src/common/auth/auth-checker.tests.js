@@ -17,13 +17,14 @@ describe("AuthChecker", function () {
       },
     });
 
-        // Reset the states
+    // Reset the states
     fakeLocalStorage = {};
     SessionCreateFromLSCalled = false;
     SessionMock = {
       createFromLocalStorage: function () {
         SessionCreateFromLSCalled = true;
-        this.token = "xxxxx-xxxxx";
+        this.sessionData = { token: "xxxxx-xxxxx" };
+        this.token = this.sessionData.token;
       },
     };
 
@@ -45,7 +46,7 @@ describe("AuthChecker", function () {
 
     describe("isAuthenticated", function () {
       it("should create a Session if there is a token in LS", function () {
-        fakeLocalStorage.token = "xxxxx-xxxxx";
+        fakeLocalStorage.sessionData = { token: "xxxxx-xxxxx" };
         this.service.isAuthenticated();
         expect(SessionCreateFromLSCalled).toBe(true);
       });
@@ -54,7 +55,7 @@ describe("AuthChecker", function () {
         expect(SessionCreateFromLSCalled).toBe(false);
       });
       it("should return true if we have a session token", function () {
-        fakeLocalStorage.token = "xxxxx-xxxxx";
+        fakeLocalStorage.sessionData = { token: "xxxxx-xxxxx" };
         expect(this.service.isAuthenticated()).toBe(true);
       });
       it("should return false if we do not have a session token", function () {
@@ -69,7 +70,7 @@ describe("AuthChecker", function () {
       });
       describe('when the authorised role includes "all", it', function () {
         it("should return true when isAuthenticated() is true", function () {
-          fakeLocalStorage.token = "xxxxx-xxxxx";
+          fakeLocalStorage.sessionData = { token: "xxxxx-xxxxx" };
           expect(this.service.isAuthorized([this.USER_ROLES.all])).toBe(true);
           expect(this.service.isAuthorized(this.USER_ROLES.all)).toBe(true);
         });
@@ -79,11 +80,11 @@ describe("AuthChecker", function () {
         });
       });
       it("should return true only if the user has one of the authorised roles", function () {
-                // Non-authenticated
+        // Non-authenticated
         expect(this.service.isAuthorized([this.USER_ROLES.user])).toBe(false);
 
-                // User has the user role
-        fakeLocalStorage.token = "xxxxx-xxxxx";
+        // User has the user role
+        fakeLocalStorage.sessionData = { token: "xxxxx-xxxxx" };
         SessionMock.userRole = this.USER_ROLES.user;
         expect(this.service.isAuthorized([this.USER_ROLES.user])).toBe(true);
 

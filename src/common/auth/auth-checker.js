@@ -2,7 +2,7 @@ export default class AuthChecker {
     /*@ngInject*/
     constructor(Session, USER_ROLES, localStorageService) {
       this.isAuthenticated = () => {
-        if (localStorageService.get("token")) {
+        if (localStorageService.get("sessionData")) {
           Session.createFromLocalStorage();
         }
         return !!Session.token;

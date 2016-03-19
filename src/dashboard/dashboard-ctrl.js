@@ -1,3 +1,3 @@
-export default /*@ngInject*/ function ($scope, summary) {
-  $scope.summary = summary;
+export default /*@ngInject*/ function (Session) {
+  this.sessionData = Session.sessionData;
 }

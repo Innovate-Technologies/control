@@ -89,7 +89,7 @@ describe("AuthService", function () {
       AuthService.logIn(credentials);
       $httpBackend.flush();
       $rootScope.$digest();
-      expect(Session.create).toHaveBeenCalledWith(token);
+      expect(Session.create).toHaveBeenCalledWith({ token });
     });
 
     it("should broadcast AUTH_EVENTS.loginFailed when login fails", function () {
