@@ -39,6 +39,9 @@ import controlDashboard from "./dashboard";
 import controlFeedback from "./feedback";
 import controlManage from "./manage";
 
+require("./header-nav.html");
+require("./footer.html");
+
 const app = angular.module("control", [
   config,
   controlCommon,

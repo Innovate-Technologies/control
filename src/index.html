@@ -11,41 +11,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Lato:400" rel="stylesheet">
 </head>
 <body class="bootcards-nofooter">
-  <nav class="navbar navbar-inverse navbar-fixed-top" id="topbar" role="navigation" ng-controller="NavigationCtrl">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topbar-collapse">
-          <span class="sr-only">Toggle</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/" ng-class="{'always-visible-inline': !isActive('/manage')}">Control</a>
-        <div class="navbar-nav no-margin-never">
-          <button ng-show="isActive('/manage') && servicesLoaded" type="button" class="service-switcher" ng-cloak ng-model="$root.service" data-html="true" bs-options="service as ('<i class=\'fa fa-gear\'></i> #' + service.id + '<span class=\'hidden-in-small-navbar\'> - ' + service.username + '</span><span class=\'text-muted show-in-dropdown-only\'><br>' + service.group + ' - ' + service.name + '</span>') for service in $root.services" bs-select data-placeholder="Choose a service">
-            <i class="fa fa-gear"></i> Choose a service <span class="hidden-xs caret"></span>
-          </button>
-          <button ng-show="service.streamUrl && (isActive('/manage') && servicesLoaded) || player.state === player.states.playing" title="Click to play/stop the stream" type="button" class="play-stop-button" ng-click="player.toggle(service.streamUrl)"><i class="fa" ng-class="{'fa-play': (player.state === player.states.stopped || player.state === player.states.buffering), 'fa-stop': (player.state === player.states.playing), 'slow-flash': (player.state === player.states.buffering)}"></i></button>
-        </div>
-      </div>
-      <div class="collapse navbar-collapse" id="topbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li ng-class="{ active: isActive('/')}"><a data-toggle="collapse" data-target="#topbar-collapse.in" href="/" title="Dashboard"><i class="fa fa-dashboard"></i> Dash</a></li>
-          <li ng-class="{ active: isActive('/manage')}"><a data-toggle="collapse" data-target="#topbar-collapse.in" href="/manage" title="Manage your server(s)"><i class="fa fa-sliders"></i> Manage</a></li>
-          <li ng-class="{ active: isActive('/feedback')}"><a data-toggle="collapse" data-target="#topbar-collapse.in" href="/feedback" title="Feedback">Feedback</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> Account <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a class="text-original" href="//my.shoutca.st/submitticket.php?step=2&deptid=2" title="Support &amp; Help"><i class="fa fa-question-circle fa-fw"></i> Support</a></li>
-              <li class="divider" role="presentation"></li>
-              <li><a class="text-original" title="Reload the data" ng-click="reloadServices()"><i class="fa fa-refresh fa-fw"></i> Reload the data</a></li>
-              <li><a class="text-original" title="Log out from Control" ng-click="logOut()"><i class="fa fa-sign-out fa-fw"></i> Log Out</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div ng-include="'control/src/header-nav.html'"></div>
   <div class="container" id="main-container">
     <noscript>
       <div class="alert alert-danger" style="margin-top: 2em;">
@@ -87,24 +53,7 @@
       </div>
     </div>
   </div>
-  <footer id="main-footer">
-    <div class="container">
-      <div class="footer-links flex-left-right">
-        <span class="left">
-          <span class="copyright">© 2016  SHOUTca.st</span>
-          <a href="https://my.shoutca.st/submitticket.php?step=2&deptid=2">Help</a> &bull;
-          <a href="https://my.shoutca.st">Client Area</a> &bull;
-          <a href="https://status.shoutca.st/">Network Status</a> &bull;
-          <a href="https://docs.shoutca.st/blog">Blog</a>
-        </span>
-        <span class="right">
-          <a href="https://github.com/Innovate-Technologies/control">GitHub</a> &bull;
-          <a href="https://shoutca.st/tos">Terms Of Service</a> &bull;
-          <a href="https://shoutca.st/privacy">Privacy</a>
-        </span>
-      </div>
-    </div>
-  </footer>
+  <div ng-include="'control/src/footer.html'"></div>
   <noscript>
     <img src="//piwik.shoutca.st/piwik.php?idsite=1" style="border: 0;" alt="Piwik" />
   </noscript>
