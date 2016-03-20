@@ -1,0 +1,35 @@
+<div class="row" ng-show="djService">
+  <nav class="panel panel-default panel-nav col-sm-3 bootcards-list">
+    <ul class="panel-body nav nav-pills nav-stacked">
+      <li ng-class="{active: ('dj.information'|routeSegmentEqualsTo)}">
+        <a href="{{ 'manage.information' | routeSegmentUrl }}"><fa name="info" fw></fa> Information</a>
+      </li>
+    </ul>
+    <div class="panel-body nav nav-pills nav-stacked" ng-repeat="section in sections" show-if-feature-flag="section.featureFlag" ng-model="sectionToggle" ng-init="sectionToggle = 0" bs-collapse start-collapsed="false">
+      <li bs-collapse-toggle class="clearfix header" role="presentation">
+        <span class="pull-left"><fa ng-if="section.icon" name="{{section.icon}}" fw></fa>{{section.name}}</span>
+        <span class="pull-right"><i class="toggler" ng-class="{'fa-rotate-90': sectionToggle === 0}"></i></span>
+      </li>
+      <ul class="nav nav-pills nav-stacked collapse" bs-collapse-target>
+      <li ng-repeat="item in section.items" ng-class="{active: (item.route.completeName|routeSegmentEqualsTo)}" show-if-feature-flag="item.featureFlag">
+          <a href="{{ item.route.completeName | routeSegmentUrl }}">
+            <fa ng-if="!item.iconHtml" name="{{item.icon}}" fw></fa>
+            <span ng-if="item.iconHtml" ng-bind-html="item.iconHtml"></span>
+            {{item.name}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="col-sm-9 bootcards-cards" ng-hide="routeLoading || routeResolving" app-view-segment="1">
+  </section>
+
+  <section class="col-sm-9 bootcards-cards" ng-show="routeLoading || routeResolving">
+    <loading-spinner></loading-spinner>
+  </section>
+</div>
+<div class="alert alert-info" ng-show="!djService">
+  <p ng-show="djServices.length">Select a DJ service to get started.</p>
+  <p ng-show="!djServices.length">You don't have any DJ services.</p>
+</div>
