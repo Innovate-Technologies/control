@@ -53,6 +53,7 @@ export default /*@ngInject*/ function (
       return EDIT_BLOCKED_REASONS.DEFAULT;
     }
     if (appToCheck.status.includes("pending")
+      && !appToCheck.selfHosted
       && moment() > moment(appToCheck.lastUpdated || appToCheck.submittedOn).add(5, "minutes")) {
       return EDIT_BLOCKED_REASONS.STILL_PENDING;
     }
