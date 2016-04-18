@@ -393,7 +393,7 @@ export default /*@ngInject*/ function (
       key: "selfHosted",
       type: "fullHorizontalCheckbox",
       hideExpression: "!model.platforms.android",
-      defaultValue: false,
+      defaultValue: true,
       templateOptions: {
         label: "Host the Android app myself",
       },
@@ -402,6 +402,7 @@ export default /*@ngInject*/ function (
       hideExpression: "!model.platforms.android",
       template: `
 <p class="help-block">You can choose to have your Android app submitted to our Google Play developer account (shared with other apps), or use your own which gives you better flexibility and reliability as your app is then independent.</p>
+<p class="help-block text-danger"><b>WARNING: If you don't host the app yourself, you may have to wait for a very long time (a few months) while we are working to resolve this issue with Google.</b></p>
 <p class="help-block">For more information, please refer to <a href="https://docs.shoutca.st/v1.0/docs/apps#self-host-your-android-apps">the documentation</a>.</p>
 `,
     },
