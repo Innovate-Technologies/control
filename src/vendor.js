@@ -37,6 +37,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "angular-motion/dist/angular-motion.css";
 import "bootstrap-additions/dist/bootstrap-additions.css";
 import "font-awesome/css/font-awesome.css";
+import "mdi/css/materialdesignicons.css";
+import "./mdi-font.css";
 
 export {
     lodash,
