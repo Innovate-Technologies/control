@@ -45,3 +45,31 @@
         </section>
     </fieldset>
 </form>
+
+<section class="panel panel-default">
+    <div class="panel-body">
+        <h4>Options</h4>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <div class="pull-left">
+                <h4 class="list-group-item-heading">Hide listener count</h4>
+                <p>This hides the listener count on your status page and for all APIs that don't require your key</p>
+            </div>
+            <div class="pull-right">
+                <div toggle-switch is-disabled="ctrl.isSaving" class="switch-success" ng-model="ctrl.hideListenerCount" on-label="On" off-label="Off"></div>
+            </div>
+            <div class="clearfix"></div>
+        </li>
+        <li class="list-group-item">
+            <div class="pull-left">
+                <h4 class="list-group-item-heading">Anti stream ripper</h4>
+                <p>This is a small tool that messes up with stream ripper software.</p>
+            </div>
+            <div class="pull-right">
+                <div toggle-switch is-disabled="ctrl.isSaving" class="switch-success" ng-model="ctrl.antiStreamRipper" on-label="On" off-label="Off"></div>
+            </div>
+            <div class="clearfix"></div>
+        </li>
+    </ul>
+</section>

@@ -5,9 +5,12 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $q, $scope
   this.streamNames = ["32kbps", "64kbps", "96kbps", "128kbps", "192kbps", "256kbps", "320kbps"];
   this.streams = angular.copy(config.streams) || [];
 
-    /////////////////
-    // Editable form
-    /////////////////
+  this.hideListenerCount = config.hideListenerCount;
+  this.hideListenerCount = config.antiStreamRipper;
+  this.isSaving = false;
+  /////////////////
+  // Editable form
+  /////////////////
 
   this.addStream = () => {
     if (this.streams.length === 3) {
@@ -128,4 +131,22 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $q, $scope
   this.onCancel = () => {
     this.streams = angular.copy(_streams);
   };
+
+
+  $scope.$watch(() => this.antiStreamRipper, (newIsEnabled, oldIsEnabled) => {
+    if (newIsEnabled === oldIsEnabled) {
+      return;
+    }
+    this.isSaving = true;
+    ConfigService.setAntiStreamRiper(newIsEnabled).then(() => this.isSaving = false);
+  });
+
+  $scope.$watch(() => this.hideListenerCount, (newIsEnabled, oldIsEnabled) => {
+    if (newIsEnabled === oldIsEnabled) {
+      return;
+    }
+    this.isSaving = true;
+    ConfigService.setHideListenerCount(newIsEnabled).then(() => this.isSaving = false);
+  });
+
 }
