@@ -5,6 +5,9 @@ export default class AboutService {
         $rootScope,
         ENV
     ) {
+    this.getCastVersion = (hostname) => {
+      return $http.get(`${hostname}/api/version`).then(resp => resp.data);
+    };
     let getBuildInfo = (name) => {
       return $http.get(`${ENV.apiEndpoint}/buildinfo/${name}`).then(resp => resp.data);
     };

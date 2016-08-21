@@ -22,12 +22,15 @@ export default /*@ngInject*/ function AboutCtrl(
   this.castState = this.castStates.CHECKING;
 
   this.getCurrentCastVersion = (_config) => {
-    this.castVersion = _config.version.Cast || "unknown";
+    this.castRevision = _config.version.Cast || "unknown";
+    AboutService.getCastVersion(_config.hostname).then((response) => {
+      this.castVersion = response.version;
+    });
   };
 
   this.checkForCastUpdates = () => {
     AboutService.getCastBuildInfo().then(({ version }) => {
-      if (version !== this.castVersion) {
+      if (version !== this.castRevision) {
         this.castState = this.castStates.UPDATE_AVAILABLE;
       } else {
         this.castState = this.castStates.NO_UPDATE;
