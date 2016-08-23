@@ -26,6 +26,7 @@ import {
   angularFormlyTemplatesBootstrap,
   angularLoadingBar,
   angularSmartTable,
+  ngMap,
 } from "./vendor";
 
 import config from "./config";
@@ -68,6 +69,7 @@ const app = angular.module("control", [
   "angularResizable",
   "xeditable",
   "ui.select",
+  ngMap,
 ]);
 
 app.config(configHttp);

@@ -38,6 +38,8 @@ import "angular-motion/dist/angular-motion.css";
 import "bootstrap-additions/dist/bootstrap-additions.css";
 import "font-awesome/css/font-awesome.css";
 
+import ngMap from "ngmap";
+
 export {
     lodash,
     angular,
@@ -57,4 +59,5 @@ export {
     angularSmartTable,
     jQuery,
     ngFileUpload,
+    ngMap,
 };

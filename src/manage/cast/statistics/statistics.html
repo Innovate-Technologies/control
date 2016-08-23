@@ -52,3 +52,11 @@
         </li>
     </ul>
 </section>
+
+<section class="panel panel-default panel-map">
+    <div class="panel-body">
+        <h4>Live listeners map <button ng-disabled="ctrl.config.streams[ctrl.config.streams.length - 1].loadingStats" class="btn btn-xs btn-default no-transition" type="button" ng-click="ctrl.updateStats()"><fa name="refresh"></fa></button></h4>
+    </div>
+    <ng-map zoom="1" center="0.00, 0.00">
+    </ng-map>
+</section>

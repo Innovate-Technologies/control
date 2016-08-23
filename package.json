@@ -34,6 +34,7 @@
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
     "moment": "^2.11.1",
+    "ngmap": "1.17.0",
     "ui-select": "^0.13.2"
   },
   "devDependencies": {
