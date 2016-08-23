@@ -27,6 +27,7 @@ import jQuery from "jquery";
 import "ui-select/dist/select.js";
 import "ui-select/dist/select.css";
 import ngFileUpload from "ng-file-upload";
+import ngMap from "ngmap";
 
 import "animate.css/animate.css";
 import "api-check";
@@ -37,8 +38,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "angular-motion/dist/angular-motion.css";
 import "bootstrap-additions/dist/bootstrap-additions.css";
 import "font-awesome/css/font-awesome.css";
-
-import ngMap from "ngmap";
 
 export {
     lodash,

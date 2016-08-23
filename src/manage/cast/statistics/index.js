@@ -5,7 +5,7 @@ import { angular } from "../../../vendor";
 import StatisticsService from "./statistics-service";
 import StatisticsCtrl from "./statistics-ctrl";
 
-export default angular.module("control.manage.cast.stats", ["ngMap"])
+export default angular.module("control.manage.cast.stats", [])
     .service("StatisticsService", StatisticsService)
     .controller("StatisticsCtrl", StatisticsCtrl)
     .run(/*@ngInject*/ (ManageService) => {
