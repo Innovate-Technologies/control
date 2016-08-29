@@ -7,12 +7,34 @@
 <div class="alert alert-warning">
     <p><fa name="warning"></fa> Never use the IP linked to your hostname. The IP address can and will change frequently, so relying on the IP can break your setup completely.</p>
 </div>
-<section class="panel panel-default" ng-repeat="stream in ctrl.config.streams">
+<section class="panel panel-default">
     <div class="panel-body">
+        <h4>Connection Type</h4>
+        <div class="row">
+            <div class="col-sm-10">
+                Use Icecast as source input protocol. <strong>Note that not all encoders support this properly.</strong>
+            </div>
+            <div class="col-sm-2">
+                <div toggle-switch class="switch-success" ng-model="ctrl.icecast" on-label="On" off-label="Off"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="panel panel-default" ng-repeat="stream in ctrl.config.streams">
+    <div class="panel-body" ng-hide="ctrl.icecast">
         <h4>{{stream.stream}}</h4>
         <p><strong>Type: </strong>SHOUTcast (v1)</p>
         <p><strong>Hostname: </strong>{{ctrl.config.username}}.radioca.st</p>
         <p><strong>Port: </strong>{{ctrl.config.input.SHOUTcast}}</p>
+        <p><strong>Password: </strong><code>{{stream.password}}</code></p>
+    </div>
+    <div class="panel-body" ng-show="ctrl.icecast">
+        <h4>{{stream.stream}}</h4>
+        <p><strong>Type: </strong>Icecast (v2)</p>
+        <p><strong>Hostname: </strong>{{ctrl.config.username}}.radioca.st</p>
+        <p><strong>Port: </strong>80</p>
+        <p><strong>Mount point: </strong>/live/{{stream.stream}}</p>
+        <p><strong>Username: </strong>source</p>
         <p><strong>Password: </strong><code>{{stream.password}}</code></p>
     </div>
 </section>
