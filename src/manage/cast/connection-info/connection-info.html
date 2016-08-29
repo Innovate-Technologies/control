@@ -9,26 +9,36 @@
 </div>
 <section class="panel panel-default">
     <div class="panel-body">
-        <h4>Connection Type</h4>
+        <h4>Connection Protocol</h4>
         <div class="row">
-            <div class="col-sm-10">
-                Use Icecast as source input protocol. <strong>Note that not all encoders support this properly.</strong>
+            <div class="col-sm-8">
+                <span class="text-warning" ng-show="ctrl.protocol == 'Icecast'"><fa name="warning"></fa> The Icecast prototol may not work properly in all enoders.</span>
             </div>
-            <div class="col-sm-2">
-                <div toggle-switch class="switch-success" ng-model="ctrl.icecast" on-label="On" off-label="Off"></div>
+            <div class="col-sm-4">
+                <div class="btn-group-container">
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label class="btn btn-success btn-lg change-currency" ng-class="ctrl.protocol == 'SHOUTcast' && 'active'">
+                            <input type="radio" ng-model="ctrl.protocol" value="SHOUTcast">SHOUTcast</label>
+                        </label>
+                        <label class="btn btn-success btn-lg change-currency" ng-class="ctrl.protocol == 'Icecast' && 'active'">
+                            <input type="radio" ng-model="ctrl.protocol" value="Icecast">Icecast</label>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="clearfix"></div>
     </div>
 </section>
 <section class="panel panel-default" ng-repeat="stream in ctrl.config.streams">
-    <div class="panel-body" ng-hide="ctrl.icecast">
+    <div class="panel-body" ng-show="ctrl.protocol == 'SHOUTcast'">
         <h4>{{stream.stream}}</h4>
         <p><strong>Type: </strong>SHOUTcast (v1)</p>
         <p><strong>Hostname: </strong>{{ctrl.config.username}}.radioca.st</p>
         <p><strong>Port: </strong>{{ctrl.config.input.SHOUTcast}}</p>
         <p><strong>Password: </strong><code>{{stream.password}}</code></p>
     </div>
-    <div class="panel-body" ng-show="ctrl.icecast">
+    <div class="panel-body" ng-show="ctrl.protocol == 'Icecast'">
         <h4>{{stream.stream}}</h4>
         <p><strong>Type: </strong>Icecast (v2)</p>
         <p><strong>Hostname: </strong>{{ctrl.config.username}}.radioca.st</p>
