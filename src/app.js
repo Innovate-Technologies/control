@@ -38,6 +38,7 @@ import controlCommon from "./common";
 import controlLogin from "./login";
 import controlDashboard from "./dashboard";
 import controlFeedback from "./feedback";
+import controlSupport from "./support";
 import controlManage from "./manage";
 
 const app = angular.module("control", [
@@ -46,6 +47,7 @@ const app = angular.module("control", [
   controlLogin,
   controlDashboard,
   controlFeedback,
+  controlSupport,
   controlManage,
   "angular-promise-cache",
   angularRoute,
