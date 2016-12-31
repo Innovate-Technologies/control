@@ -25,6 +25,7 @@
         <form method="post" action="{{ 'https://' + service.server + '.shoutca.st/login/index.php' | lowercase }}" id="go-to-centova">
         <input type="hidden" name="username" ng-value="service.username" />
         <input type="hidden" name="password" ng-value="service.password" />
+        <input type="hidden" name="login" value="Login" />
         <button type="submit" class="btn btn-link"><fa name="sign-out" fw></fa> Go to Centova Cast</button>
         </form>
       </li>
