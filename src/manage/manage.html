@@ -20,7 +20,7 @@
         </li>
       </ul>
     </div>
-    <ul class="panel-body nav nav-pills nav-stacked" ng-show="service.group.toLowerCase().indexOf('node') === -1">
+    <ul class="panel-body nav nav-pills nav-stacked" ng-show="service.group.toLowerCase().indexOf('node') === -1 && service.username && service.password">
       <li>
         <form method="post" action="{{ 'https://' + service.server + '.shoutca.st/login/index.php' | lowercase }}" id="go-to-centova">
         <input type="hidden" name="username" ng-value="service.username" />
