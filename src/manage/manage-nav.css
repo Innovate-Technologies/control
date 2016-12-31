@@ -31,6 +31,27 @@
     font-weight: normal !important;
 }
 
+.btn.btn-link {
+    color: #2cc76a;
+}
+
+
+.panel-nav .nav-pills > li form > .btn.btn-link {
+    padding: 10px 15px;
+}
+
+.panel-nav .nav-pills > li form:focus,
+.panel-nav .nav-pills > li form:hover {
+    background-color: #eee;
+    border-radius: 4px;
+}
+
+.panel-nav .nav-pills > li form > button:focus,
+.panel-nav .nav-pills > li form > button:hover {
+    text-decoration: none;
+    color: #1eb45a;
+}
+
 @media screen and (max-width: 767px) {
     .panel-nav {
         margin-top: -40px;
