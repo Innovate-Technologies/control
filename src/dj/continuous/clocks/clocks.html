@@ -1,0 +1,47 @@
+<section class="panel panel-default">
+  <div class="panel-body">
+    <h4>Clocks</h4>
+    <p>Tick Tock.</p>
+  </div>
+</section>
+<section class="panel panel-default">
+  <div class="panel-body">
+    <div class="pull-right">
+      <button class="btn btn-info no-transition" type="button" ng-click="ctrl.save()" ng-disabled="!ctrl.canBeSaved()" ><fa name="save"></fa> Save</button>
+      <button class="btn btn-success no-transition" type="button" ng-click="ctrl.addClock()" ><fa name="plus"></fa> Add</button>
+    </div>
+
+    <table class="table">
+      <tr>
+        <th></th>
+        <th ng-repeat="day in ctrl.daysOfWeek">{{day}}</th>
+      </tr>
+      <tr ng-repeat="hour in ctrl.hoursOfDay">
+        <th>{{hour}}:00</th>
+        <td ng-repeat="day in ctrl.daysOfWeek" class="clock-td">
+          {{dow = $index + 1;""}}
+          <span ng-repeat="minute in ctrl.minutesOfHour">
+            {{clock=ctrl.getClockForDayHourMinute(dow,hour,minute);""}} 
+            <div class="clock-box" ng-if="clock && (minute === 0 || clock.start.minute === minute)" ng-style="{
+            'background-color': clock.color,
+            'color': ctrl.ClocksColorService.getTheme(clock.color) === 'light'? 'black' : 'white',
+            'border-left': '3px solid ' + ctrl.ClocksColorService.getShadedBackgroundColour(clock.color),
+            'border-right': '3px solid ' + ctrl.ClocksColorService.getShadedBackgroundColour(clock.color),
+            'border-top-left-radius': (clock.start.hour === hour || hour === 0)? '5px' : '0px', 
+            'border-top-right-radius': (clock.start.hour === hour || hour === 0)? '5px' : '0px',
+            'border-bottom-left-radius': (clock.end.hour === hour || hour === 23)? '5px' : '0px',
+            'border-bottom-right-radius': (clock.end.hour === hour || hour === 23)? '5px' : '0px',
+            'border-top': (clock.start.hour === hour || hour === 0)? '3px solid ' + ctrl.ClocksColorService.getShadedBackgroundColour(clock.color) : 'none',
+            'border-bottom': (clock.end.hour === hour || hour === 23)? '3px solid ' + ctrl.ClocksColorService.getShadedBackgroundColour(clock.color) : 'none'
+            }">
+            <div ng-if="(clock.start.hour === hour || hour === 0) && clock.start.minute === minute">
+              <p class="clock-name"><a ng-click="ctrl.editClock(clock)">{{clock.name}}</a></p>
+              <p class="clock-tags"ng-repeat="tag in clock.tags">{{tag.percent}}% {{ctrl.getTagForId(tag.tag).name}}</p>
+            </div>
+          </div>
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+.search-form {
+    margin-bottom: 10px;
+}
+
+.add-tags>i:last-child {
+    font-size: 70%;
+    position: relative;
+    left: -5%;
+    top: -7px;
+}
+
+.pagination {
+    margin: 0;
+}

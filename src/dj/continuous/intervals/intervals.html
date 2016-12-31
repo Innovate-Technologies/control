@@ -1,0 +1,53 @@
+<section class="panel panel-default">
+    <div class="panel-body">
+        <h4>Intervals</h4>
+        <p>Tick Interval Tock</p>
+    </div>
+</section>
+
+<form editable-form name="editableForm" onbeforesave="ctrl.beforeSave()" onaftersave="ctrl.save()" onshow="ctrl.onEdit()" oncancel="ctrl.onCancel()">
+    <fieldset ng-disabled="ctrl.disableForm">
+        <section class="panel panel-default">
+            <div class="panel-body">
+                <div class="pull-right">
+                    <button class="btn btn-success no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.addInterval()"><fa name="plus"></fa> Add</button>
+                </div>
+            </div>
+            <div class="list-group">
+                <div class="list-group-item" ng-repeat="interval in ctrl.intervals">
+                    <h4 class="list-group-item-heading">
+                        <span editable-text="interval.name" e-placeholder="Interval name" e-style="display: inline-block !important; width: 95%; float: left;" e-required>
+                            {{interval.name}}
+                        </span>
+                        <button class="btn btn-default pull-right no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.removeInterval(interval)"><i class="fa fa-trash-o"></i></button>
+                        <div class="clearfix"></div>
+                    </h4>
+                    <p ng-show="editableForm.$visible">Type:<br><select class="editable-input form-control" ng-model="interval.intervalType"><option ng-repeat="option in ctrl.intervalTypes" value="{{option.value}}" ng-selected="interval.intervalType === option.value">{{option.text}}</option></select></p>
+                    <p ng-hide="editableForm.$visible">Type: {{interval.intervalType}}</span></p>
+                    <p>Every <span editable-number="interval.every" e-min="1" e-style="display: inline-block !important; width: 50%; float: left;" e-required>{{interval.every}}</span>
+                    <span editable-select="interval.intervalMode" e-ng-options="s.value as s.text for s in ctrl.intervalModes" e-style="display: inline-block !important; width: 50%; float: left;" e-required> {{interval.intervalMode}}</span></p>
+                    <p ng-hide="interval.intervalType === 'all' && editableForm.$visible">Songs played: <span editable-number="interval.songsAtOnce" e-min="1" e-required>{{interval.songsAtOnce}}</span></p>
+                    <p>Start date: <span editable-combodate="interval.start" e-min-year="{{ctrl.now.getFullYear() - 10}}" e-max-year="{{ctrl.now.getFullYear() + 10}}" e-required>{{interval.start | date}}</span></p>
+                    <p ng-hide="interval.forever || !editableForm.$visible">End date: <span editable-combodate="interval.end" e-min-year="{{ctrl.now.getFullYear() - 10}}" e-max-year="{{ctrl.now.getFullYear() + 10}}" e-required>{{interval.end | date}}</span></p>
+                    <p ng-show="editableForm.$visible"><input type="checkbox" ng-model="interval.forever"> Run forever</p>
+                    <p ng-show="editableForm.$visible"><button class="btn btn-success no-transition" type="button" ng-click="ctrl.editSongsInInterval(interval)"><fa name="list-ul"></fa> Select songs</button></p>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row" ng-show="editableForm.$visible">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-block btn-primary" ng-disabled="editableForm.$waiting"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-block btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">Cancel</button>
+                    </div>
+                </div>
+                <div class="row" ng-show="!editableForm.$visible">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-block btn-default" ng-click="editableForm.$show()"><i class="fa fa-edit"></i> Edit</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </fieldset>
+</form>

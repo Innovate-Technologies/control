@@ -17,7 +17,7 @@
                         <button class="btn btn-default pull-right no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.removeStream(stream)"><i class="fa fa-trash-o"></i></button>
                         <div class="clearfix"></div>
                     </h4>
-                    <p><span editable-text="stream.password" e-placeholder="Password" e-required>Password: <code>{{stream.password}}</code></span></p>
+                    <p><span ng-hide="ctrl.djEnabled" editable-text="stream.password" e-placeholder="Password" e-required>Password: <code>{{stream.password}}</code></span></p>
                     <p ng-show="editableForm.$visible"><span editable-checkbox="stream.primary" e-title="Primary"></span></p>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="row" ng-show="!editableForm.$visible">
                     <div class="col-sm-12">
-                        <button type="button" class="btn btn-block btn-default" ng-click="editableForm.$show()"><i class="fa fa-edit"></i> Edit</button>
+                        <button type="button" class="btn btn-block btn-default" ng-click="editableForm.$show()" ng-disabled="ctrl.djEnabled"><i class="fa fa-edit"></i> Edit</button>
                     </div>
                 </div>
             </div>

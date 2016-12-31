@@ -85,7 +85,7 @@ describe("ManageService", function () {
         name: "Test Section",
       });
       expect(service.getSections().length).toBe(oldLength + 1, "as we have added one section");
-      var section = _.findWhere(service.getSections(), { id: "test-section" });
+      var section = _.find(service.getSections(), { id: "test-section" });
       expect(section).toEqual(jasmine.any(Object));
       expect(section.id).toBe("test-section");
     });
@@ -103,7 +103,7 @@ describe("ManageService", function () {
   describe("addItem", function () {
 
     it("should add an item when passed a valid item object", function () {
-      var section = _.findWhere(service.getSections(), { id: "test-section" });
+      var section = _.find(service.getSections(), { id: "test-section" });
       expect(section.items.length).toBe(0, "as we haven't added any item yet");
       service.addItem({
         sectionId: "test-section",
@@ -116,7 +116,7 @@ describe("ManageService", function () {
           title: "A test item",
         },
       });
-      section = _.findWhere(service.getSections(), { id: "test-section" });
+      section = _.find(service.getSections(), { id: "test-section" });
       expect(section.items.length).toBe(1, "as we just added exactly one item");
       expect(section.items[0].name).toBe("A test item");
     });
@@ -139,7 +139,7 @@ describe("ManageService", function () {
 
     it("should remove all items from a section if possible using a selector", function () {
       service.removeAllItems({ id: "test-section" });
-      var section = _.findWhere(service.getSections(), { id: "test-section" });
+      var section = _.find(service.getSections(), { id: "test-section" });
       expect(section.items.length).toBe(0);
     });
 
@@ -179,7 +179,7 @@ describe("ManageService", function () {
           title: "A test item",
         },
       });
-      var section = _.findWhere(service.getSections(), { id: "test-section" });
+      var section = _.find(service.getSections(), { id: "test-section" });
       expect(section.items.length).toBe(2, "as we just added two items");
       expect(section.items[0].name).toBe("XXX Another test item");
       expect(section.items[1].name).toBe("A test item");
@@ -211,7 +211,7 @@ describe("ManageService", function () {
           title: "A test item",
         },
       });
-      var section = _.findWhere(service.getSections(true), { id: "test-section" });
+      var section = _.find(service.getSections(true), { id: "test-section" });
       expect(section.items.length).toBe(2, "as we just added two items");
             // This is the order in which we added the items
       expect(section.items[0].name).toBe("A test item");

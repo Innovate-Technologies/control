@@ -1,0 +1,59 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="$hide()">&times;</button>
+                <h4 class="modal-title">Edit Songs for {{ctrl.editSongsSelectedInterval.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="search-form">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="search" ng-model="searchText" />
+                        </div>
+                        <button class="btn btn-success" ng-click="ctrl.searchAvailableSongs(searchText)"><fa name="search"></fa> Search</button>
+                    </form>
+                </div>
+                <div class="row song-select">
+                    <div class="col-md-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Available Songs</h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul dnd-list="ctrl.songsAvailable">
+                                    <li ng-repeat="song in ctrl.songsAvailable" dnd-draggable="song" dnd-effect-allowed="move" dnd-selected="ctrl.selectedSong = song"
+                                        ng-class="{'selected': ctrl.selectedSong === song}">
+                                        <p>{{song.artist}} - {{song.song}}</p>
+                                        <span ng-repeat="tag in song.tags"><span class="label label-info" ng-style="{background: tag.color, color: ctrl.tagsColorService.getFontColor(tag.color)}"><fa name="tag" fw></fa> {{tag.name}}</span>&nbsp;</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Selected songs</h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul dnd-list="ctrl.editSongsSelectedInterval.songs">
+                                    <li ng-repeat="song in ctrl.editSongsSelectedInterval.songs" dnd-draggable="song" dnd-moved="ctrl.editSongsSelectedInterval.songs.splice($index, 1)"
+                                        dnd-effect-allowed="move" dnd-selected="ctrl.selectedSong = song" ng-class="{'selected': ctrl.selectedSong === song}">
+                                        <p>{{song.artist}} - {{song.song}}</p>
+                                        <span ng-repeat="tag in song.tags"><span class="label label-info" ng-style="{background: tag.color, color: ctrl.tagsColorService.getFontColor(tag.color)}"><fa name="tag" fw></fa> {{tag.name}}</span>&nbsp;</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="ctrl.onCancelSongSelect(); $hide()">Cancel</button>
+                    <button type="button" class="btn btn-success" ng-click="$hide()"><fa name="pencil"></fa> Edit Songs</button>
+                </div>
+            </div>
+        </div>
+    </div>

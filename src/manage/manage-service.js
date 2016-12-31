@@ -24,7 +24,7 @@ export default class ManageService {
       if (typeof sectionSelector === "undefined") {
         throw new TypeError("No section selector was passed");
       }
-      var section = _.findWhere(sections, sectionSelector);
+      var section = _.find(sections, sectionSelector);
       if (!section) {
         throw new Error("Could not find any section matching the selector: " + sectionSelector);
       }
@@ -34,7 +34,7 @@ export default class ManageService {
       if (typeof sectionSelector === "undefined") {
         throw new TypeError("No section selector was passed");
       }
-      var section = _.findWhere(sections, sectionSelector);
+      var section = _.find(sections, sectionSelector);
       if (!section) {
         throw new Error("Could not find any section matching the selector: " + sectionSelector);
       }
@@ -59,7 +59,7 @@ export default class ManageService {
         visibleForCastOnly: section.visibleForCastOnly || false,
       });
 
-      let pendingItemsForSection = _.where(itemsToAdd, { sectionId: section.id });
+      let pendingItemsForSection = _. filter(itemsToAdd, { sectionId: section.id });
       if (pendingItemsForSection.length) {
         pendingItemsForSection.forEach(this.addItem);
       }
@@ -77,7 +77,7 @@ export default class ManageService {
         throw new Error("The section object must contain a `route` object");
       }
 
-      let section = _.findWhere(sections, { id: item.sectionId });
+      let section = _.find(sections, { id: item.sectionId });
       if (!section) {
         itemsToAdd.push(item);
         return false;

@@ -21,6 +21,6 @@ export default /*@ngInject*/ function ($scope, config, choices, DirectoriesServi
     });
   });
 
-  this.getDirectoryByName = (name) => _.findWhere(this.directories, { name: name });
+  this.getDirectoryByName = (name) => _.find(this.directories, { name: name });
 
 }

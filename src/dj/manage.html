@@ -1,0 +1,45 @@
+<div class="row" ng-if="DjManageCtrl.isServiceEligible(service)">
+  <!-- Make the container wider for /dj -->
+  <!--<style>
+  #main-container {
+    padding-left: 30px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+  }
+  </style>-->
+  <nav class="panel panel-default panel-nav col-sm-3 bootcards-list">
+    <ul class="panel-body nav nav-pills nav-stacked">
+      <li ng-class="{active: ('dj.status'|routeSegmentEqualsTo)}">
+        <a href="{{ 'dj.status'|routeSegmentUrl }}"><fa name="info" fw></fa> Status</a>
+      </li>
+    </ul>
+    <div class="panel-body nav nav-pills nav-stacked" ng-repeat="section in DjManageCtrl.sections" show-if-feature-flag="section.featureFlag" ng-model="sectionToggle" ng-init="sectionToggle = 0" bs-collapse start-collapsed="false">
+      <li bs-collapse-toggle class="clearfix header" role="presentation">
+        <span class="pull-left"><fa ng-if="section.icon" name="{{section.icon}}" fw></fa>{{section.name}}</span>
+        <span class="pull-right"><i class="toggler" ng-class="{'fa-rotate-90': sectionToggle === 0}"></i></span>
+      </li>
+      <ul class="nav nav-pills nav-stacked collapse" bs-collapse-target>
+      <li ng-repeat="item in section.items" ng-class="{active: (item.route.completeName|routeSegmentEqualsTo)}" show-if-feature-flag="item.featureFlag">
+          <a href="{{ item.route.completeName | routeSegmentUrl }}">
+            <fa ng-if="!item.iconHtml" name="{{item.icon}}" fw></fa>
+            <span ng-if="item.iconHtml" ng-bind-html="item.iconHtml"></span>
+            {{item.name}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="col-sm-9 bootcards-cards" ng-hide="routeLoading || routeResolving" app-view-segment="1">
+  </section>
+
+  <section class="col-sm-9 bootcards-cards" ng-show="routeLoading || routeResolving">
+    <loading-spinner></loading-spinner>
+  </section>
+</div>
+<div class="alert alert-info" ng-show="!DjManageCtrl.isServiceEligible(service)">
+  <p ng-show="DjManageCtrl.hasEligibleServices(services)">Select a Cast service to get started. DJ is only available for Cast servers.</p>
+  <p ng-show="!DjManageCtrl.hasEligibleServices(services)">You don't have any Cast services, so you cannot use DJ.</p>
+</div>

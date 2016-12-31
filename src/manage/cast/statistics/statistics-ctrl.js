@@ -9,7 +9,7 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
     this.map.data.loadGeoJson(`${config.hostname}/api/*/${config.apikey}/listenersmap`);
   });
 
-  this.primaryStream = _.findWhere(config.streams, {
+  this.primaryStream = _.find(config.streams, {
     primary: true,
   }).stream;
 

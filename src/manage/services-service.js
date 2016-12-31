@@ -1,101 +1,90 @@
-import { lodash as _ } from "../vendor";
-
-/*@ngInject*/
-export default function ServicesService($http, ENV, $rootScope, $location, promiseCache, localStorageService) {
-  var internal = {
-    cachedServices: null,
-  };
-  var instance = {
-    invalidateCache: function () {
+export default class ServicesService {
+  /*@ngInject*/
+  constructor($http, ENV, $rootScope, $location, promiseCache, localStorageService) {
+    let cachedServices;
+    this.invalidateCache = () => {
       promiseCache.removeAll();
-      internal.cachedServices = null;
-    },
-    setServices: function (services) {
-      internal.cachedServices = services;
-    },
-    initAndGetService: function () {
-      return instance.getServicesPromise().then(instance.getSelectedService);
-    },
-    initAndGetServices: function () {
-      return instance.getServicesPromise().then(instance.getServicesList);
-    },
-    getServicesPromise: function () {
+      cachedServices = null;
+    };
+    this.setServices = (services) => {
+      cachedServices = services;
+    };
+    this.initAndGetService = () => {
+      return this.getServicesPromise().then(this.getSelectedService);
+    };
+    this.initAndGetServices = () => {
+      return this.getServicesPromise().then(this.getServicesList);
+    };
+    this.getServicesPromise = () => {
       return promiseCache({
-        promise: function () {
+        promise: () => {
           return $http
-                        .get(ENV.apiEndpoint + "/control/products")
-                        .then(function (response) {
-                          internal.cachedServices = response.data;
-                          return response.data;
-                        });
+            .get(ENV.apiEndpoint + "/control/products")
+            .then((response) => {
+              cachedServices = response.data;
+              return response.data;
+            });
         },
         ttl: -1,
       });
-    },
-    getServicesList: function () {
-      return _.filter(internal.cachedServices, function (service) {
-        return (service.status === "Active") &&
-                    ((service.group.toLowerCase().indexOf("servers") !== -1) ||
-                     (service.group.toLowerCase().indexOf("nodes") !== -1)) &&
-                    (service.name.toLowerCase().indexOf("free") === -1);
-      });
-    },
-    getSelectedService: function () {
-      var service;
-      var lastServiceId = instance.getLastUsedServiceId();
+    };
+    this.getServicesList = () => {
+      return cachedServices.filter((service) =>
+        service.status === "Active"
+          && (service.group.toLowerCase().includes("servers")
+            || service.group.toLowerCase().includes("nodes"))
+          && !service.name.toLowerCase().includes("free")
+      );
+    };
+    this.getSelectedService = () => {
+      let service;
+      const lastServiceId = getLastUsedServiceId();
       if (lastServiceId) {
-        service = _.findWhere(instance.getServicesList(), { id: lastServiceId });
+        service = this.getServicesList().find((s) => s.id === lastServiceId);
         if (!service) {
-          instance.removeLastUsedServiceId();
+          removeLastUsedServiceId();
           $rootScope.$broadcast("invalid-service");
         }
       }
       if ($location.search().username) {
-        service = instance.getBy("username", $location.search().username);
+        service = this.getServicesList().find((s) => s.username === $location.search().username);
         if (!service) {
           $rootScope.$broadcast("invalid-service");
         }
       }
       if ($location.search().serviceId) {
-        service = instance.getBy("id", $location.search().serviceId);
+        service = this.getServicesList().find((s) => s.id === $location.search().serviceId);
         if (!service) {
           $rootScope.$broadcast("invalid-service");
         }
       }
       if ($rootScope.service) {
-        service = _.findWhere(instance.getServicesList(), { id: $rootScope.service.id });
+        service = this.getServicesList().find((s) => s.id === $rootScope.service.id);
         if (!service) {
           $rootScope.$broadcast("invalid-service");
         }
       }
-            // Last resort
+      // Fallback to the first service in the list.
       if (!service) {
-        service = instance.getServicesList()[0];
+        service = this.getServicesList()[0];
       }
       return service;
-    },
-    getBy: function (key, value) {
-      var service;
-      instance.getServicesList().forEach(function (serviceToCheck) {
-        if (serviceToCheck[key] === value) {
-          service = serviceToCheck;
-        }
-      });
-      return service;
-    },
-    saveLastUsedServiceId: function (serviceId) {
-      return localStorageService.set("serviceId", serviceId);
-    },
-    getLastUsedServiceId: function () {
-      return localStorageService.get("serviceId");
-    },
-    removeLastUsedServiceId: function () {
-      return localStorageService.remove("serviceId");
-    },
-  };
-  $rootScope.$on("invalidate-services-cache", instance.invalidateCache);
-  $rootScope.$on("selected-service-changed", function (event, serviceId) {
-    instance.saveLastUsedServiceId(serviceId);
-  });
-  return instance;
+    };
+
+    const LS_KEY = "serviceId";
+    const saveLastUsedServiceId = (serviceId) => {
+      return localStorageService.set(LS_KEY, serviceId);
+    };
+    const getLastUsedServiceId = () => {
+      return localStorageService.get(LS_KEY);
+    };
+    const removeLastUsedServiceId = () => {
+      return localStorageService.remove(LS_KEY);
+    };
+
+    $rootScope.$on("invalidate-services-cache", this.invalidateCache);
+    $rootScope.$on("selected-service-changed", (event, serviceId) => {
+      saveLastUsedServiceId(serviceId);
+    });
+  }
 }

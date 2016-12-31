@@ -63,6 +63,11 @@ export default /*@ngInject*/ function (
   // Services
   ////////////
 
+  $scope.shouldShowServiceSwitcher = () => {
+    return $rootScope.servicesLoaded
+      && ($scope.isActive("/manage") || $scope.isActive("/dj"));
+  };
+
   $scope.initServices = function initServices() {
     // returns a promise.
     return ServicesService.initAndGetService().then(function onInitServiceSuccess(service) {
@@ -116,32 +121,6 @@ export default /*@ngInject*/ function (
   });
 
   var alert;
-
-  $rootScope.$on("cast-only-route", function onCastOnlyRouteEvent() {
-    $rootScope.routeLoading = false;
-    if (alert) {
-      alert.hide();
-    }
-    alert = $alert({
-      content: "The page you are trying to access is only available for Cast nodes.",
-      type: "danger",
-      duration: 5,
-    });
-    $location.path("/manage/information");
-  });
-
-  $rootScope.$on("route-behind-feature-flag", () => {
-    $rootScope.routeLoading = false;
-    if (alert) {
-      alert.hide();
-    }
-    alert = $alert({
-      content: "The page you are trying to access is not available to you.",
-      type: "danger",
-      duration: 5,
-    });
-    $location.path("/");
-  });
 
   $rootScope.$on("invalid-service", function onInvalidServiceEvent() {
     $rootScope.routeLoading = false;

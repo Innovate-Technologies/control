@@ -1,0 +1,96 @@
+<section class="panel panel-default">
+    <div class="panel-body">
+        <h4>Tunes</h4>
+        <p>Files... and stuff</p>
+    </div>
+</section>
+
+<section class="panel panel-default">
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li role="presentation" ng-class="ctrl.tab === 'songs' && 'active'" ng-click="ctrl.setTab('songs')"><a href="#">Songs</a></li>
+            <li role="presentation" ng-class="ctrl.tab === 'artists' && 'active'" ng-click="ctrl.setTab('artists')"><a href="#">Artists</a></li>
+            <li role="presentation" ng-class="ctrl.tab === 'albums' && 'active'" ng-click="ctrl.setTab('albums')"><a href="#">Albums</a></li>
+        </ul>
+    </div>
+    <div class="panel-body" ng-show="ctrl.tab === 'songs'">
+        <div class="search-form pull-right">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="search" ng-model="searchText" />
+                </div>
+                <button class="btn btn-success" ng-click="ctrl.search(searchText)"><fa name="search"></fa> Search</button>
+            </form>
+        </div>
+        <table class="table table-hover">
+            <tr>
+                <th><input type="checkbox" ng-model="ctrl.allSelected" ng-click="ctrl.selectAll()"></input></th>
+                <th></th>
+                <th>Title <fa name="sort" ng-hide="ctrl.isSortedOn('song')" ng-click="ctrl.sort('song')"></fa><fa name="sort-asc" ng-show="ctrl.sortOn ==='song'" ng-click="ctrl.sort('-song')"></fa><fa name="sort-desc" ng-show="ctrl.sortOn === '-song'" ng-click="ctrl.sort('song')"></fa></th>
+                <th>Artist <fa name="sort" ng-hide="ctrl.isSortedOn('artist')" ng-click="ctrl.sort('artist')"></fa><fa name="sort-asc" ng-show="ctrl.sortOn ==='artist'" ng-click="ctrl.sort('-artist')"></fa><fa name="sort-desc" ng-show="ctrl.sortOn === '-artist'" ng-click="ctrl.sort('artist')"></fa></th>
+                <th>Album <fa name="sort" ng-hide="ctrl.isSortedOn('album')" ng-click="ctrl.sort('album')"></fa><fa name="sort-asc" ng-show="ctrl.sortOn ==='album'" ng-click="ctrl.sort('-album')"></fa><fa name="sort-desc" ng-show="ctrl.sortOn === '-album'" ng-click="ctrl.sort('album')"></fa></th>
+                <th>Duration <fa name="sort" ng-hide="ctrl.isSortedOn('duration')" ng-click="ctrl.sort('duration')"></fa><fa name="sort-asc" ng-show="ctrl.sortOn ==='duration'" ng-click="ctrl.sort('-duration')"></fa><fa name="sort-desc" ng-show="ctrl.sortOn === '-duration'" ng-click="ctrl.sort('duration')"></fa></th>
+                <th>BPM <fa name="sort" ng-hide="ctrl.isSortedOn('bpm')" ng-click="ctrl.sort('bpm')"></fa><fa name="sort-asc" ng-show="ctrl.sortOn ==='bpm'" ng-click="ctrl.sort('-bpm')"></fa><fa name="sort-desc" ng-show="ctrl.sortOn === '-bpm'" ng-click="ctrl.sort('bpm')"></fa></th>
+                <th>Tags</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="song in ctrl.songs">
+                <td><input type="checkbox" ng-model="song.selected"></input></td>
+                <td ng-show="song.available" ng-click="ctrl.togglePreview(song._id)"><fa name="play" ng-if="ctrl.songPlaying !== song._id"></fa><fa name="stop" ng-if="ctrl.songPlaying === song._id"></fa></td>
+                <td ng-hide="song.available"><i class="fa fa-cog fa-spin" bs-tooltip data-title="Processing"></i></td>
+                <td><fieldset ng-disabled="song.isDisabled || !song.available" editable-text="song.song" buttons="no" onaftersave="ctrl.updateSong(song)">{{song.song || "Unknown"}}</fieldset></td>
+                <td><fieldset ng-disabled="song.isDisabled || !song.available" editable-text="song.artist" edit-disabled="song.isDisabled || !song.available" buttons="no" onaftersave="ctrl.updateSong(song)">{{song.artist || "Unknown"}}</fieldset></td>
+                <td><fieldset ng-disabled="song.isDisabled || !song.available" editable-text="song.album" edit-disabled="song.isDisabled || !song.available" buttons="no" onaftersave="ctrl.updateSong(song)">{{song.album || "Unknown"}}</fieldset></td>
+                <td>{{song.duration | secondsToDateTime | date:'mm:ss'}}</td>
+                <td>{{song.bpm | number:0}}</td>
+                <td>
+                    <span ng-show="song.editingTags">
+                        <ui-select multiple class="ui-select multiple" ng-model="song.tags" theme="bootstrap">
+                    	    <ui-select-match class="ui-select-match" ng-style="{'color': $item.color}" placeholder="Select tags">{{$item.name}}</ui-select-match>
+                    	    <ui-select-choices class="ui-select-choices" repeat="tag in ctrl.tags | filter: $select.search | limitTo: 20">
+                        	    <div ng-bind-html="tag.name | highlight: $select.search"></div>
+                    	    </ui-select-choices>
+                	    </ui-select>
+                        <button class="btn btn-success" ng-click="ctrl.saveTags(song)"><fa name="save"></fa> Save</button>
+                    </span>
+                    <span ng-click="song.editingTags = song.available" ng-hide="song.editingTags">
+                         <button ng-disabled="song.isDisabled || !song.available" ng-show="song.tags.length === 0" class="btn btn-success"><span class="add-tags"><i class="fa fa-tags fa-fw"></i><i class="fa fa-plus"></i></i></span></button>
+                         <span ng-repeat="tag in song.tags"><span class="label label-info" ng-style="{background: tag.color, color: ctrl.tagsColorService.getFontColor(tag.color)}"><fa name="tag" fw></fa> {{tag.name}}</span>&nbsp;</span>
+                    </span>
+                </td>
+                <td><button class="btn btn-danger" ng-click="ctrl.deleteSong(song)" ng-disabled="song.isDisabled || !song.available"><fa name="trash"></fa></td>
+            </tr>
+        </table>
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="pagination">
+                    <li ng-class="ctrl.page === 1? 'disabled' : ''">
+                        <a href="#" aria-label="Previous" ng-click="ctrl.loadPage(ctrl.page - 1)">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li ng-repeat="i in getNumber(ctrl.numberOfPages)"  ng-class="ctrl.page === i? 'disabled' : ''"><a ng-click="ctrl.loadPage(i)">{{i}}</a></li>
+                    <li ng-class="ctrl.page === ctrl.numberOfPages? 'disabled' : ''">
+                        <a href="#" aria-label="Next" ng-click="ctrl.loadPage(ctrl.page + 1)">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <form class="form-inline pull-right">
+                    <button class="btn btn-danger" ng-click="ctrl.deleteSelected()"><fa name="trash"></button>
+                    <div class="form-group">
+                        <ui-select multiple class="ui-select multiple" ng-model="ctrl.newTags" theme="bootstrap">
+                    	    <ui-select-match class="ui-select-match" ng-style="{'color': $item.color}" placeholder="Select tags">{{$item.name}}</ui-select-match>
+                    	    <ui-select-choices class="ui-select-choices" repeat="tag in ctrl.tags | filter: $select.search | limitTo: 20">
+                        	    <div ng-bind-html="tag.name | highlight: $select.search"></div>
+                    	    </ui-select-choices>
+                	    </ui-select>
+                    </div>
+                    <button class="btn btn-success" ng-click="ctrl.tagSelected()"><span class="add-tags"><i class="fa fa-tags fa-fw"></i><i class="fa fa-plus"></i></i></span> Add tags</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

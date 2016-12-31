@@ -9,7 +9,6 @@ export default class ConfigService {
     this.getConfig = function () {
       const username = $rootScope.service.username;
       if ($rootScope.service.group.toLowerCase().indexOf("nodes") === -1) {
-        $rootScope.$broadcast("cast-only-route");
         return $q.reject("selected service is a non-Cast service");
       }
       return promiseCache({

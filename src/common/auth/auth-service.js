@@ -14,8 +14,6 @@ export default class AuthService {
         .then((res) => {
           $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
           Session.create({ token: res.data.token });
-          $http.get(`${ENV.apiEndpoint}/control/user-info`)
-            .then(({ data }) => Session.update(data, false));
         }, () => {
           $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
         });
@@ -47,6 +45,9 @@ export default class AuthService {
         return;
       }
       this.keepAlivePromise = $interval(this.keepAlive, 1000 * 60 * 15);
+      // Refresh user info.
+      $http.get(`${ENV.apiEndpoint}/control/user-info`)
+        .then(({ data }) => Session.update(data, false));
     });
     $rootScope.$on("sessionDestroyed", () => {
       if (!this.keepAlivePromise) {

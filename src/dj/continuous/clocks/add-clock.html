@@ -1,0 +1,63 @@
+<div class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="$hide()">&times;</button>
+				<h4 class="modal-title">Add Clock</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="clockname">Clock name</label>
+					<input type="text" class="form-control" id="clockname" ng-model="ctrl.newClock.name" required>
+				</div>
+				<div class="form-group">
+					<label for="clockname">Color</label>
+					<div class="input-group">
+						<input id="color" placeholder="#123456" name="color" colorpicker type="text" class="form-control" ng-model="ctrl.newClock.color"
+							required pattern="^#(?:[0-9a-fA-F]{3}){2}$">
+						<span class="input-group-addon" colorpicker ng-model="ctrl.newClock.color" style="background: {{ctrl.newClock.color}}" colorpicker-with-input="true"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="tags">Tags</label>
+					<ui-select multiple class="ui-select multiple" ng-model="ctrl.newClock.tags" theme="bootstrap">
+                    	<ui-select-match class="ui-select-match" ng-style="{'color': $item.color}" placeholder="Select tags">{{$item.name}}</ui-select-match>
+                    	<ui-select-choices class="ui-select-choices" repeat="tag in ctrl.tags | filter: $select.search | limitTo: 20">
+                        	<div ng-bind-html="tag.name | highlight: $select.search"></div>
+                    	</ui-select-choices>
+                	</ui-select>
+				</div>
+				<div class="form-group" ng-show="ctrl.newClock.tags.length !== 0">
+					<label for="tags">Amount of songs per tag</label>
+					<div class="form-inline" ng-repeat="tag in ctrl.newClock.tags">
+						<label>{{tag.name}}</label>
+						<div class="input-group">
+  							<input type="number" ng-model="ctrl.newClock.tagTime[$index]" min="0" max="100" class="form-control" required> 
+  							<span class="input-group-addon">%</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>Start</label>
+					<div class="form-inline">
+						<button type="button" class="btn btn-default" ng-model="ctrl.newClock.start.dayOfWeek" data-html="1" data-toggle="true" bs-options="day.value as day.label for day in ctrl.daysOfWeekSelect" bs-select>Action <span class="caret"></span></button> - 
+						<input type="number" ng-model="ctrl.newClock.start.hour" min="0" max="23" class="form-control" required> : 
+						<input type="number" ng-model="ctrl.newClock.start.minute" min="0" max="59" class="form-control" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>End</label>
+					<div class="form-inline">
+						<button type="button" class="btn btn-default" ng-model="ctrl.newClock.end.dayOfWeek" data-html="1" data-toggle="true" bs-options="day.value as day.label for day in ctrl.daysOfWeekSelect" bs-select>Action <span class="caret"></span></button> - 
+						<input type="number" ng-model="ctrl.newClock.end.hour" min="0" max="23" class="form-control" required> : 
+						<input type="number" ng-model="ctrl.newClock.end.minute" min="0" max="59" class="form-control" required>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+				<button type="button" class="btn btn-success" ng-click="ctrl.pushClock(ctrl.newClock) && $hide()"><fa name="plus"></fa> Add Clock</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,4 +1,4 @@
-import enum from "../../../common/enum-helper";
+import enumeration from "../../../common/enum-helper";
 
 export default /*@ngInject*/ function AboutCtrl(
     $alert,
@@ -10,7 +10,7 @@ export default /*@ngInject*/ function AboutCtrl(
 ) {
   this.config = config;
 
-  this.castStates = enum({
+  this.castStates = enumeration({
     CHECKING: 0,
     UPDATE_AVAILABLE: 2,
     NO_UPDATE: 1,

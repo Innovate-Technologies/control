@@ -1,0 +1,59 @@
+<div class="alert alert-info">
+    <p><fa name="info-circle"></fa> Hi there, DJ tester! DJ is far from perfect; we're doing our best to get it ready. We appreciate any feedback on DJ and thank you for taking your time to try out DJ!</p>
+</div>
+<section class="panel panel-default">
+  <div class="panel-body">
+    <div class="flex-left-right margin-bottom-10px">
+      <h4 class="left flex-auto card-header">DJ</h4>
+      <div class="right flex-auto">
+        <div toggle-switch is-disabled="DjStatusCtrl.disableForm" ng-model="DjStatusCtrl.enabled" ng-change="DjStatusCtrl.enableDisable(enabled)" on-label="Enabled" off-label="Disabled"
+          class="switch-success switch-large"></div>
+      </div>
+    </div>
+    <p>DJ is an advanced automation solution for Cast. It allows you to to play music how you want it 24/7. DJ is free, you're only charged for the diskspace you use.</p>
+    <p>DJ is currently <b><span class="text-{{DjStatusCtrl.enabled ? 'success' : 'danger'}}">{{DjStatusCtrl.enabled ? 'enabled' : 'disabled'}}</span></b> for {{service.username}}.</p>
+  </div>
+</section>
+
+<div class="row">
+  <div class="col-sm-6">
+    <section class="panel panel-default" ng-show="DjStatusCtrl.config.DJ.enabled && DjStatusCtrl.current.song">
+      <div class="panel-body">
+        <h4 class="left flex-auto">Now Playing</h4>
+        <div class="row">
+          <div class="col-sm-4">
+            <img ng-src="{{(DjStatusCtrl.current.artwork || 'https://photon.shoutca.st/cdn.shoutca.st/noalbum.png') + '?w=200'}}" class="img-responsive"></img>
+          </div>
+          <div class="col-sm-8">
+            <p class="song-title">{{DjStatusCtrl.current.song}}</p>
+            <p>{{DjStatusCtrl.current.artist}}</p>
+            <p>{{DjStatusCtrl.current.album}}</p>
+            <p>
+              
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="col-sm-6">
+    <section class="panel panel-default" ng-show="DjStatusCtrl.config.DJ.enabled && DjStatusCtrl.queue.length !== 0">
+      <div class="panel-body">
+        <h4 class="left flex-auto">Up next <button type="button" class="btn btn-success btn-xs" bs-tooltip data-title="Skip song"><fa name="step-forward"></fa></button> <button type="button" class="btn btn-danger btn-xs" bs-tooltip data-title="Force reload playlists"><fa name="refresh"></fa></button></h4>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="song in DjStatusCtrl.queue">
+          <div class="row">
+            <div class="col-sm-3">
+              <img ng-src="{{(song.artwork || 'https://photon.shoutca.st/cdn.shoutca.st/noalbum.png') + '?w=200'}}" class="img-responsive"></img>
+            </div>
+            <div class="col-sm-9">
+              <p class="song-title">{{song.song}}</p>
+              <p>{{song.artist}}</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+.btn-full {
+    display: block;
+    width: 80%;
+    height: 40px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+p.song-title {
+    font-weight: bold;
+}

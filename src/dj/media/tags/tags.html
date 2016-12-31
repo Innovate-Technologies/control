@@ -1,0 +1,48 @@
+<section class="panel panel-default">
+    <div class="panel-body">
+        <h4>Tags</h4>
+        <p>Tag mee</p>
+    </div>
+</section>
+
+<form editable-form name="editableForm" onbeforesave="ctrl.beforeSave()" onaftersave="ctrl.save()" onshow="ctrl.onEdit()"
+    oncancel="ctrl.onCancel()">
+    <fieldset ng-disabled="ctrl.disableForm">
+        <section class="panel panel-default">
+            <div class="panel-body">
+                <div class="pull-right">
+                    <button class="btn btn-success no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.addTag()"><fa name="plus"></fa> Add</button>
+                </div>
+            </div>
+            <div class="list-group">
+                <div class="list-group-item" ng-repeat="tag in ctrl.tags">
+                    <span editable-text="tag.name" e-placeholder="Tag name" e-style="display: inline-block !important; width: 95%; float: left;"
+                        e-required>
+                            <h4><span class="label label-info" ng-style="{background: tag.color, color: ctrl.colorService.getFontColor(tag.color)}"><fa name="tag" fw></fa> {{tag.name}}</span></h4>
+                    </span>
+                    <button class="btn btn-default pull-right no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.removeTag(tag)"><i class="fa fa-trash-o"></i></button>
+                    <div class="clearfix"></div>
+                    <div class="input-group" ng-hide="!editableForm.$visible">
+                        <input id="color" placeholder="#123456" name="color" colorpicker type="text" class="form-control" ng-model="tag.color" required pattern="^#(?:[0-9a-fA-F]{3}){2}$">
+                        <span class="input-group-addon" colorpicker ng-model="tag.color" style="background: {{tag.color}}" colorpicker-with-input="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row" ng-show="editableForm.$visible">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-block btn-primary" ng-disabled="editableForm.$waiting"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-block btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">Cancel</button>
+                    </div>
+                </div>
+                <div class="row" ng-show="!editableForm.$visible">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-block btn-default" ng-click="editableForm.$show()"><i class="fa fa-edit"></i> Edit</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </fieldset>
+</form>

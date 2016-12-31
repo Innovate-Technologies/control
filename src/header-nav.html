@@ -7,18 +7,19 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/" ng-class="{'always-visible-inline': !isActive('/manage')}">Control</a>
+      <a class="navbar-brand" href="/" ng-class="{'always-visible-inline': !shouldShowServiceSwitcher()}">Control</a>
       <div class="navbar-nav no-margin-never">
-        <button ng-show="isActive('/manage') && servicesLoaded" type="button" class="service-switcher" ng-cloak ng-model="$root.service" data-html="true" bs-options="service as ('<i class=\'fa fa-gear\'></i> #' + service.id + '<span class=\'hidden-in-small-navbar\'> - ' + service.username + '</span><span class=\'text-muted show-in-dropdown-only\'><br>' + service.group + ' - ' + service.name + '</span>') for service in $root.services" bs-select data-placeholder="Choose a service">
+        <button ng-show="shouldShowServiceSwitcher()" type="button" class="service-switcher" ng-cloak ng-model="$root.service" data-html="true" bs-options="service as ('<i class=\'fa fa-gear\'></i> #' + service.id + '<span class=\'hidden-in-small-navbar\'> - ' + service.username + '</span><span class=\'text-muted show-in-dropdown-only\'><br>' + service.group + ' - ' + service.name + '</span>') for service in $root.services" bs-select data-placeholder="Choose a service">
           <i class="fa fa-gear"></i> Choose a service <span class="hidden-xs caret"></span>
         </button>
-        <button ng-show="service.streamUrl && (isActive('/manage') && servicesLoaded) || player.state === player.states.playing" title="Click to play/stop the stream" type="button" class="play-stop-button" ng-click="player.toggle(service.streamUrl)"><i class="fa" ng-class="{'fa-play': (player.state === player.states.stopped || player.state === player.states.buffering), 'fa-stop': (player.state === player.states.playing), 'slow-flash': (player.state === player.states.buffering)}"></i></button>
+        <button ng-show="service.streamUrl && shouldShowServiceSwitcher() || player.state === player.states.playing" title="Click to play/stop the stream" type="button" class="play-stop-button" ng-click="player.toggle(service.streamUrl)"><i class="fa" ng-class="{'fa-play': (player.state === player.states.stopped || player.state === player.states.buffering), 'fa-stop': (player.state === player.states.playing), 'slow-flash': (player.state === player.states.buffering)}"></i></button>
       </div>
     </div>
     <div class="collapse navbar-collapse" id="topbar-collapse">
       <ul class="nav navbar-nav navbar-right">
         <li ng-class="{ active: isActive('/')}"><a data-toggle="collapse" data-target="#topbar-collapse.in" href="/" title="Dashboard"><i class="fa fa-dashboard"></i> Dash</a></li>
         <li ng-class="{ active: isActive('/manage')}"><a data-toggle="collapse" data-target="#topbar-collapse.in" href="/manage" title="Manage your server(s)"><i class="fa fa-sliders"></i> Manage</a></li>
+        <li ng-class="{ active: isActive('/dj')}"><a data-toggle="collapse" data-target="#topbar-collapse.in" href="/dj" title="Manage DJ, the AutoDJ system"><i class="mdi mdi-music-circle"></i> DJ</a></li>
         <li ng-class="{ active: isActive('/feedback')}"><a data-toggle="collapse" data-target="#topbar-collapse.in" href="/feedback" title="Feedback">Feedback</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> Account <span class="caret"></span></a>

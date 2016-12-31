@@ -19,7 +19,7 @@ export default angular.module("control.manage", [
   manageCast,
   manageExtra,
 ])
-    .factory("ServicesService", ServicesService)
+    .service("ServicesService", ServicesService)
     .service("ManageService", ManageService)
     .controller("ManageCtrl", ManageCtrl)
     .config(/*@ngInject*/ ($routeSegmentProvider, $routeProvider, USER_ROLES) => {

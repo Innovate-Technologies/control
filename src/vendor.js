@@ -28,6 +28,9 @@ import "ui-select/dist/select.js";
 import "ui-select/dist/select.css";
 import ngFileUpload from "ng-file-upload";
 import ngMap from "ngmap";
+import moment from "moment";
+import dndLists from "angular-drag-and-drop-lists";
+import socketio from "socket.io-client";
 
 import "animate.css/animate.css";
 import "api-check";
@@ -38,6 +41,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "angular-motion/dist/angular-motion.css";
 import "bootstrap-additions/dist/bootstrap-additions.css";
 import "font-awesome/css/font-awesome.css";
+import "mdi/css/materialdesignicons.css";
+import "./mdi-font.css";
 
 export {
     lodash,
@@ -59,4 +64,10 @@ export {
     jQuery,
     ngFileUpload,
     ngMap,
+    moment,
+    dndLists,
+    socketio,
 };
+
+// set global variables
+global.moment = moment;

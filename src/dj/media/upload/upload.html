@@ -1,0 +1,64 @@
+<section class="panel panel-default">
+  <div class="panel-body">
+    <h4>Upload</h4>
+    <p>Here you can upload songs to be used with DJ. After the upload is done the files will be processed and optimised by our system.</p>
+  </div>
+</section>
+<div class="alert alert-danger" ng-hide="uploader.isHTML5">
+  <p>
+    <fa name="warning"></fa> The uploader required an HTML5 compatible browser. We wonder how you were able to even log in on Control.</p>
+</div>
+<section class="panel panel-default">
+  <div class="panel-body">
+    <h4>Upload Files</h4>
+    <div ng-show="uploader.isHTML5">
+      <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
+        Drop your files here or <input type="file" nv-file-select uploader="uploader" multiple/>
+      </div>
+    </div>
+    <p>Total progress:</p>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width': uploader.progress + '%' }">
+        {{uploader.progress}}%
+      </div>
+    </div>
+    <p>
+      <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+          <fa name="upload"></fa> Upload all
+        </button>
+      <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+          <fa name="ban"></fa> Cancel all
+        </button>
+      <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+          <fa name="trash"></fa> Remove all
+        </button>
+    </p>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="item in uploader.queue">
+      <h4>{{ item.file.name }}
+        <fa name="check" ng-show="item.isSuccess"></fa>
+        <fa name="ban" ng-show="item.isCancel"></fa>
+        <fa name="exclamation" ng-show="item.isError"></fa>
+        <fa name="spinner" spin ng-show="item.isUploading"></fa>
+      </h4>
+      <p>Size: {{ item.file.size/1024/1024|number:2 }} MB</p>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width': item.progress + '%' }">
+          {{item.progress}}%
+        </div>
+      </div>
+      <p>
+        <button type="button" class="btn btn-success" ng-click="item.upload()" ng-hide="item.isReady || item.isUploading || item.isSuccess">
+          <fa name="upload"></fa> Upload
+        </button>
+        <button type="button" class="btn btn-warning" ng-click="item.cancel()" ng-hide="!item.isUploading">
+          <fa name="ban"></fa> Cancel
+        </button>
+        <button type="button" class="btn btn-danger" ng-click="item.remove()">
+          <fa name="trash"></fa> Remove
+        </button>
+      </p>
+    </li>
+  </ul>
+</section>

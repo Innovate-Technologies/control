@@ -1,0 +1,21 @@
+.clock-name {
+    font-weight: bold;
+    text-align: center;
+}
+
+.clock-tags {
+    font-size: 80%;
+    text-align: center;
+}
+
+.clock-box {
+    border-left: 1px solid blue;
+    border-right: 1px solid blue;
+    margin: 0 2px;
+    height: 60px;
+}
+
+.clock-td {
+    padding: 0 !important;
+    margin: 0;
+}

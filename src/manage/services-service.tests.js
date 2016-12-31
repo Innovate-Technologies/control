@@ -57,10 +57,6 @@ describe("ServicesService", function () {
       expect(ServicesService.getSelectedService).toEqual(jasmine.any(Function));
     });
 
-    it("should provide a getBy method", function () {
-      expect(ServicesService.getBy).toEqual(jasmine.any(Function));
-    });
-
     it("should provide a setServices method", function () {
       expect(ServicesService.setServices).toEqual(jasmine.any(Function));
     });
@@ -160,35 +156,9 @@ describe("ServicesService", function () {
     });
 
     it("should only return services eligible to Control", function () {
-            // We faked 5 services, 2 eligible, 3 uneligible.
-            // Check that we only get back the two eligible services.
+      // We faked 5 services, 2 eligible, 3 uneligible.
+      // Check that we only get back the two eligible services.
       expect(filteredServices.length).toBe(2);
-    });
-
-  });
-
-  describe("getBy", function () {
-
-    it("should return the correct service if it exists", function () {
-      var aService = ServicesService.getBy("id", "0001");
-      expect(aService).toBeDefined();
-      expect(aService.id).toBe("0001");
-
-      var anotherService = ServicesService.getBy("username", "testing");
-      expect(anotherService).toBeDefined();
-            // Plot twist: it's the same service as `aService`.
-      expect(anotherService.id).toBe("0001");
-      expect(anotherService.username).toBe("testing");
-
-      var yetAnotherService = ServicesService.getBy("username", "cast");
-      expect(yetAnotherService).toBeDefined();
-      expect(yetAnotherService.id).toBe("0005");
-      expect(yetAnotherService.username).toBe("cast");
-    });
-
-    it("should return undefined otherwise", function () {
-      var service = ServicesService.getBy("id", "xxxx");
-      expect(service).toBeUndefined();
     });
 
   });

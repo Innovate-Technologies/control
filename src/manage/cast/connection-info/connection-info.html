@@ -7,7 +7,7 @@
 <div class="alert alert-warning">
     <p><fa name="warning"></fa> Never use the IP linked to your hostname. The IP address can and will change frequently, so relying on the IP can break your setup completely.</p>
 </div>
-<section class="panel panel-default">
+<section class="panel panel-default" ng-hide="ctrl.config.DJ.enabled">
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-8">
@@ -30,7 +30,7 @@
         <div class="clearfix"></div>
     </div>
 </section>
-<section class="panel panel-default" ng-repeat="stream in ctrl.config.streams">
+<section class="panel panel-default" ng-repeat="stream in ctrl.config.streams" ng-hide="ctrl.config.DJ.enabled">
     <div class="panel-body" ng-show="ctrl.protocol === 'SHOUTcast'">
         <h4>{{stream.stream}}</h4>
         <p><strong>Type: </strong>SHOUTcast (v1)</p>
@@ -48,6 +48,9 @@
         <p><strong>Password: </strong><code>{{stream.password}}</code></p>
     </div>
 </section>
+<div class="alert alert-danger" ng-show="ctrl.config.DJ.enabled">
+    <p><fa name="warning"></fa> Currently live broadcasting isn't possible when DJ is enabled.</p>
+</div>
 <section class="panel panel-default">
     <div class="panel-body">
         <h4><fa name="question-circle"></fa> What to broadcast with?</h4>
