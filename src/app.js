@@ -81,6 +81,9 @@ const app = angular.module("control", [
 app.config(configHttp);
 app.config(configAngularStrap);
 app.run(configForms);
+app.config(["$qProvider", ($qProvider) => {
+  $qProvider.errorOnUnhandledRejections(false);
+}]);
 app.run(($templateCache) => {
   $templateCache.put("header-nav.html", require("./header-nav.html"));
   $templateCache.put("footer.html", require("./footer.html"));
