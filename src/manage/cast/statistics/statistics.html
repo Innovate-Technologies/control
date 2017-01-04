@@ -1,10 +1,16 @@
-<div class="alert alert-info">
-    <p><fa name="info-circle"></fa> We're working hard to make this page more complete. You'll see more info here very soon.</p>
-</div>
-
-<section class="panel panel-default">
+<section class="panel">
     <div class="panel-body">
-        <h4>Listeners <button ng-disabled="ctrl.config.streams[ctrl.config.streams.length - 1].loadingStats" class="btn btn-xs btn-default no-transition" type="button" ng-click="ctrl.updateStats()"><fa name="refresh"></fa></button></h4>
+        <ul class="nav nav-tabs">
+            <li role="presentation" ng-class="ctrl.tab === 'current' && 'active'" ng-click="ctrl.setTab('current')"><a href="#">Current</a></li>
+            <li role="presentation" ng-class="ctrl.tab === 'past' && 'active'" ng-click="ctrl.setTab('past')"><a href="#">Past <span class="label label-warning"><fa name="flask"></fa> Beta</span></a></li>
+        </ul>
+    </div>
+</section>
+
+<section class="panel panel-default" ng-show="ctrl.tab === 'current'">
+    <div class="panel-body">
+        <h4>Listeners <button ng-disabled="ctrl.config.streams[ctrl.config.streams.length - 1].loadingStats" class="btn btn-xs btn-default no-transition"
+                type="button" ng-click="ctrl.updateStats()"><fa name="refresh"></fa></button></h4>
     </div>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="stream in ctrl.config.streams">
@@ -24,7 +30,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="listener in ctrl.listeners[stream.stream] | limitTo: listenersShownAtMost">
-                                <td><span class="flag-icon flag-icon-{{listener.countryCode | lowercase}}" bs-tooltip data-title="{{listener.country}}"></span></td> 
+                                <td><span class="flag-icon flag-icon-{{listener.countryCode | lowercase}}" bs-tooltip data-title="{{listener.country}}"></span></td>
                                 <td>{{listener.ip}}</td>
                                 <td><span dd-text-collapse dd-text-collapse-max-length="50" dd-text-collapse-text="{{listener.client}}"></span></td>
                                 <td>{{listener.starttime * 1000 |date:'dd/MM/yyyy HH:mm:ss Z'}}</td>
@@ -33,33 +39,98 @@
                         <tfoot>
                             <tr ng-show="ctrl.listeners[stream.stream].length > listenersShownAtMost" class="am-fade">
                                 <td class="text-center" colspan="3">
-                                    <p><button type="button" class="btn btn-default" ng-click="listenersShownAtMost = listenersShownAtMost + 20"><i class="fa fa-ellipsis-h"></i> Show more</button> <button type="button" class="btn btn-default" ng-click="listenersShownAtMost = ctrl.listeners[stream.stream].length">Show all</button></p>
+                                    <p><button type="button" class="btn btn-default" ng-click="listenersShownAtMost = listenersShownAtMost + 20"><i class="fa fa-ellipsis-h"></i> Show more</button>                                        <button type="button" class="btn btn-default" ng-click="listenersShownAtMost = ctrl.listeners[stream.stream].length">Show all</button></p>
                                 </td>
                             </tr>
                         </tfoot>
                         <colgroup>
                             <col style="width: 2%">
-                            <col style="width: 10%">
-                            <col style="width: 60%">
-                            <col style="width: 30%" class="text-center">
-                        </colgroup>
-                    </table>
-                </div>
-            </div>
-            <div ng-show="stream.loadingStats">
-                <loading-spinner></loading-spinner>
-            </div>
-            <div ng-show="stream.failedLoading">
-                <p class="text-danger">Failed while loading the list. Please try again.</p>
-            </div>
-        </li>
-    </ul>
+<col style="width: 10%">
+<col style="width: 60%">
+<col style="width: 30%" class="text-center">
+</colgroup>
+</table>
+</div>
+</div>
+<div ng-show="stream.loadingStats">
+    <loading-spinner></loading-spinner>
+</div>
+<div ng-show="stream.failedLoading">
+    <p class="text-danger">Failed while loading the list. Please try again.</p>
+</div>
+</li>
+</ul>
 </section>
 
-<section class="panel panel-default panel-map">
+<section class="panel panel-default panel-map" ng-show="ctrl.tab === 'current'">
     <div class="panel-body">
-        <h4>Live listeners map <button ng-disabled="ctrl.config.streams[ctrl.config.streams.length - 1].loadingStats" class="btn btn-xs btn-default no-transition" type="button" ng-click="ctrl.updateStats()"><fa name="refresh"></fa></button></h4>
+        <h4>Live listeners map <button ng-disabled="ctrl.config.streams[ctrl.config.streams.length - 1].loadingStats" class="btn btn-xs btn-default no-transition"
+                type="button" ng-click="ctrl.updateStats()"><fa name="refresh"></fa></button></h4>
     </div>
     <ng-map zoom="1" center="0.00, 0.00">
     </ng-map>
+</section>
+
+<!-- past -->
+<section class="panel panel-default" ng-show="ctrl.tab === 'past'">
+    <div class="panel-body">
+        <h4>Range</h4>
+    </div>
+    <div class="form-inline">
+        <div class="form-group">
+            <label class="control-label"><i class="fa fa-calendar"></i> Start:</label>
+            <div class="form-group">
+                <input type="text" size="10" class="form-control" ng-model="ctrl.startDate" data-autoclose="1" placeholder="Date" bs-datepicker>
+            </div>
+            <div class="form-group">
+                <input type="text" size="8" class="form-control" ng-model="ctrl.startDate" data-time-format="h:mm:ss a" data-autoclose="1"
+                    placeholder="Time" bs-timepicker>
+            </div>
+            <label class="control-label"><i class="fa fa-calendar"></i> End:</label>
+            <div class="form-group">
+                <input type="text" size="10" class="form-control" ng-model="ctrl.endDate" data-autoclose="1" placeholder="Date" bs-datepicker>
+            </div>
+            <div class="form-group">
+                <input type="text" size="8" class="form-control" ng-model="ctrl.endDate" data-time-format="h:mm:ss a" data-autoclose="1"
+                    placeholder="Time" bs-timepicker>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" ng-click="ctrl.lookUpStatistics('hour')">Look up</button>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="panel panel-default" ng-show="ctrl.tab === 'past'">
+    <div class="panel-body">
+        <h4>Listener sessions</h4>
+        <canvas id="line" class="chart chart-line" chart-data="ctrl.linechartData" chart-labels="ctrl.linechartLabels" chart-series="ctrl.linechartSeries"
+            chart-options="ctrl.linechartOptions">
+        </canvas>
+    </div>
+    </hr>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Listener countries</h4>
+                <canvas id="doughnut" class="chart chart-doughnut" chart-data="ctrl.geoSpreadData" chart-labels="ctrl.geoSpreadLabels" chart-options="ctrl.geoSpreadOptions">
+                </canvas>
+            </div>
+            <div class="col-md-6">
+                <h4>Listener clients</h4>
+                <canvas id="doughnut" class="chart chart-doughnut" chart-data="ctrl.clientSpreadData" chart-labels="ctrl.clientSpreadLabels" chart-options="ctrl.clientSpreadOptions">
+                </canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Returning listener</h4>
+                <canvas id="doughnut" class="chart chart-doughnut" chart-data="ctrl.returningData" chart-labels="ctrl.returningLabels" chart-options="ctrl.returningOptions">
+                </canvas>
+            </div>
+            <div class="col-md-6">
+                <h4>Total Listening Hours</h4>
+                <p class="stats-large-number">{{ctrl.totalListeningHours}} hours</p>
+            </div>
+        </div>
+    </div>
 </section>

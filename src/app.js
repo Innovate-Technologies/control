@@ -76,6 +76,7 @@ const app = angular.module("control", [
   ngMap,
   "angularFileUpload",
   "dndLists",
+  "chart.js",
 ]);
 
 app.config(configHttp);
