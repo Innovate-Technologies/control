@@ -13,7 +13,10 @@
                     <button class="btn btn-success no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.addInterval()"><fa name="plus"></fa> Add</button>
                 </div>
             </div>
-            <div class="list-group">
+            <div ng-if="!ctrl.intervals.length && !editableForm.$visible">
+                <p class="text-muted text-center lead">There are no intervals.</p>
+            </div>
+            <div class="list-group" ng-if="ctrl.intervals.length">
                 <div class="list-group-item" ng-repeat="interval in ctrl.intervals">
                     <h4 class="list-group-item-heading">
                         <span editable-text="interval.name" e-placeholder="Interval name" e-style="display: inline-block !important; width: 95%; float: left;" e-required>

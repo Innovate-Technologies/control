@@ -9,7 +9,7 @@ export default angular.module("control.dj.continuous.intervals", [])
     .service("IntervalsService", IntervalsService)
     .run(/*@ngInject*/ (DjManageService) => {
       DjManageService.addItem({
-        sectionId: "continious",
+        sectionId: "continuous",
         name: "Intervals",
         icon: "indent",
         route: {

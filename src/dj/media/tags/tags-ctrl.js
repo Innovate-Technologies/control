@@ -1,9 +1,9 @@
 import { lodash as _, angular } from "../../../vendor";
 
-export default /*@ngInject*/ function (TagsService, TagsColorService, $q) {
+export default /*@ngInject*/ function (TagsService, TagsColorService, $q, tags) {
   this.now = new Date();
   this.colorService = TagsColorService;
-  this.tags = [];
+  this.tags = tags;
   this.isSaving = false;
 
   // form functions
@@ -56,13 +56,4 @@ export default /*@ngInject*/ function (TagsService, TagsColorService, $q) {
       this.disableForm = false;
     });
   };
-
-  this.getTags = () => {
-    TagsService.getTags().then((tags) => {
-      this.tags = tags;
-    });
-  };
-
-  this.getTags();
-
 }

@@ -9,12 +9,15 @@
     oncancel="ctrl.onCancel()">
     <fieldset ng-disabled="ctrl.disableForm">
         <section class="panel panel-default">
-            <div class="panel-body">
+            <div class="panel-body" ng-if="editableForm.$visible">
                 <div class="pull-right">
                     <button class="btn btn-success no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.addTag()"><fa name="plus"></fa> Add</button>
                 </div>
             </div>
-            <div class="list-group">
+            <div class="panel-body" ng-if="!ctrl.tags.length && !editableForm.$visible">
+                <p class="text-muted text-center lead no-margin-bottom">There are no tags.</p>
+            </div>
+            <div class="list-group" ng-show="ctrl.tags.length">
                 <div class="list-group-item" ng-repeat="tag in ctrl.tags">
                     <span editable-text="tag.name" e-placeholder="Tag name" e-style="display: inline-block !important; width: 95%; float: left;"
                         e-required>

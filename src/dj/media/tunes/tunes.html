@@ -13,7 +13,10 @@
             <li role="presentation" ng-class="ctrl.tab === 'albums' && 'active'" ng-click="ctrl.setTab('albums')"><a href="#">Albums</a></li>
         </ul>
     </div>
-    <div class="panel-body" ng-show="ctrl.tab === 'songs'">
+    <div class="panel-body" ng-if="ctrl.isLoading">
+        <loading-spinner></loading-spinner>
+    </div>
+    <div class="panel-body" ng-show="ctrl.tab === 'songs' && !ctrl.isLoading">
         <div class="search-form pull-right">
             <form class="form-inline">
                 <div class="form-group">
@@ -92,5 +95,8 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div class="panel-body" ng-show="ctrl.tab !== 'songs'">
+        <p class="text-danger">This section is still a work in progress.</p>
     </div>
 </section>

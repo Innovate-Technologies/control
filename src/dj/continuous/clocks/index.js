@@ -12,7 +12,7 @@ export default angular.module("control.dj.continuous.clocks", [])
    .service("ClocksColorService", ClocksColorService)
     .run(/*@ngInject*/ (DjManageService) => {
       DjManageService.addItem({
-        sectionId: "continious",
+        sectionId: "continuous",
         name: "Clocks",
         icon: "clock-o",
         route: {

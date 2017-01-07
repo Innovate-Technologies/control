@@ -21,7 +21,7 @@ export default angular.module("control.dj.media.tags", [])
           controllerAs: "ctrl",
           title: "Tags",
           resolve: /*@ngInject*/ {
-
+            tags: ["TagsService", (service) => service.getTags()],
           },
         },
       });

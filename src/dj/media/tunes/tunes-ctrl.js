@@ -14,6 +14,8 @@ export default /*@ngInject*/ function ($scope, TunesService, TagsService, TagsCo
   this.allSelected = false;
   this.tagsColorService = TagsColorService;
 
+  this.isLoading = true;
+
   TunesService.getNumberOfPages().then((numberOfPages) => {
     this.numberOfPages = numberOfPages;
     this.loadSongs();
@@ -23,9 +25,11 @@ export default /*@ngInject*/ function ($scope, TunesService, TagsService, TagsCo
   };
 
   this.loadSongs = () => {
+    this.isLoading = true;
     TunesService.getSongsOnPage(this.sortOn, this.page).then((data) => {
       this.songs = data;
-    });
+      this.isLoading = false;
+    }, () => this.isLoading = false);
   };
 
   this.loadPage = (page) => {

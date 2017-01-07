@@ -3,6 +3,8 @@ import { angular } from "../../../vendor";
 import UploadCtrl from "./upload-ctrl";
 import UploadService from "./upload-service";
 
+import "./upload.css";
+
 export default angular.module("control.dj.media.upload", [])
    .controller("UploadCtrl", UploadCtrl)
    .service("UploadService", UploadService)
