@@ -39,4 +39,5 @@ open a pull request to get your changes reviewed and merged.
 ## Releasing to production
 
 When a branch gets merged or a commit is made on master, a build server
-will automatically run tests, build the app, and deploy it in production.
+will automatically build the app, run tests, and deploy it in production
+if nothing went wrong.
