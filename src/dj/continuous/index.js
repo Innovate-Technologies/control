@@ -8,8 +8,8 @@ export default angular.module("control.dj.continuous", [
 ])
     .run(/*@ngInject*/ (DjManageService) => {
       DjManageService.addSection({
-        name: "Continious",
-        id: "continious",
+        name: "Continuous",
+        id: "continuous",
       });
     })
     .name;
