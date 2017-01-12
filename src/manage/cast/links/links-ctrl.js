@@ -26,7 +26,7 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $scope) {
         type: "danger",
         duration: 5,
       });
-      this.disableForm = false;
+      this.isSaving = false;
     });
   };
 }
