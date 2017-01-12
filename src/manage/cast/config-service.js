@@ -73,6 +73,16 @@ export default class ConfigService {
         .then(response => response.data);
     };
 
+    /**
+     * Set custom domain
+     * @param {String} domain - The domain name to use
+     */
+    this.setCustomDomain = (domain) => {
+      const username = $rootScope.service.username;
+      return $http.put(`${ENV.apiEndpoint}/control/cast/custom-domain/${username}`, { domain })
+        .then(response => response.data);
+    };
+
     $rootScope.$on("invalidate-cast-config-cache", this.invalidateCache);
   }
 }
