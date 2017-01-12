@@ -41,6 +41,7 @@
     "moment": "^2.17.1",
     "ngmap": "1.17.8",
     "socket.io-client": "^1.7.2",
+    "ua-parser-js": "^0.7.12",
     "ui-select": "^0.19.6",
     "useragent": "^2.1.10"
   },
