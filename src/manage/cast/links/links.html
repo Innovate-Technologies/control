@@ -119,11 +119,13 @@
             <br>
             <p>Please set the following DNS record on your domain:</p>
             <table class="table">
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Value</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
                 <tr>
                     <td>{{ctrl.isValidDomain(ctrl.customDomain) ? ctrl.customDomain : 'Please enter a valid domain name first'}}</td>
                     <td>CNAME</td>
