@@ -18,6 +18,7 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $scope) {
         type: "success",
         duration: 3,
       });
+      this.config.hostname = `https://${this.customDomain}}`;
       $scope.$emit("invalidate-cast-config-cache");
       this.isSaving = false;
     }, () => {
