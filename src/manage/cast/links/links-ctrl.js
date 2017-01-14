@@ -18,7 +18,7 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $scope) {
         type: "success",
         duration: 3,
       });
-      this.config.hostname = `https://${this.customDomain}}`;
+      this.config.hostname = `https://${this.customDomain}`;
       $scope.$emit("invalidate-cast-config-cache");
       this.isSaving = false;
     }, () => {
@@ -30,4 +30,18 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $scope) {
       this.isSaving = false;
     });
   };
+
+  $scope.$watch(() => this.useCustomDomain, (newIsEnabled, oldIsEnabled) => {
+    if (newIsEnabled === oldIsEnabled) {
+      return;
+    }
+    if (!newIsEnabled) {
+      this.isSaving = true;
+      ConfigService.disableCustomDomain().then(() => {
+        this.isSaving = false;
+        this.config.hostname = `https://${config.username}.radioca.st`;
+        this.customDomain = "";
+      });
+    }
+  });
 }

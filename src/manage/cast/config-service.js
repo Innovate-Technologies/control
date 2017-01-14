@@ -83,6 +83,15 @@ export default class ConfigService {
         .then(response => response.data);
     };
 
+    /**
+     * Disable custom domain
+     */
+    this.disableCustomDomain = () => {
+      const username = $rootScope.service.username;
+      return $http.delete(`${ENV.apiEndpoint}/control/cast/custom-domain/${username}`)
+        .then(response => response.data);
+    };
+
     $rootScope.$on("invalidate-cast-config-cache", this.invalidateCache);
   }
 }
