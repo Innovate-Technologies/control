@@ -12,17 +12,27 @@
         <li class="list-group-item">
             <h4 class="list-group-item-heading">Cast status page</h4>
             <ul class="list-unstyled links">
-                <li><a link="{{ctrl.config.hostname}}"></a></li>
+                <li>
+                    <a link="{{ctrl.config.hostname}}"></a>
+                </li>
             </ul>
             <div class="clearfix"></div>
         </li>
         <li class="list-group-item" ng-repeat="stream in ctrl.config.streams">
             <h4 class="list-group-item-heading">{{stream.stream}}</h4>
             <ul class="list-unstyled links">
-                <li>Direct: <a link="{{ctrl.config.hostname}}/streams/{{stream.stream}}"></a></li>
-                <li>PLS: <a link="{{ctrl.config.hostname}}/streams/{{stream.stream}}.pls"></a></li>
-                <li>M3U: <a link="{{ctrl.config.hostname}}/streams/{{stream.stream}}.m3u"></a></li>
-                <li>ASX: <a link="{{ctrl.config.hostname}}/streams/{{stream.stream}}.asx"></a></li>
+                <li>Direct:
+                    <a link="{{ctrl.config.hostname}}/streams/{{stream.stream}}"></a>
+                </li>
+                <li>PLS:
+                    <a link="{{ctrl.config.hostname}}/streams/{{stream.stream}}.pls"></a>
+                </li>
+                <li>M3U:
+                    <a link="{{ctrl.config.hostname}}/streams/{{stream.stream}}.m3u"></a>
+                </li>
+                <li>ASX:
+                    <a link="{{ctrl.config.hostname}}/streams/{{stream.stream}}.asx"></a>
+                </li>
             </ul>
             <div class="clearfix"></div>
         </li>
@@ -38,13 +48,19 @@
         <li class="list-group-item">
             <h4 class="list-group-item-heading">Cast</h4>
             <ul class="list-unstyled links">
-                <li>List of active streams: <a link="{{ctrl.config.hostname}}/api/list-active-streams"></a></li>
-                <li>Current song: <a link="{{ctrl.config.hostname}}/api/{{ctrl.primaryStream}}/current-metadata"></a></li>
-                <li>Last played songs: <a link="{{ctrl.config.hostname}}/api/{{ctrl.primaryStream}}/past-metadata"></a>
+                <li>List of active streams:
+                    <a link="{{ctrl.config.hostname}}/api/list-active-streams"></a>
+                </li>
+                <li>Current song:
+                    <a link="{{ctrl.config.hostname}}/api/{{ctrl.primaryStream}}/current-metadata"></a>
+                </li>
+                <li>Last played songs:
+                    <a link="{{ctrl.config.hostname}}/api/{{ctrl.primaryStream}}/past-metadata"></a>
                     <br><span class="text-muted"><fa name="info-circle"></fa> Gives the last 20 songs in an array, where the first object is the current song.</span>
                 </li>
                 <li>
-                    List of listeners: <a link="{{ctrl.config.hostname}}/api/*/{{ctrl.config.apikey}}/listeners"></a>
+                    List of listeners:
+                    <a link="{{ctrl.config.hostname}}/api/*/{{ctrl.config.apikey}}/listeners"></a>
                     <br><span class="text-warning"><fa name="warning"></fa> This link contains your private API key so it should be treated as a password.</span>
                 </li>
             </ul>
@@ -53,24 +69,79 @@
         <li class="list-group-item">
             <h4 class="list-group-item-heading">SHOUTcast-compatible</h4>
             <ul class="list-unstyled links">
-                <li>v1 statistics: <a link="{{ctrl.config.hostname}}/7.html"></a></li>
-                <li>v2 statistics: <a link="{{ctrl.config.hostname}}/statistics"></a></li>
+                <li>v1 statistics:
+                    <a link="{{ctrl.config.hostname}}/7.html"></a>
+                </li>
+                <li>v2 statistics:
+                    <a link="{{ctrl.config.hostname}}/statistics"></a>
+                </li>
             </ul>
             <br>
             <h5 class="list-group-item-heading">SHOUTcast-compatible login (API only)</h5>
             <ul class="list-unstyled links">
                 <li>Username: <code>admin</code></li>
-                <li>Password: <code>{{ctrl.config.apikey}}</code></a></li>
-                <li>Port: <code>80</code></a></li>
+                <li>Password: <code>{{ctrl.config.apikey}}</code></a>
+                </li>
+                <li>Port: <code>80</code></a>
+                </li>
             </ul>
             <div class="clearfix"></div>
         </li>
         <li class="list-group-item">
             <h4 class="list-group-item-heading">Icecast-compatible</h4>
             <ul class="list-unstyled links">
-                <li>v2.4+: <a link="{{ctrl.config.hostname}}/status-json.xsl"></a></li>
+                <li>v2.4+:
+                    <a link="{{ctrl.config.hostname}}/status-json.xsl"></a>
+                </li>
             </ul>
             <div class="clearfix"></div>
+        </li>
+    </ul>
+</section>
+
+<section class="panel panel-default">
+    <div class="panel-body">
+        <div class="pull-left">
+            <h4>Custom domain</h4>
+            <p>This allows you to host Cast under your own subdomain.</p>
+        </div>
+        <div class="pull-right">
+            <div toggle-switch class="switch-success" ng-model="ctrl.useCustomDomain" on-label="On" off-label="Off"></div>
+        </div>
+    </div>
+    <ul class="list-group" ng-show="ctrl.useCustomDomain">
+        <li class="list-group-item">
+            <label for="custom-domain">Your subdomain</label>
+            <div class="input-group">
+                <span class="input-group-addon">https://</span>
+                <input type="text" class="form-control" id="custom-domain" ng-model="ctrl.customDomain">
+            </div>
+            <br>
+            <p>Please set the following DNS record on your domain:</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>{{ctrl.isValidDomain(ctrl.customDomain) ? ctrl.customDomain : 'Please enter a valid domain name first'}}</td>
+                    <td>CNAME</td>
+                    <td>{{ctrl.config.username}}.radioca.st</td>
+                </tr>
+            </table>
+            <colgroup>
+                <col style="width: 50%">
+                <col style="width: 20%">
+                <col style="width: 30%">
+            </colgroup>
+            <div class="row">
+                <div class="col-sm-3 pull-right">
+                    <button ng-click="ctrl.setCustomDomain()" class="btn btn-block btn-primary" ng-disabled="!ctrl.isValidDomain(ctrl.customDomain) || ctrl.isSaving || ctrl.customDomain === ctrl.config.hostname.replace('https://', '')"><i class="fa fa-save"></i> Save</button>
+                </div>
+            </div>
         </li>
     </ul>
 </section>
