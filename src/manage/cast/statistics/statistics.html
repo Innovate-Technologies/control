@@ -80,7 +80,7 @@
             <div class="form-group">
                 <label class="control-label"><i class="fa fa-calendar"></i> Start:</label>
                 <div class="form-group">
-                    <input type="text" size="10" class="form-control" ng-model="ctrl.startDate" data-autoclose="1" placeholder="Date" bs-datepicker>
+                    <input type="text" size="10" class="form-control" ng-model="ctrl.startDate" data-autoclose="1" placeholder="Date" data-max-date="today" bs-datepicker>
                 </div>
                 <div class="form-group">
                     <input type="text" size="8" class="form-control" ng-model="ctrl.startDate" data-time-format="HH:mm" data-autoclose="1"
@@ -88,31 +88,34 @@
                 </div>
                 <label class="control-label"><i class="fa fa-calendar"></i> End:</label>
                 <div class="form-group">
-                    <input type="text" size="10" class="form-control" ng-model="ctrl.endDate" data-autoclose="1" placeholder="Date" bs-datepicker>
+                    <input type="text" size="10" class="form-control" ng-model="ctrl.endDate" data-autoclose="1" placeholder="Date" data-max-date="today" bs-datepicker>
                 </div>
                 <div class="form-group">
                     <input type="text" size="8" class="form-control" ng-model="ctrl.endDate" data-time-format="HH:mm" data-autoclose="1"
                         placeholder="Time" bs-timepicker>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary" ng-click="ctrl.lookUpStatistics('hour')" ng-disabled="ctrl.loadingPastStats"><fa name ="search"></fa> Look up</button>
+                    <button class="btn btn-primary" ng-click="ctrl.lookUpStatistics()" ng-disabled="ctrl.loadingPastStats"><fa name ="search"></fa> Look up</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <section class="panel panel-default" ng-show="ctrl.tab === 'past'">
-    <div ng-show="ctrl.loadingPastStats">
+    <div class="panel-body" ng-show="ctrl.loadingPastStats">
         <loading-spinner></loading-spinner>
     </div>
-    <div class="panel-body" ng-hide="ctrl.loadingPastStats">
+    <div class="panel-body" ng-show="!ctrl.calculatedData.length">
+       <p class="text-muted text-center lead">No statistics to show.</p>
+   </div>
+    <div class="panel-body" ng-hide="ctrl.loadingPastStats || !ctrl.calculatedData.length">
         <h4>Average listeners</h4>
         <canvas id="line" class="chart chart-line" chart-data="ctrl.linechartData" chart-labels="ctrl.linechartLabels" chart-series="ctrl.linechartSeries"
             chart-options="ctrl.linechartOptions">
         </canvas>
     </div>
-    <hr ng-hide="ctrl.loadingPastStats">
-    <div class="panel-body" ng-hide="ctrl.loadingPastStats">
+    <hr ng-hide="ctrl.loadingPastStats || !ctrl.calculatedData.length">
+    <div class="panel-body" ng-hide="ctrl.loadingPastStats || !ctrl.calculatedData.length">
         <div class="row">
             <div class="col-md-6">
                 <h4>Listener countries</h4>
