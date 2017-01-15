@@ -12,6 +12,8 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
   this.startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   this.startDate.setMonth(this.endDate.getMonth() - 1);
   this.calculatedData = [];
+  this.calculatedDataHour = []; // to store hour sessions if resolution is minute (for hourly calculated info)
+  this.loadingPastStats = false;
 
   NgMap.getMap().then((map) => {
     this.map = map;
@@ -49,6 +51,7 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
   this.updateStats();
 
   this.lookUpStatistics = () => {
+    this.loadingPastStats = true;
     let resolution = "day";
     if (this.endDate - this.startDate < (7.78 * Math.pow(10, 9))) { // 90 days
       resolution = "hour";
@@ -63,7 +66,16 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
       this.generateClientSpreadChart();
       this.generateReturningChart();
       this.generateTLH();
+      this.loadingPastStats = false;
     });
+    if (resolution === "minute") {
+      StatisticsService.getCalculatedInfo("hour", this.startDate.toJSON(), this.endDate.toJSON()).then((data) => {
+        this.calculatedDataHour = data;
+        this.generateTLH();
+      });
+    } else {
+      this.calculatedDataHour = null;
+    }
   };
   this.lookUpStatistics();
 
@@ -73,7 +85,7 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
     this.linechartData = [ [ ] ];
     for (let data of this.calculatedData) {
       this.linechartLabels.push(new Date(data.dateAdded).toLocaleString());
-      this.linechartData[0].push(data.totalSessions);
+      this.linechartData[0].push(data.averageListeners);
     }
     this.linechartOptions = {
       scales: {
@@ -162,6 +174,9 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
               agent += ` on ${agentInfo.os.name}`;
             }
           }
+          if (agent.length > 30) {
+            agent = agent.substr(0, 27) + "...";
+          }
           if (!clientSpread[agent]) {
             clientSpread[agent] = 0;
           }
@@ -217,7 +232,7 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
 
   this.generateTLH = () => {
     let tlh = 0;
-    for (let data of this.calculatedData) {
+    for (let data of (this.calculatedDataHour || this.calculatedData)) {
       tlh += data.tlh;
     }
     this.totalListeningHours = Math.round(tlh * 100) / 100;
