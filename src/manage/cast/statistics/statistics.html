@@ -36,7 +36,8 @@
                         <tfoot>
                             <tr ng-show="ctrl.listeners[stream.stream].length > listenersShownAtMost" class="am-fade">
                                 <td class="text-center" colspan="3">
-                                    <p><button type="button" class="btn btn-default" ng-click="listenersShownAtMost = listenersShownAtMost + 20"><i class="fa fa-ellipsis-h"></i> Show more</button>                                        <button type="button" class="btn btn-default" ng-click="listenersShownAtMost = ctrl.listeners[stream.stream].length">Show all</button></p>
+                                    <p><button type="button" class="btn btn-default" ng-click="listenersShownAtMost = listenersShownAtMost + 20"><i class="fa fa-ellipsis-h"></i> Show more</button>
+                                    <button type="button" class="btn btn-default" ng-click="listenersShownAtMost = ctrl.listeners[stream.stream].length">Show all</button></p>
                                 </td>
                             </tr>
                         </tfoot>
