@@ -134,7 +134,7 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
         continue;
       }
       const amount = Math.round(countrySpread[country] / count * 100) / 100;
-      if (amount < 2.5) {
+      if (amount < 5) {
         otherCount += amount;
       } else {
         this.geoSpreadLabels.push(country);
@@ -191,7 +191,7 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
     for (let client in clientSpread) {
       if (clientSpread.hasOwnProperty(client)) {
         const amount = Math.round(clientSpread[client] / count * 100) / 100;
-        if (amount < 2.5) {
+        if (amount < 5) {
           otherCount += amount;
         } else {
           this.clientSpreadLabels.push(client);
