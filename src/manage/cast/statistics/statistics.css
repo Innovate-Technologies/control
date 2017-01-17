@@ -8,3 +8,7 @@ section.panel-map {
     height: 200px;
     padding-top: 20%;
 }
+
+.stats-range-body {
+    padding-top: 0;
+}

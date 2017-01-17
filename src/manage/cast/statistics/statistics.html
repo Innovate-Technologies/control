@@ -5,14 +5,11 @@
             <li role="presentation" ng-class="ctrl.tab === 'past' && 'active'" ng-click="ctrl.setTab('past')"><a href="#">Past <span class="label label-warning"><fa name="flask"></fa> Beta</span></a></li>
         </ul>
     </div>
-</section>
-
-<section class="panel panel-default" ng-show="ctrl.tab === 'current'">
-    <div class="panel-body">
+        <div class="panel-body" ng-show="ctrl.tab === 'current'">
         <h4>Listeners <button ng-disabled="ctrl.config.streams[ctrl.config.streams.length - 1].loadingStats" class="btn btn-xs btn-default no-transition"
                 type="button" ng-click="ctrl.updateStats()"><fa name="refresh"></fa></button></h4>
     </div>
-    <ul class="list-group">
+    <ul class="list-group" ng-show="ctrl.tab === 'current'">
         <li class="list-group-item" ng-repeat="stream in ctrl.config.streams">
             <h4 class="list-group-item-heading">{{stream.stream}}</h4>
             <div ng-show="!stream.loadingStats && !stream.failedLoading">
@@ -60,20 +57,7 @@
 </div>
 </li>
 </ul>
-</section>
-
-<section class="panel panel-default panel-map" ng-show="ctrl.tab === 'current'">
-    <div class="panel-body">
-        <h4>Live listeners map <button ng-disabled="ctrl.config.streams[ctrl.config.streams.length - 1].loadingStats" class="btn btn-xs btn-default no-transition"
-                type="button" ng-click="ctrl.updateStats()"><fa name="refresh"></fa></button></h4>
-    </div>
-    <ng-map zoom="1" center="0.00, 0.00">
-    </ng-map>
-</section>
-
-<!-- past -->
-<section class="panel panel-default" ng-show="ctrl.tab === 'past'">
-    <div class="panel-body">
+    <div class="panel-body stats-range-body" ng-show="ctrl.tab === 'past'">
         <h4>Range</h4>
         <hr>
         <div class="form-inline">
@@ -101,6 +85,18 @@
         </div>
     </div>
 </section>
+
+
+<section class="panel panel-default panel-map" ng-show="ctrl.tab === 'current'">
+    <div class="panel-body">
+        <h4>Live listeners map <button ng-disabled="ctrl.config.streams[ctrl.config.streams.length - 1].loadingStats" class="btn btn-xs btn-default no-transition"
+                type="button" ng-click="ctrl.updateStats()"><fa name="refresh"></fa></button></h4>
+    </div>
+    <ng-map zoom="1" center="0.00, 0.00">
+    </ng-map>
+</section>
+
+<!-- past -->
 <section class="panel panel-default" ng-show="ctrl.tab === 'past'">
     <div class="panel-body" ng-show="ctrl.loadingPastStats">
         <loading-spinner></loading-spinner>
