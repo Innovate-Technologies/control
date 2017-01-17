@@ -107,7 +107,7 @@
    </div>
     <div class="panel-body" ng-hide="ctrl.loadingPastStats || !ctrl.calculatedData.length">
         <h4>Average listeners</h4>
-        <canvas id="line" class="chart chart-line" chart-data="ctrl.linechartData" chart-labels="ctrl.linechartLabels" chart-series="ctrl.linechartSeries"
+        <canvas class="chart chart-line" chart-data="ctrl.linechartData" chart-labels="ctrl.linechartLabels" chart-series="ctrl.linechartSeries"
             chart-options="ctrl.linechartOptions">
         </canvas>
     </div>
@@ -116,12 +116,12 @@
         <div class="row">
             <div class="col-md-6">
                 <h4>Listener countries</h4>
-                <canvas id="doughnut" class="chart chart-doughnut" chart-data="ctrl.geoSpreadData" chart-labels="ctrl.geoSpreadLabels" chart-options="ctrl.geoSpreadOptions">
+                <canvas class="chart chart-doughnut" chart-data="ctrl.geoSpreadData" chart-labels="ctrl.geoSpreadLabels" chart-options="ctrl.geoSpreadOptions">
                 </canvas>
             </div>
             <div class="col-md-6">
                 <h4>Listener clients</h4>
-                <canvas id="doughnut" class="chart chart-doughnut" chart-data="ctrl.clientSpreadData" chart-labels="ctrl.clientSpreadLabels"
+                <canvas class="chart chart-doughnut" chart-data="ctrl.clientSpreadData" chart-labels="ctrl.clientSpreadLabels"
                     chart-options="ctrl.clientSpreadOptions">
                 </canvas>
             </div>
@@ -129,7 +129,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h4>Returning listener</h4>
-                <canvas id="doughnut" class="chart chart-doughnut" chart-data="ctrl.returningData" chart-labels="ctrl.returningLabels" chart-options="ctrl.returningOptions">
+                <canvas class="chart chart-doughnut" chart-data="ctrl.returningData" chart-labels="ctrl.returningLabels" chart-options="ctrl.returningOptions">
                 </canvas>
             </div>
             <div class="col-md-6">
