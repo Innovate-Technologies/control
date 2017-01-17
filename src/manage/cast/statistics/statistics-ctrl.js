@@ -1,4 +1,4 @@
-import { lodash as _, angular, uaparser } from "../../../vendor";
+import { lodash as _, angular, uaparser, moment } from "../../../vendor";
 
 export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
   this.tab = "current";
@@ -7,10 +7,8 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
   StatisticsService.config = config;
 
   // for past stats
-  const now = new Date();
-  this.endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  this.startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  this.startDate.setMonth(this.endDate.getMonth() - 1);
+  this.endDate = moment();
+  this.startDate = moment().subtract(1, "months");
   this.calculatedData = [];
   this.calculatedDataHour = []; // to store hour sessions if resolution is minute (for hourly calculated info)
   this.loadingPastStats = false;
@@ -53,10 +51,10 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
   this.lookUpStatistics = () => {
     this.loadingPastStats = true;
     let resolution = "day";
-    if (this.endDate - this.startDate < (7.78 * Math.pow(10, 9))) { // 90 days
+    if (this.endDate.diff(this.startDate, "days") <= 90) {
       resolution = "hour";
     }
-    if (this.endDate - this.startDate < (1.73 * Math.pow(10, 8))) { // 48 hours
+    if (this.endDate.diff(this.startDate, "days") <= 2) {
       resolution = "minute";
     }
     StatisticsService.getCalculatedInfo(resolution, this.startDate.toJSON(), this.endDate.toJSON()).then((data) => {
