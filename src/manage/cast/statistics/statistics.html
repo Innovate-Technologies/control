@@ -36,27 +36,29 @@
                         <tfoot>
                             <tr ng-show="ctrl.listeners[stream.stream].length > listenersShownAtMost" class="am-fade">
                                 <td class="text-center" colspan="3">
-                                    <p><button type="button" class="btn btn-default" ng-click="listenersShownAtMost = listenersShownAtMost + 20"><i class="fa fa-ellipsis-h"></i> Show more</button>
-                                    <button type="button" class="btn btn-default" ng-click="listenersShownAtMost = ctrl.listeners[stream.stream].length">Show all</button></p>
+                                    <p>
+                                        <button type="button" class="btn btn-default" ng-click="listenersShownAtMost = listenersShownAtMost + 20"><i class="fa fa-ellipsis-h"></i> Show more</button>
+                                        <button type="button" class="btn btn-default" ng-click="listenersShownAtMost = ctrl.listeners[stream.stream].length">Show all</button>
+                                    </p>
                                 </td>
                             </tr>
                         </tfoot>
                         <colgroup>
                             <col style="width: 2%">
-<col style="width: 10%">
-<col style="width: 60%">
-<col style="width: 30%" class="text-center">
-</colgroup>
-</table>
-</div>
-</div>
-<div ng-show="stream.loadingStats">
-    <loading-spinner></loading-spinner>
-</div>
-<div ng-show="stream.failedLoading">
-    <p class="text-danger">Failed while loading the list. Please try again.</p>
-</div>
-</li>
+                            <col style="width: 10%">
+                            <col style="width: 60%">
+                            <col style="width: 30%" class="text-center">
+                        </colgroup>
+                    </table>
+            </div>
+        </div>
+        <div ng-show="stream.loadingStats">
+            <loading-spinner></loading-spinner>
+        </div>
+        <div ng-show="stream.failedLoading">
+            <p class="text-danger">Failed while loading the list. Please try again.</p>
+        </div>
+    </li>
 </ul>
     <div class="panel-body stats-range-body" ng-show="ctrl.tab === 'past'">
         <h4>Range</h4>
