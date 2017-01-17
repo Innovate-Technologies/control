@@ -117,7 +117,7 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
 
     for (let data of this.calculatedData) {
       if (data.geoSpread.length === 0) {
-        break;
+        continue;
       }
       count++;
       for (let spread of data.geoSpread) {
@@ -131,7 +131,7 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
     let otherCount = 0;
     for (let country in countrySpread) {
       if (!countrySpread.hasOwnProperty(country)) {
-        break;
+        continue;
       }
       const amount = Math.round(countrySpread[country] / count * 100) / 100;
       if (amount < 2.5) {
@@ -165,7 +165,7 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
 
     for (let data of this.calculatedData) {
       if (data.clientSpread.length === 0) {
-        break;
+        continue;
       }
       count++;
       for (let spread of data.clientSpread) {
