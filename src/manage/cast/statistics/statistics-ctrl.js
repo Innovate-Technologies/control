@@ -80,7 +80,7 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
   this.createListenerChart = () => {
     this.linechartSeries = ["Listeners"];
     this.linechartLabels = [];
-    this.linechartData = [ [ ] ];
+    this.linechartData = [[]];
     for (let data of this.calculatedData) {
       this.linechartLabels.push(new Date(data.dateAdded).toLocaleString());
       this.linechartData[0].push(data.averageListeners);
@@ -116,26 +116,29 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
     let count = 0;
 
     for (let data of this.calculatedData) {
-      if (data.geoSpread.length > 0) {
-        count++;
-        for (let spread of data.geoSpread) {
-          if (!countrySpread[spread.country]) {
-            countrySpread[spread.country] = 0;
-          }
-          countrySpread[spread.country] += spread.percentage;
+      if (data.geoSpread.length === 0) {
+        break;
+      }
+      count++;
+      for (let spread of data.geoSpread) {
+        if (!countrySpread[spread.country]) {
+          countrySpread[spread.country] = 0;
         }
+        countrySpread[spread.country] += spread.percentage;
       }
     }
+
     let otherCount = 0;
     for (let country in countrySpread) {
-      if (countrySpread.hasOwnProperty(country)) {
-        const amount = Math.round(countrySpread[country] / count * 100) / 100;
-        if (amount < 2.5) {
-          otherCount += amount;
-        } else {
-          this.geoSpreadLabels.push(country);
-          this.geoSpreadData.push(amount);
-        }
+      if (!countrySpread.hasOwnProperty(country)) {
+        break;
+      }
+      const amount = Math.round(countrySpread[country] / count * 100) / 100;
+      if (amount < 2.5) {
+        otherCount += amount;
+      } else {
+        this.geoSpreadLabels.push(country);
+        this.geoSpreadData.push(amount);
       }
     }
     if (otherCount !== 0) {
@@ -161,26 +164,28 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
     let count = 0;
 
     for (let data of this.calculatedData) {
-      if (data.clientSpread.length > 0) {
-        count++;
-        for (let spread of data.clientSpread) {
-          const agentInfo = uaparser(spread.client);
-          let agent = agentInfo.ua;
-          if (agentInfo.browser.name) {
-            agent = `${agentInfo.browser.name} ${agentInfo.browser.major}`;
-            if (agentInfo.os.name) {
-              agent += ` on ${agentInfo.os.name}`;
-            }
-          }
-          if (agent.length > 30) {
-            agent = agent.substr(0, 27) + "...";
-          }
-          if (!clientSpread[agent]) {
-            clientSpread[agent] = 0;
-          }
-          clientSpread[agent] += spread.percentage;
-        }
+      if (data.clientSpread.length === 0) {
+        break;
       }
+      count++;
+      for (let spread of data.clientSpread) {
+        const agentInfo = uaparser(spread.client);
+        let agent = agentInfo.ua;
+        if (agentInfo.browser.name) {
+          agent = `${agentInfo.browser.name} ${agentInfo.browser.major}`;
+          if (agentInfo.os.name) {
+            agent += ` on ${agentInfo.os.name}`;
+          }
+        }
+        if (agent.length > 30) {
+          agent = agent.substr(0, 27) + "...";
+        }
+        if (!clientSpread[agent]) {
+          clientSpread[agent] = 0;
+        }
+        clientSpread[agent] += spread.percentage;
+      }
+
     }
     let otherCount = 0;
     for (let client in clientSpread) {
