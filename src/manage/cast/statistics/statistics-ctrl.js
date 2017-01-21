@@ -83,7 +83,7 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
     this.linechartData = [[]];
     for (let data of this.calculatedData) {
       this.linechartLabels.push(new Date(data.dateAdded).toLocaleString());
-      this.linechartData[0].push(data.averageListeners);
+      this.linechartData[0].push(Math.round(data.averageListeners * 100) / 100);
     }
     this.linechartOptions = {
       scales: {
