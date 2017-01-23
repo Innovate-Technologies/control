@@ -51,6 +51,12 @@ export default /*@ngInject*/ function (config, StatisticsService, NgMap) {
   this.lookUpStatistics = () => {
     this.loadingPastStats = true;
     let resolution = "day";
+    if (!this.endDate.diff) {
+      this.endDate = moment(this.endDate);
+    }
+    if (!this.startDate.diff) {
+      this.startDate = moment(this.startDate);
+    }
     if (this.endDate.diff(this.startDate, "days") <= 90) {
       resolution = "hour";
     }
