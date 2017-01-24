@@ -31,6 +31,8 @@ import ngMap from "ngmap";
 import moment from "moment";
 import dndLists from "angular-drag-and-drop-lists";
 import socketio from "socket.io-client";
+import chartjs from "angular-chart.js";
+import uaparser from "ua-parser-js";
 
 import "animate.css/animate.css";
 import "api-check";
@@ -67,6 +69,8 @@ export {
     moment,
     dndLists,
     socketio,
+    chartjs,
+    uaparser,
 };
 
 // set global variables
