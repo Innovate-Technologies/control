@@ -83,6 +83,34 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $q, $scope
       return $q.reject();
     }
 
+    for (let stream of this.streams) {
+      if (stream.isRelay) {
+        if (!stream.relay) {
+          $alert({
+            content: "You need to fill in an URL in order to relay",
+            type: "danger",
+            duration: 5,
+          });
+          this.disableForm = false;
+          return $q.reject();
+        }
+        if (stream.relay.indexOf("http") !== 0) {
+          stream.relay = `http://${stream.relay}`;
+        }
+        if (!/(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(stream.relay)) {
+          $alert({
+            content: `${stream.relay} isn't a valid URL`,
+            type: "danger",
+            duration: 5,
+          });
+          this.disableForm = false;
+          return $q.reject();
+        }
+      } else {
+        stream.relay = "";
+      }
+    }
+
     if ($scope.editableForm.$invalid) {
       $alert({
         content: "You have not filled in the form correctly.",

@@ -17,8 +17,11 @@
                         <button class="btn btn-default pull-right no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.removeStream(stream)"><i class="fa fa-trash-o"></i></button>
                         <div class="clearfix"></div>
                     </h4>
-                    <p><span ng-hide="ctrl.djEnabled" editable-text="stream.password" e-placeholder="Password" e-required>Password: <code>{{stream.password}}</code></span></p>
+                    <p ng-hide="editableForm.$visible || ctrl.djEnabled || stream.isRelay"><span ng-hide="ctrl.djEnabled || stream.isRelay">Password: <code>{{stream.password}}</code></span></p>
+                    <p ng-show="editableForm.$visible && !stream.isRelay"><span editable-text="stream.password" e-placeholder="Password" e-required></span></p>
+                    <p ng-show="stream.isRelay"><span editable-text="stream.relay" e-placeholder="URL of stream to Relay">Relay URL: <code>{{stream.relay}}</code></span></p>
                     <p ng-show="editableForm.$visible"><span editable-checkbox="stream.primary" e-title="Primary"></span></p>
+                    <p ng-show="editableForm.$visible"><span class="editable-wrap editable-checkbox checkbox ng-scope"><label><input type="checkbox" ng-model="stream.isRelay"> Relay other stream</label></span></p>
                 </div>
             </div>
             <div class="panel-body">
