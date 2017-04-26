@@ -163,17 +163,20 @@ export default /*@ngInject*/ function (
     {
       key: "platforms.iOS",
       type: "fullHorizontalCheckbox",
-      defaultValue: !$scope.apps.iOS,
+      defaultValue: false,
       templateOptions: {
         label: "Submit for iOS",
         description: !$scope.apps.iOS
           ? "Tick this if you want us to build and submit an iOS app (for iPhone, iPad and iPod)."
           : "You have already submitted an iOS app request.",
-        disabled: !!$scope.apps.iOS,
+        disabled: true,
       },
       expressionProperties: {
         "templateOptions.required": areNoPlatformsSelected,
       },
+    },
+    {
+      template: '<p class="text-warning"><fa name="warning"></fa> <a href="https://twitter.com/SHOUTca_st/status/855352550182330370">iOS app submissions are currently suspended because of an ongoing issue with Apple.</a></p>',
     },
     { template: "<hr><br>" },
 

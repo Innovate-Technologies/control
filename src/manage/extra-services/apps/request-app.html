@@ -26,6 +26,7 @@
             </h4>
             <div class="clearfix"></div>
             <p class="list-group-item-text" ng-show="apps.iOS.status">Current status: <span class="{{apps.iOS.status}}">{{apps.iOS.status|appStatus}}</span> <b class="text-warning" ng-show="apps.iOS._id && !apps.iOS.reviewed">(pending review from our team)</b><br>{{apps.iOS.status|appStatusExplanation:'iOS'}} <a href="manage/apps/view-request/iOS">More <fa name="chevron-right"></fa></a></p>
+            <p class="list-group-item-text text-warning"><fa name="warning"></fa> <a href="https://twitter.com/SHOUTca_st/status/855352550182330370">iOS app submissions are currently suspended because of an ongoing issue with Apple.</a></p>
         </li>
     </ul>
 </section>
