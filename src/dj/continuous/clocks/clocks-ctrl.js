@@ -169,9 +169,10 @@ export default /*@ngInject*/ function ClocksCtrl(ClocksService, ClocksColorServi
       canBeSaved = false;
     }
     // check on changes
-    if ((this.originalClocks || []).toString() === this.clocks.toString()) {
+    if (angular.equals(this.originalClocks, this.clocks)) {
       canBeSaved = false;
     }
+
     return canBeSaved;
   };
 
@@ -180,6 +181,7 @@ export default /*@ngInject*/ function ClocksCtrl(ClocksService, ClocksColorServi
     ClocksService.setClocks(this.clocks).then(() => {
       this.loadClocks().then(() => {
         this.saving = false;
+        this.originalClocks = angular.copy(this.clocks);
       });
     });
   };
