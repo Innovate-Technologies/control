@@ -37,6 +37,16 @@ export default /*@ngInject*/ function ($scope, IntervalsService, $q, $modal, Tun
     { value: "seconds", text: "seconds" },
   ];
 
+  this.days = [
+    { value: 1, text: "Monday" },
+    { value: 2, text: "Tuesday" },
+    { value: 3, text: "Wednesday" },
+    { value: 4, text: "Thursday" },
+    { value: 5, text: "Friday" },
+    { value: 6, text: "Saturday" },
+    { value: 7, text: "Sunday" },
+  ];
+
   // form functions
 
   this.addInterval = () => {
@@ -50,6 +60,15 @@ export default /*@ngInject*/ function ($scope, IntervalsService, $q, $modal, Tun
       "start": new Date(),
       "end": new Date(),
       "forever": false,
+      "days": [1, 2, 3, 4, 5, 6, 7],
+      "dayStart": {
+        "hour": 0,
+        "minute": 0,
+      },
+      "dayEnd": {
+        "hour": 23,
+        "minute": 59,
+      },
     });
   };
 
@@ -117,5 +136,15 @@ export default /*@ngInject*/ function ($scope, IntervalsService, $q, $modal, Tun
       this.songsAvailable = data;
     });
     $modal({ scope: $scope, template: require("./edit-songs.html"), show: true });
+  };
+
+  this.showDays = (days) => {
+    let dayNames = [];
+
+    for (let i of days) {
+      dayNames.push((_.findLast(this.days, { value: i })).text);
+    }
+
+    return dayNames.join(", ");
   };
 }
