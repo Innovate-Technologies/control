@@ -34,7 +34,16 @@
                     <p ng-hide="interval.forever || !editableForm.$visible">End date: <span editable-combodate="interval.end" e-min-year="{{ctrl.now.getFullYear() - 10}}" e-max-year="{{ctrl.now.getFullYear() + 10}}" e-required>{{interval.end | date}}</span></p>
                     <p ng-show="editableForm.$visible"><input type="checkbox" ng-model="interval.forever"> Run forever</p>
                     <p>Run on: <span editable-checklist="interval.days" e-ng-options="s.value as s.text for s in ctrl.days">{{ctrl.showDays(interval.days)}}</span></p>
-                    <p ng-show="editableForm.$visible"><button class="btn btn-success no-transition" type="button" ng-click="ctrl.editSongsInInterval(interval)"><fa name="list-ul"></fa> Select songs</button></p>
+                    <p>Run between: 
+                        <span editable-number="interval.dayStart.hour" e-min="0" e-max="23 "e-style="display: inline !important; width: 20%; float: left;">{{interval.dayStart.hour}}</span>
+                        :
+                        <span editable-number="interval.dayStart.hour" e-min="0" e-max="59" e-style="display: inline !important; width: 20%; float: left;">{{interval.dayStart.hour}}</span>
+                        &nbsp; - &nbsp;
+                        <span editable-number="interval.dayEnd.hour" e-min="0" e-max="23 "e-style="display: inline !important; width: 20%; float: left;">{{interval.dayEnd.hour}}</span>
+                        :
+                        <span editable-number="interval.dayEnd.minute" e-min="0" e-max="59" e-style="display: inline !important; width: 20%; float: left;">{{interval.dayEnd.minute}}</span>
+                    </p>
+                    <p ng-show="editableForm.$visible"><button class="btn btn-success no-transition" type="button" ng-click="ctrl.editSongsInInterval(interval)" e-style="clear: left;"><fa name="list-ul"></fa> Select songs</button></p>
                 </div>
             </div>
             <div class="panel-body">
