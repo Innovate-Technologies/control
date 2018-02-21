@@ -5,7 +5,7 @@
   "repository": "git@git.innovatete.ch:site/control",
   "description": "Stay in control of SHOUTca.st services",
   "dependencies": {
-    "angular": "1.6.1",
+    "angular": "1.6.9",
     "angular-animate": "1.6.1",
     "angular-bootstrap-colorpicker": "^3.0.25",
     "angular-bootstrap-show-errors": "^2.3.0",
