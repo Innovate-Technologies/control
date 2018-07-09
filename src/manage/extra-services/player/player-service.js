@@ -13,6 +13,10 @@ export default /*@ngInject*/ function PlayerServiceFactory(
       this.invalidateCache();
       return $http.delete(ENV.apiEndpoint + "/control/player/settings/" + username);
     },
+    removeNocover(username) {
+      this.invalidateCache();
+      return $http.delete(ENV.apiEndpoint + "/control/tunes/nocover/" + username);
+    },
     invalidateCache() {
       if (!$rootScope.service) {
         return;
