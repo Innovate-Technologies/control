@@ -407,7 +407,7 @@ export default /*@ngInject*/ function (
       template: `
 <p class="help-block">You <s>can choose to have your Android app submitted to our Google Play developer account (shared with other apps) or</s> use your own which gives you better flexibility and reliability as your app is then independent. Self-hosting apps is quick and easy.</s></p>
 <p class="help-block"><b class="text-danger">Because of ongoing and recurrent issues with Google, and to avoid very long waiting times (months), all Android apps MUST now be self-hosted.</b></p>
-<p class="help-block">For more information, please refer to <a href="https://docs.shoutca.st/v1.0/docs/apps#self-host-your-android-apps">the documentation</a>.</p>
+<p class="help-block">For more information, please refer to <a href="https://docs.shoutca.st/docs/control-Mobile-Apps.html#self-host-your-android-apps">the documentation</a>.</p>
 `,
     },
     {
