@@ -24,6 +24,17 @@
                 <li>Direct:
                     <a link="{{ctrl.config.hostname}}/streams/{{stream.stream}}"></a>
                 </li>
+                <br/>
+                <li>HLS <span class="label label-warning"><fa name="flask"></fa> Beta</span>:
+                    <a link="{{ctrl.config.hostname}}/streams/{{stream.stream}}.m3u8"></a>
+                </li>
+                <li>DASH <span class="label label-warning"><fa name="flask"></fa> Beta</span>:
+                    <a link="{{ctrl.config.hostname}}/streams/{{stream.stream}}.mpd"></a>
+                </li>
+                <li>
+                    <span class="text-muted"><fa name="info-circle"></fa> HLS and DASH are a new kind of streaming protocol built for adaptive streaming.</span>
+                </li>
+                <br/>
                 <li>PLS:
                     <a link="{{ctrl.config.hostname}}/streams/{{stream.stream}}.pls"></a>
                 </li>
