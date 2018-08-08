@@ -28,6 +28,14 @@
                     <label class="btn btn-default"><input type="radio" class="btn btn-default" value="whitelist">Whitelist</label>
                 </div>
                 <p class="help-block">Whitelist mode will only allow the selected countries to tune in. Blacklist mode will only prevent the selected countries from tuning in.</p>
+                <div class="row" ng-hide="ctrl.settings.mode != 'whitelist'">
+                    <div class="col-sm-6">
+                        <label class="control-label">Allow listeners who cannot be geolocated</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <div toggle-switch class="switch-success" ng-model="ctrl.settings.allowUnknown" on-label="On" off-label="Off"></div>
+                    </div>
+                </div>
             </div>
             <div class="form-group col-sm-6">
                 <label for="mode" class="control-label">Countries</label>
@@ -50,7 +58,7 @@
             <ul class="list-unstyled">
                 <li>- Listeners from <b>{{ctrl.settings.countries.map(ctrl.getCountryName).join(', ')}}</b> will be <span class="text-{{ctrl.settings.mode === 'whitelist' ? 'success' : 'danger'}}">{{ctrl.settings.mode === 'whitelist' ? 'allowed to tune in' : 'denied'}}</span></li>
                 <li>- Listeners from other countries will be <span class="text-{{ctrl.settings.mode !== 'whitelist' ? 'success' : 'danger'}}">{{ctrl.settings.mode !== 'whitelist' ? 'allowed to tune in' : 'denied'}}</span></li>
-                <li>- Listeners who cannot be geolocated will be <span class="text-{{ctrl.settings.mode !== 'whitelist' ? 'success' : 'danger'}}">{{ctrl.settings.mode !== 'whitelist' ? 'allowed to tune in' : 'denied'}}</span></li>
+                <li>- Listeners who cannot be geolocated will be <span class="text-{{ctrl.settings.mode !== 'whitelist' || ctrl.settings.allowUnknown ? 'success' : 'danger'}}">{{ctrl.settings.mode !== 'whitelist' || ctrl.settings.allowUnknown ? 'allowed to tune in' : 'denied'}}</span></li>
             </ul>
         </div>
         <div class="row">
