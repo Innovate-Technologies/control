@@ -27,13 +27,24 @@
                     </h4>
                     <p ng-show="editableForm.$visible">Type:<br><select class="editable-input form-control" ng-model="interval.intervalType"><option ng-repeat="option in ctrl.intervalTypes" value="{{option.value}}" ng-selected="interval.intervalType === option.value">{{option.text}}</option></select></p>
                     <p ng-hide="editableForm.$visible">Type: {{interval.intervalType}}</span></p>
-                    <p>Every <span editable-number="interval.every" e-min="1" e-style="display: inline-block !important; width: 50%; float: left;" e-required>{{interval.every}}</span>
+                    <p>Every: <span editable-number="interval.every" e-min="1" e-style="display: inline-block !important; width: 50%; float: left;" e-required>{{interval.every}}</span>
                     <span editable-select="interval.intervalMode" e-ng-options="s.value as s.text for s in ctrl.intervalModes" e-style="display: inline-block !important; width: 50%; float: left;" e-required> {{interval.intervalMode}}</span></p>
-                    <p ng-hide="interval.intervalType === 'all' && editableForm.$visible">Songs played: <span editable-number="interval.songsAtOnce" e-min="1" e-required>{{interval.songsAtOnce}}</span></p>
+                    <p ng-hide="interval.intervalType === 'all' && editableForm.$visible">Songs to be played: <span editable-number="interval.songsAtOnce" e-min="1" e-required>{{interval.songsAtOnce}}</span></p>
                     <p>Start date: <span editable-combodate="interval.start" e-min-year="{{ctrl.now.getFullYear() - 10}}" e-max-year="{{ctrl.now.getFullYear() + 10}}" e-required>{{interval.start | date}}</span></p>
                     <p ng-hide="interval.forever || !editableForm.$visible">End date: <span editable-combodate="interval.end" e-min-year="{{ctrl.now.getFullYear() - 10}}" e-max-year="{{ctrl.now.getFullYear() + 10}}" e-required>{{interval.end | date}}</span></p>
                     <p ng-show="editableForm.$visible"><input type="checkbox" ng-model="interval.forever"> Run forever</p>
-                    <p ng-show="editableForm.$visible"><button class="btn btn-success no-transition" type="button" ng-click="ctrl.editSongsInInterval(interval)"><fa name="list-ul"></fa> Select songs</button></p>
+                    <p>Run on: <span editable-checklist="interval.days" e-ng-options="s.value as s.text for s in ctrl.days">{{ctrl.showDays(interval.days)}}</span></p>
+                    <p class="run-between">Run between: 
+                        <span editable-number="interval.dayStart.hour" e-min="0" e-max="23 "e-style="width: 100%;">{{interval.dayStart.hour}}</span>
+                        <span ng-class="editableForm.$visible ? 'text' : ''"> : </span>
+                        <span editable-number="interval.dayStart.hour" e-min="0" e-max="59" e-style="width: 100%;">{{interval.dayStart.hour}}</span>
+                        <span g-class="editableForm.$visible ? 'text until' : ''"> until </span>
+                        <span editable-number="interval.dayEnd.hour" e-min="0" e-max="23 "e-style="width: 100%;">{{interval.dayEnd.hour}}</span>
+                        <span g-class="editableForm.$visible ? 'text' : ''"> : </span>
+                        <span editable-number="interval.dayEnd.minute" e-min="0" e-max="59" e-style="width: 100%;">{{interval.dayEnd.minute}}</span>
+                    </p>
+                    <p class="clear" />
+                    <p ng-show="editableForm.$visible"><button class="btn btn-success no-transition" type="button" ng-click="ctrl.editSongsInInterval(interval)" e-style="clear: left;"><fa name="list-ul"></fa> Select songs</button></p>
                 </div>
             </div>
             <div class="panel-body">

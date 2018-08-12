@@ -33,6 +33,7 @@ import dndLists from "angular-drag-and-drop-lists";
 import socketio from "socket.io-client";
 import chartjs from "angular-chart.js";
 import uaparser from "ua-parser-js";
+import checklistmodel from "checklist-model";
 
 import "animate.css/animate.css";
 import "api-check";
@@ -71,6 +72,7 @@ export {
     socketio,
     chartjs,
     uaparser,
+    checklistmodel,
 };
 
 // set global variables

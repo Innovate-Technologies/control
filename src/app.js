@@ -27,6 +27,7 @@ import {
   angularLoadingBar,
   angularSmartTable,
   ngMap,
+  checklistmodel,
 } from "./vendor";
 
 import "angular-file-upload";
@@ -77,6 +78,7 @@ const app = angular.module("control", [
   "angularFileUpload",
   "dndLists",
   "chart.js",
+  checklistmodel,
 ]);
 
 app.config(configHttp);
