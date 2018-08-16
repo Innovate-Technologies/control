@@ -51,6 +51,12 @@ export default /*@ngInject*/ function AboutCtrl(
     });
   };
 
+  this.relocateCast = () => {
+    AboutService.relocateCast().then(() => {}, () => {
+      this.castState = this.castStates.UPDATE_ERROR;
+    });
+  };
+
   this.getCurrentCastVersion(this.config);
   this.checkForCastUpdates();
 }
