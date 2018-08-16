@@ -52,7 +52,10 @@ export default /*@ngInject*/ function AboutCtrl(
   };
 
   this.relocateCast = () => {
-    AboutService.relocateCast().then(() => {}, () => {
+    this.castState = this.castStates.UPDATING;
+    AboutService.relocateCast().then(() => {
+      this.castState = this.castStates.NO_UPDATE;
+    }, () => {
       this.castState = this.castStates.UPDATE_ERROR;
     });
   };
