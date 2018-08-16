@@ -16,5 +16,8 @@ export default class AboutService {
     this.updateCast = () => {
       return $http.post(`${ENV.apiEndpoint}/control/cast/upgrade/${$rootScope.service.username}`);
     };
+    this.relocateCast = () => {
+      return $http.post(`${ENV.apiEndpoint}/control/cast/relocate/${$rootScope.service.username}`);
+    };
   }
 }

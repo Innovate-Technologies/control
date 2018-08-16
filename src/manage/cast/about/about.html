@@ -31,6 +31,9 @@
             <fa name="warning"></fa> Could not check for updates.
             <button ng-click="ctrl.checkForCastUpdates()" class="btn btn-link">Try again</button>
         </span>
+        <span ng-show="ctrl.castState === ctrl.castStates.NO_UPDATE">
+            &nbsp;| <i class="far fa-people-carry" bs-tooltip data-title="This moves your Cast instance to another server. This can take a few minutes."></i><button ng-click="ctrl.relocateCast()" class="btn btn-link"> Relocate</button>
+        </span>
         </p>
         <p class="project-links">
             <a href="https://github.com/Innovate-Technologies/Cast/blob/master/LICENSE">License</a> |
