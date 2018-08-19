@@ -4,7 +4,7 @@ import AlexaCtrl from "./alexa-ctrl";
 import AlexaServiceFactory from "./alexa-service";
 import "./alexa.css";
 
-export default angular.module("control.manage.extra-services.np-tweets", [])
+export default angular.module("control.manage.extra-services.alexa", [])
     .factory("AlexaService", AlexaServiceFactory)
     .controller("AlexaCtrl", AlexaCtrl)
     .run(/*@ngInject*/ function (ManageService) {

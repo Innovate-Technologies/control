@@ -56,7 +56,6 @@ export default /*@ngInject*/ function ($rootScope, $scope, AlexaService, ENV, $r
     $scope.submitting = true;
     AlexaService.submitSettings($rootScope.service.username, settings).then(function () {
       $scope.submitting = false;
-      $scope.nowPlayingState = false;
       initialiseSettings();
       $alert({
         content: "Your language settings have been removed.",
@@ -85,7 +84,6 @@ export default /*@ngInject*/ function ($rootScope, $scope, AlexaService, ENV, $r
     $scope.submitting = true;
     AlexaService.submitSettings($rootScope.service.username, settings).then(function () {
       $scope.submitting = false;
-      $scope.nowPlayingState = false;
       initialiseSettings();
       $alert({
         content: "Your language settings have been removed.",
