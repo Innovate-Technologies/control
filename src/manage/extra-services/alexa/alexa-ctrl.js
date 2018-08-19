@@ -9,6 +9,10 @@ export default /*@ngInject*/ function ($rootScope, $scope, AlexaService, ENV, $r
     ];
     $scope.languageEnabled = { "en": false, "fr": false, "es": false, "de": false, "jp": false, "it": false };
     $scope.settingsPerLanguage = { "en": {}, "fr": {}, "es": {}, "de": {}, "jp": {}, "it": {} };
+    for (let languageInfo of (settings.languageEntries || [])) {
+      $scope.languageEnabled[languageInfo.language] = true;
+      $scope.settingsPerLanguage[languageInfo.language] = languageInfo;
+    }
     $scope.settings = settings || {};
   };
   initialiseSettings();
@@ -27,14 +31,18 @@ export default /*@ngInject*/ function ($rootScope, $scope, AlexaService, ENV, $r
     }
     $scope.submitting = true;
 
-    settings.languageEntries = _.without(settings.languageEntries, ... _.find(settings.languageEntries, { language: languageCode }));
+    const oldEntries = _.find(settings.languageEntries, { language: languageCode });
+    if (oldEntries) {
+      settings.languageEntries = _.without(settings.languageEntries, ... oldEntries);
+    }
+
     $scope.settingsPerLanguage[languageCode].language = languageCode;
     settings.languageEntries.push($scope.settingsPerLanguage[languageCode]);
 
     AlexaService.submitSettings($rootScope.service.username, settings).then(function () {
       $scope.submitting = false;
       $alert({
-        content: "New settings saved.",
+        content: "Settings saved.",
         type: "success",
         duration: 5,
       });
@@ -73,7 +81,7 @@ export default /*@ngInject*/ function ($rootScope, $scope, AlexaService, ENV, $r
   };
 
   $scope.removeLanguageSettings = function (languageCode) {
-    settings.languageEntries = _.without(settings.languageEntries, { language: languageCode });
+    settings.languageEntries = _.without(settings.languageEntries, ... _.find(settings.languageEntries, { language: languageCode }));
     $scope.settingsPerLanguage[languageCode] = {};
 
     if (!settings._id) {
