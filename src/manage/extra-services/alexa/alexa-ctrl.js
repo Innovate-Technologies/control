@@ -20,6 +20,9 @@ export default /*@ngInject*/ function ($rootScope, $scope, AlexaService, ENV, $r
   $scope.submitting = false;
 
   $scope.saveLanguageSettings = function (languageCode) {
+    settings.name = $scope.settings.name;
+    settings.logo = $scope.settings.logo;
+
     $scope.$broadcast("show-errors-check-validity");
     if ($scope.form.$invalid) {
       $alert({
