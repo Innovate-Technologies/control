@@ -46,10 +46,7 @@ export default /*@ngInject*/ function ($rootScope, $scope, AlexaService, ENV, $r
     }
     $scope.submitting = true;
 
-    const oldEntries = _.find(settings.languageEntries, { language: languageCode });
-    if (oldEntries) {
-      settings.languageEntries = _.without(settings.languageEntries, ... oldEntries);
-    }
+    _.remove(settings.languageEntries, { language: languageCode });
 
     $scope.settingsPerLanguage[languageCode].language = languageCode;
     settings.languageEntries.push($scope.settingsPerLanguage[languageCode]);
