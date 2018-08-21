@@ -1,4 +1,5 @@
 import _ from "lodash";
+import sentences from "./sentences";
 
 export default /*@ngInject*/ function ($rootScope, $scope, AlexaService, ENV, $routeParams, $location, $alert, settings, Upload) {
 
@@ -9,10 +10,21 @@ export default /*@ngInject*/ function ($rootScope, $scope, AlexaService, ENV, $r
     ];
     $scope.languageEnabled = { "en": false, "fr": false, "es": false, "de": false, "jp": false, "it": false };
     $scope.settingsPerLanguage = { "en": {}, "fr": {}, "es": {}, "de": {}, "jp": {}, "it": {} };
+
+    // load in defaults
+    for (let language in $scope.settingsPerLanguage) {
+      if ($scope.settingsPerLanguage.hasOwnProperty(language)) {
+        $scope.settingsPerLanguage[language].intro = sentences[language].intro;
+        $scope.settingsPerLanguage[language].help = sentences[language].help;
+      }
+    }
+
+    // load in data from database
     for (let languageInfo of (settings.languageEntries || [])) {
       $scope.languageEnabled[languageInfo.language] = true;
       $scope.settingsPerLanguage[languageInfo.language] = languageInfo;
     }
+
     $scope.settings = settings || {};
   };
   initialiseSettings();

@@ -1,5 +1,10 @@
+import sentences from "./sentences";
+
 export default /*@ngInject*/ function alexaServiceFactory($http, ENV, promiseCache, $rootScope) {
   var alexaService = {
+
+    sentences,
+
     submitSettings: function (username, settings) {
       this.invalidateCache();
       return $http.put(ENV.apiEndpoint + "/control/alexa/settings/" + username, settings);
