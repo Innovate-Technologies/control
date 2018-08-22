@@ -93,7 +93,7 @@ export default /*@ngInject*/ function ($rootScope, $scope, AlexaService, ENV, $r
   };
 
   $scope.removeLanguageSettings = function (languageCode) {
-    settings.languageEntries = _.without(settings.languageEntries, ... _.find(settings.languageEntries, { language: languageCode }));
+    _.remove(settings.languageEntries, { language: languageCode });
     $scope.settingsPerLanguage[languageCode] = {};
 
     if (!settings._id) {
