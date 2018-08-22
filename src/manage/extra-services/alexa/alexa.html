@@ -11,6 +11,22 @@
     <p class="alert-message">
         <i class="fa alert-icon-{{flash.type}}"></i> {{ flash.message }}</p>
 </div>
+
+<div class="alert alert-danger" ng-show="settings.status == 'rejected'">
+    <p>
+        <i class="fas fa-times-circle"></i> Your skill has been rejected for the following reason: "{{settings.rejectReason}}". You can re-submit by making the required changes.</p>
+</div>
+
+<div class="alert alert-success" ng-show="settings.status == 'in-review'">
+    <p>
+        <i class="far fa-clock"></i> Your skill is under review.</p>
+</div>
+
+<div class="alert alert-success" ng-show="settings.status == 'processing' || settings.status == 'approved'">
+    <p>
+        <i class="far fa-clock"></i> Your skill is being built and reviewed by Amazon. This can take up to one week.</p>
+</div>
+
 <div class="alert alert-info">
     <p>
         <fa name="warning"></fa> During the beta test only English will work.</p>
