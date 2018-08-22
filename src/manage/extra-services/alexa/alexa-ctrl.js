@@ -6,7 +6,7 @@ export default /*@ngInject*/ function ($rootScope, $scope, AlexaService, ENV, $r
   // Initialisation
   var initialiseSettings = function () {
     $scope.languages = [
-      { code: "en", name: "English" }, { code: "fr", name: "French" }, { code: "es", name: "spanish" }, { code: "de", name: "German" }, { code: "jp", name: "Japanese" }, { code: "it", name: "Italian" },
+      { code: "en", name: "English" }, { code: "fr", name: "French" }, { code: "es", name: "Spanish" }, { code: "de", name: "German" }, { code: "jp", name: "Japanese" }, { code: "it", name: "Italian" },
     ];
     $scope.languageEnabled = { "en": false, "fr": false, "es": false, "de": false, "jp": false, "it": false };
     $scope.settingsPerLanguage = { "en": {}, "fr": {}, "es": {}, "de": {}, "jp": {}, "it": {} };
