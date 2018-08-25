@@ -1,7 +1,7 @@
 <section class="panel panel-default">
     <div class="panel-body">
         <h4>Tunes</h4>
-        <p>Files... and stuff</p>
+        <p>These are all the somgs you uploaded. You can manage your media library from here.</p>
     </div>
 </section>
 
@@ -34,6 +34,7 @@
                 <th>Album <fa name="sort" ng-hide="ctrl.isSortedOn('album')" ng-click="ctrl.sort('album')"></fa><fa name="sort-asc" ng-show="ctrl.sortOn ==='album'" ng-click="ctrl.sort('-album')"></fa><fa name="sort-desc" ng-show="ctrl.sortOn === '-album'" ng-click="ctrl.sort('album')"></fa></th>
                 <th>Duration <fa name="sort" ng-hide="ctrl.isSortedOn('duration')" ng-click="ctrl.sort('duration')"></fa><fa name="sort-asc" ng-show="ctrl.sortOn ==='duration'" ng-click="ctrl.sort('-duration')"></fa><fa name="sort-desc" ng-show="ctrl.sortOn === '-duration'" ng-click="ctrl.sort('duration')"></fa></th>
                 <th>BPM <fa name="sort" ng-hide="ctrl.isSortedOn('bpm')" ng-click="ctrl.sort('bpm')"></fa><fa name="sort-asc" ng-show="ctrl.sortOn ==='bpm'" ng-click="ctrl.sort('-bpm')"></fa><fa name="sort-desc" ng-show="ctrl.sortOn === '-bpm'" ng-click="ctrl.sort('bpm')"></fa></th>
+                <th>Added <fa name="sort" ng-hide="ctrl.isSortedOn('dateAdded')" ng-click="ctrl.sort('dateAdded')"></fa><fa name="sort-asc" ng-show="ctrl.sortOn ==='dateAdded'" ng-click="ctrl.sort('-dateAdded')"></fa><fa name="sort-desc" ng-show="ctrl.sortOn === '-dateAdded'" ng-click="ctrl.sort('dateAdded')"></fa></th>
                 <th>Tags</th>
                 <th></th>
             </tr>
@@ -46,6 +47,7 @@
                 <td><fieldset ng-disabled="song.isDisabled || !song.available" editable-text="song.album" edit-disabled="song.isDisabled || !song.available" buttons="no" onaftersave="ctrl.updateSong(song)">{{song.album || "Unknown"}}</fieldset></td>
                 <td>{{song.duration | secondsToDateTime | date:'mm:ss'}}</td>
                 <td>{{song.bpm | number:0}}</td>
+                <td>{{song.dateAdded | date}}</td>
                 <td>
                     <span ng-show="song.editingTags">
                         <ui-select multiple class="ui-select multiple" ng-model="song.tags" theme="bootstrap">

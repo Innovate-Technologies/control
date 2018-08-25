@@ -6,27 +6,50 @@
 </section>
 <div class="alert alert-danger" ng-hide="uploader.isHTML5">
   <p>
-    <fa name="warning"></fa> The uploader requires an HTML5 compatible browser. We wonder how you were able to even log in on Control.</p>
+    <fa name="warning"></fa> The uploader requires an HTML5 compatible browser. We wonder how you were able to even log in
+    on Control.
+  </p>
 </div>
+
+<section class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+    <div class="col-xs-6">
+      <h4 class="list-group-item-heading">Tags</h4>
+      <p>These tags will be set for the songs you upload now.</p>
+    </div>
+    <div class="col-xs-6">
+      <ui-select multiple class="ui-select multiple" ng-model="ctrl.tags" theme="bootstrap">
+        <ui-select-match class="ui-select-match" ng-style="{'color': $item.color}" placeholder="Select tags">{{$item.name}}</ui-select-match>
+        <ui-select-choices class="ui-select-choices" repeat="tag in ctrl.allTags | filter: $select.search | limitTo: 20">
+          <div ng-bind-html="tag.name | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+  </div>
+  </div>
+</section>
+
 <section class="panel panel-default dj-uploader">
   <div class="panel-body">
     <div class="upload-progress-indicator">
       <p class="bar-label">Total progress</p>
       <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="{{uploader.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width': uploader.progress + '%' }">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{uploader.progress}}" aria-valuemin="0" aria-valuemax="100"
+          ng-style="{ 'width': uploader.progress + '%' }">
           <span ng-show="uploader.progress">{{uploader.progress}}%</span>
         </div>
       </div>
       <div class="pull-right">
         <button type="button" class="btn btn-success btn-sm" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-            <fa name="upload"></fa> Upload all
-          </button>
+          <fa name="upload"></fa> Upload all
+        </button>
         <button type="button" class="btn btn-warning btn-sm" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-            <fa name="ban"></fa> Cancel all
-          </button>
+          <fa name="ban"></fa> Cancel all
+        </button>
         <button type="button" class="btn btn-danger btn-sm" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-            <fa name="trash"></fa> Remove all
-          </button>
+          <fa name="trash"></fa> Remove all
+        </button>
       </div>
       <div class="clearfix"></div>
     </div>

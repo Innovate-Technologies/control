@@ -1,4 +1,11 @@
-export default /*@ngInject*/ function ($scope, FileUploader, ENV, localStorageService, $rootScope) {
+export default /*@ngInject*/ function ($scope, FileUploader, ENV, localStorageService, $rootScope, TagsService) {
+  const vm = this;
+  this.tags = [];
+
+  TagsService.getTags().then((tags) => {
+    this.allTags = tags;
+  });
+
   var uploader = $scope.uploader = new FileUploader({
     url: ENV.apiEndpoint + "/control/cast/tunes/upload",
     alias: "song",
@@ -21,6 +28,12 @@ export default /*@ngInject*/ function ($scope, FileUploader, ENV, localStorageSe
   });
 
   uploader.onBeforeUploadItem = function (item) {
+    const postTags = [];
+    for (let tag of vm.tags) {
+      postTags.push(tag._id);
+    }
+    item.formData.push({ tags: JSON.stringify(postTags) });
+
     item.headers.Authorization = `Bearer ${localStorageService.get("sessionData").token}`;
   };
 
