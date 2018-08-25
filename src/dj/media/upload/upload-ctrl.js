@@ -1,5 +1,5 @@
 export default /*@ngInject*/ function ($scope, FileUploader, ENV, localStorageService, $rootScope) {
-  $scope.uploader = new FileUploader({
+  var uploader = $scope.uploader = new FileUploader({
     url: ENV.apiEndpoint + "/control/cast/tunes/upload",
     alias: "song",
     removeAfterUpload: false,
@@ -7,7 +7,7 @@ export default /*@ngInject*/ function ($scope, FileUploader, ENV, localStorageSe
       { username: $rootScope.service.username },
     ],
     headers: {
-      Authorization: "Bearer " + localStorageService.get("sessionData").token,
+      // Authorization: "Bearer " + localStorageService.get("sessionData").token,
     },
     filters: [
       {
@@ -19,4 +19,9 @@ export default /*@ngInject*/ function ($scope, FileUploader, ENV, localStorageSe
       },
     ],
   });
+
+  uploader.onBeforeUploadItem = function (item) {
+    item.headers.Authorization = `Bearer ${localStorageService.get("sessionData").token}`;
+  };
+
 }
