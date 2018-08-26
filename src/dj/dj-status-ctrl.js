@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-export default /*@ngInject*/ function ($scope, $alert, $modal, DjConfigService) {
+export default /*@ngInject*/ function ($scope, $alert, $modal, DjConfigService, $rootScope) {
   this.disableForm = false;
   this.socket = null;
 
@@ -76,7 +76,15 @@ export default /*@ngInject*/ function ($scope, $alert, $modal, DjConfigService) 
 
   this.enableDJ = () => {
     this.config.DJ.enabled = true;
-    DjConfigService.saveConfig(this.config);
+    DjConfigService.saveConfig(this.config).catch((error) => {
+      this.config.DJ.enabled = true;
+      this.enabled = false;
+      $rootScope.$broadcast("server-error", {
+        code: 500,
+        message: error.data.error,
+        alertDuration: 30,
+      });
+    });
     setUpSockets(); // no idea if this will work
   };
 
