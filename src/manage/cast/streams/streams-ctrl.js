@@ -1,6 +1,6 @@
 import { lodash as _, angular } from "../../../vendor";
 
-export default /*@ngInject*/ function (config, ConfigService, $alert, $q, $scope) {
+export default /*@ngInject*/ function (config, ConfigService, $alert, $q, $scope, TunesService) {
 
   this.streamNames = ["32kbps", "64kbps", "96kbps", "128kbps", "192kbps", "256kbps", "320kbps"];
   this.streams = angular.copy(config.streams) || [];
@@ -9,6 +9,13 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $q, $scope
   this.hideListenerCount = config.antiStreamRipper;
   this.isSaving = false;
   this.djEnabled = config.DJ.enabled;
+  this.hasTunes = false;
+
+  TunesService.getSongCount(config.username).then(data => {
+    if (data.count > 0) {
+      this.hasTunes = true;
+    }
+  });
 
   /////////////////
   // Editable form
