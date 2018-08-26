@@ -1,6 +1,6 @@
 import { lodash as _, angular } from "../../../vendor";
 
-export default /*@ngInject*/ function (TagsService, TagsColorService, $q, tags) {
+export default /*@ngInject*/ function (TagsService, TagsColorService, $q, tags, $rootScope) {
   this.now = new Date();
   this.colorService = TagsColorService;
   this.tags = tags;
@@ -44,6 +44,17 @@ export default /*@ngInject*/ function (TagsService, TagsColorService, $q, tags) 
       }
     }
     for (let tag of this.tags) {
+      const sameNamed = _.filter(this.tags, { name: tag.name });
+      if (sameNamed.length > 1) {
+        $rootScope.$broadcast("validation-error", {
+          message: "Clock must have a name",
+          alertDuration: 30,
+        });
+
+        this.disableForm = false;
+        return;
+      }
+
       if (!tag._id) {
         promises.push(TagsService.addTag(tag).then((itframeTag) => {
           tag._id = itframeTag._id;
