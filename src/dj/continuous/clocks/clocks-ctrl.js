@@ -1,6 +1,6 @@
 import { angular, lodash as _ } from "../../../vendor";
 
-export default /*@ngInject*/ function ClocksCtrl(ClocksService, ClocksColorService, TagsService, $modal, $scope) {
+export default /*@ngInject*/ function ClocksCtrl(ClocksService, ClocksColorService, TagsService, $modal, $scope, $rootScope) {
   this.daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   this.daysOfWeekSelect = [
     { "value": 1, "label": "Monday" },
@@ -115,6 +115,7 @@ export default /*@ngInject*/ function ClocksCtrl(ClocksService, ClocksColorServi
 
   this.pushClock = (clock) => {
     // set correct data model
+    clock = angular.copy(clock);
     const tags = angular.copy(clock.tags);
     const tagTime = angular.copy(clock.tagTime);
     delete clock.tagTime;
@@ -129,6 +130,30 @@ export default /*@ngInject*/ function ClocksCtrl(ClocksService, ClocksColorServi
     // validation
     // check clock in use
     if (this.getClockForDayHourMinute(clock.start.dayOfWeek, clock.start.hour, clock.start.minute) || this.getClockForDayHourMinute(clock.end.dayOfWeek, clock.end.hour, clock.end.minute)) {
+      $rootScope.$broadcast("validation-error", {
+        message: "Clocks can not overlap eachother",
+        alertDuration: 30,
+      });
+      return false;
+    }
+
+    // check if has name
+    if (!clock.name) {
+      $rootScope.$broadcast("validation-error", {
+        message: "Clock must have a name",
+        alertDuration: 30,
+      });
+
+      return false;
+    }
+
+    // check if has tags
+    if (clock.tags.length === 0) {
+      $rootScope.$broadcast("validation-error", {
+        message: "Clocks does not contain tags",
+        alertDuration: 30,
+      });
+
       return false;
     }
 
@@ -138,17 +163,33 @@ export default /*@ngInject*/ function ClocksCtrl(ClocksService, ClocksColorServi
       tagPercent += tag.percent;
     }
     if (tagPercent !== 100) {
+      $rootScope.$broadcast("validation-error", {
+        message: "The sum of all tag percentages must be 100",
+        alertDuration: 30,
+      });
       return false;
     }
 
     // check if start is not before end
     if (clock.start.day > clock.end.day) {
+      $rootScope.$broadcast("validation-error", {
+        message: "The start day can not be after the end day",
+        alertDuration: 30,
+      });
       return false;
     }
     if (clock.start.day === clock.end.day && clock.start.hour > clock.end.hour) {
+      $rootScope.$broadcast("validation-error", {
+        message: "The start hour can not be after the end hour",
+        alertDuration: 30,
+      });
       return false;
     }
     if (clock.start.day === clock.end.day && clock.start.hour === clock.end.hour && clock.start.minute > clock.end.minute) {
+      $rootScope.$broadcast("validation-error", {
+        message: "The start minute can not be after the end minute",
+        alertDuration: 30,
+      });
       return false;
     }
 

@@ -148,4 +148,16 @@ export default /*@ngInject*/ function (
     });
   });
 
+
+  $rootScope.$on("validation-error", function onServerError(event, error) {
+    if (alert) {
+      alert.hide();
+    }
+    alert = $alert({
+      content: error.message,
+      type: "danger",
+      duration: error.alertDuration,
+    });
+  });
+
 }
