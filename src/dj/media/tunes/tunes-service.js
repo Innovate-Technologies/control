@@ -2,6 +2,9 @@ export default class TunesService {
     /*@ngInject*/
   constructor($http, $rootScope, ENV) {
     const username = $rootScope.service.username;
+    this.getSongCount = () => {
+      return $http.get(`${ENV.apiEndpoint}/control/cast/tunes/get-song-count/${username}`, { username }).then(resp => resp.data);
+    };
     this.getNumberOfPages = (limit = 100) => {
       return $http.get(`${ENV.apiEndpoint}/control/cast/tunes/get-songs-pages/${username}?limit=${limit}`, { username }).then(resp => resp.data);
     };

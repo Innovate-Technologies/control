@@ -6,6 +6,11 @@
                     Streams
                     <button class="btn btn-xs btn-default no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.addStream()" ng-disabled="ctrl.streams.length === 3"><i class="fa fa-plus"></i></button>
                 </h4>
+                <div class="alert alert-warning" ng-show="editableForm.$visible && ctrl.hasTunes">
+                    <p>
+                        <fa name="warning"></fa>If you change your bitrate all your DJ media wil need tol be re-encoded. If you add a bitrate higher than the current ones you will need to re-upload for optimal quality.
+                    </p>
+                </div>
             </div>
             <div class="list-group">
                 <div class="list-group-item" ng-repeat="stream in ctrl.streams">
