@@ -52,7 +52,7 @@ export default /*@ngInject*/ function ClocksCtrl(ClocksService, ClocksColorServi
             if (this.clocks[id].start.hour < hour && this.clocks[id].end.hour > hour) {
               // ] hour [
               return this.clocks[id];
-            } else if ((this.clocks[id].start.hour === hour && this.clocks[id].start.minute >= minute) || (this.clocks[id].end.hour === hour && this.clocks[id].end.minute >= minute)) {
+            } else if ((this.clocks[id].start.hour === hour && this.clocks[id].start.minute <= minute) || (this.clocks[id].end.hour === hour && this.clocks[id].end.minute >= minute)) {
               // [ day ] [ hour ] [ minute ]
               return this.clocks[id];
             }
