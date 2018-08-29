@@ -65,6 +65,8 @@ export default /*@ngInject*/ function ($scope, $alert, $modal, DjConfigService, 
     }
     if (!newValue) {
       this.config.DJ.enabled = false;
+      this.current = {};
+      this.queue = [];
       return DjConfigService.saveConfig(this.config);
     }
 
