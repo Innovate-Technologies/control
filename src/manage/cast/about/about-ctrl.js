@@ -22,6 +22,9 @@ export default /*@ngInject*/ function AboutCtrl(
   this.castState = this.castStates.CHECKING;
 
   this.getCurrentCastVersion = (_config) => {
+    this.castBranch = _config.branch;
+    $scope.$watch("ctrl.castBranch", this.setBranch);
+
     this.castRevision = _config.version.Cast || "unknown";
     AboutService.getCastVersion(_config.hostname).then((response) => {
       this.castVersion = response.version;
@@ -29,7 +32,13 @@ export default /*@ngInject*/ function AboutCtrl(
   };
 
   this.checkForCastUpdates = () => {
-    AboutService.getCastBuildInfo().then(({ version: revision }) => {
+    let versionPromise;
+    if (this.castBranch === "beta") {
+      versionPromise = AboutService.getCastBetaBuildInfo();
+    } else {
+      versionPromise = AboutService.getCastBuildInfo();
+    }
+    versionPromise.then(({ version: revision }) => {
       if (revision !== this.castRevision) {
         this.castState = this.castStates.UPDATE_AVAILABLE;
       } else {
@@ -54,6 +63,15 @@ export default /*@ngInject*/ function AboutCtrl(
   this.relocateCast = () => {
     AboutService.relocateCast().then(() => {}, () => {
       this.castState = this.castStates.UPDATE_ERROR;
+    });
+  };
+
+  this.setBranch = (newBranch, oldBranch) => {
+    if (newBranch === oldBranch) {
+      return;
+    }
+    AboutService.setBranch(newBranch).then(() => {
+      ConfigService.invalidateCache();
     });
   };
 
