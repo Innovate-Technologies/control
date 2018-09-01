@@ -15,6 +15,12 @@
   </div>
 </section>
 
+<section class="panel panel-default" ng-show="DjStatusCtrl.config.DJ.enabled && !DjStatusCtrl.current.song">
+  <div class="panel-body">
+    <p class="starting"><i class="fas fa-circle slow-flash starting"></i> Starting...</p>
+  </div>
+</section>
+
 <div class="row">
   <div class="col-sm-6">
     <section class="panel panel-default" ng-show="DjStatusCtrl.config.DJ.enabled && DjStatusCtrl.current.song">
