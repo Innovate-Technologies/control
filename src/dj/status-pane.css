@@ -9,3 +9,12 @@
 p.song-title {
     font-weight: bold;
 }
+
+p.starting {
+    text-align: center;
+    margin-top: 15px;
+}
+
+i.starting {
+    color: green;
+}
