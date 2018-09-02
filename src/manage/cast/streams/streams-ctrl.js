@@ -6,7 +6,7 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $q, $scope
   this.streams = angular.copy(config.streams) || [];
 
   this.hideListenerCount = config.hideListenerCount;
-  this.hideListenerCount = config.antiStreamRipper;
+  this.antiStreamRipper = config.antiStreamRipper;
   this.isSaving = false;
   this.djEnabled = config.DJ.enabled;
   this.hasTunes = false;
@@ -175,7 +175,10 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $q, $scope
       return;
     }
     this.isSaving = true;
-    ConfigService.setAntiStreamRipper(newIsEnabled).then(() => this.isSaving = false);
+    ConfigService.setAntiStreamRipper(newIsEnabled).then(() => {
+      this.isSaving = false;
+      $scope.$emit("invalidate-cast-config-cache");
+    });
   });
 
   $scope.$watch(() => this.hideListenerCount, (newIsEnabled, oldIsEnabled) => {
@@ -183,7 +186,10 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $q, $scope
       return;
     }
     this.isSaving = true;
-    ConfigService.setHideListenerCount(newIsEnabled).then(() => this.isSaving = false);
+    ConfigService.setHideListenerCount(newIsEnabled).then(() => {
+      this.isSaving = false;
+      $scope.$emit("invalidate-cast-config-cache");
+    });
   });
 
 }
