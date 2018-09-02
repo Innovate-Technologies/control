@@ -85,7 +85,7 @@
     "precss": "^1.4.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^3.1.7"
   },
   "scripts": {
     "install": "chmod +x ./lint.sh && ln -sf ../../lint.sh .git/hooks/pre-commit",
