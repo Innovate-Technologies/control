@@ -9,8 +9,10 @@ export default /*@ngInject*/ function ($rootScope, service, $scope, ManageServic
   $scope.sections = ManageService.getSections();
 
   const checkCastVersion = () => {
-    AboutService.getCastBuildInfo().then(({ version: revision }) => {
-      $scope.castNeedsUpdate = revision !== this.castRevision;
+    AboutService.getCastBuildInfo().then(({ version: stableRevision }) => {
+      AboutService.getCastBetaBuildInfo().then(({ version: betaRevision }) =>{
+        $scope.castNeedsUpdate = stableRevision !== this.castRevision && betaRevision !== this.castRevision;
+      });
     });
   };
 }
