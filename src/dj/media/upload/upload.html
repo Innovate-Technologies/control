@@ -42,13 +42,13 @@
       </div>
       <div class="pull-right">
         <button type="button" class="btn btn-success btn-sm" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-          <fa name="upload"></fa> Upload all
+          <far name="upload"></far> Upload all
         </button>
         <button type="button" class="btn btn-warning btn-sm" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-          <fa name="ban"></fa> Cancel all
+          <far name="ban"></far> Cancel all
         </button>
         <button type="button" class="btn btn-danger btn-sm" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-          <fa name="trash"></fa> Remove all
+          <far name="trash-alt"></far> Remove all
         </button>
       </div>
       <div class="clearfix"></div>
@@ -70,13 +70,13 @@
       </h5>
       <div class="pull-right">
         <button type="button" class="btn btn-success btn-sm" ng-click="item.upload()" ng-hide="item.isReady || item.isUploading || item.isSuccess">
-          <fa name="upload"></fa> Upload
+          <far name="upload"></far> Upload
         </button>
         <button type="button" class="btn btn-warning btn-sm" ng-click="item.cancel()" ng-hide="!item.isUploading">
-          <fa name="ban"></fa> Cancel
+          <far name="ban"></far> Cancel
         </button>
         <button ng-if="!item.isSuccess" type="button" class="btn btn-danger btn-sm" ng-click="item.remove()">
-          <fa name="trash"></fa> Remove from queue
+          <far name="trash-alt"></far> Remove from queue
         </button>
         <button ng-if="item.isSuccess" type="button" class="btn btn-success btn-sm" ng-click="item.remove()">
           <fa name="check"></fa> Dismiss

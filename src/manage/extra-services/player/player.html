@@ -80,7 +80,7 @@
                                         <label class="btn btn-default broad-button"><input type="radio" value="fa-facebook-square"> <fa name="facebook-square"></fa> Facebook</label>
                                         <label class="btn btn-default broad-button"><input type="radio" value="fa-twitter-square"> <fa name="twitter-square"></fa> Twitter</label>
                                     </div>
-                                    <button class="btn btn-default pull-right no-transition" type="button" ng-click="removeButton(button)"><i class="fa fa-trash-o"></i></button>
+                                    <button class="btn btn-default pull-right no-transition" type="button" ng-click="removeButton(button)"><far name="trash-alt"></far></button>
                                     <div class="clearfix"></div>
                                 </h5>
                                 <p><input type="url" placeholder="Full URL (i.e., http://example.com/)" class="form-control" ng-model="button.url" required></p>
@@ -101,10 +101,10 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
-                        <button type="submit" class="btn btn-block btn-primary"><fa name="save"></fa> Save settings</button>
+                        <button type="submit" class="btn btn-block btn-primary"><far name="save"></far> Save settings</button>
                     </div>
                     <div class="col-sm-6">
-                        <button type="button" class="btn btn-danger btn-block" ng-click="removeSettings()" ng-disabled="form.$invalid"><fa name="trash-o"></fa> Remove settings</button>
+                        <button type="button" class="btn btn-danger btn-block" ng-click="removeSettings()" ng-disabled="form.$invalid"><far name="trash-alt"></far> Remove settings</button>
                     </div>
                 </div>
             </fieldset>

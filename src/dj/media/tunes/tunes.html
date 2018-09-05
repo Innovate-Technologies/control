@@ -66,14 +66,14 @@
                         	    <div ng-bind-html="tag.name | highlight: $select.search"></div>
                     	    </ui-select-choices>
                 	    </ui-select>
-                        <button class="btn btn-success" ng-click="ctrl.saveTags(song)"><fa name="save"></fa> Save</button>
+                        <button class="btn btn-success" ng-click="ctrl.saveTags(song)"><far name="save"></far> Save</button>
                     </span>
                     <span ng-click="song.editingTags = song.available" ng-hide="song.editingTags">
                          <button ng-disabled="song.isDisabled || !song.available" ng-show="song.tags.length === 0" class="btn btn-success"><span class="add-tags"><i class="fa fa-tags fa-fw"></i><i class="fa fa-plus"></i></i></span></button>
                          <span ng-repeat="tag in song.tags"><span class="label label-info" ng-style="{background: tag.color, color: ctrl.tagsColorService.getFontColor(tag.color)}"><fa name="tag" fw></fa> {{tag.name}}</span>&nbsp;</span>
                     </span>
                 </td>
-                <td><button class="btn btn-danger" ng-click="ctrl.deleteSong(song)" ng-disabled="song.isDisabled || !song.available"><fa name="trash"></fa></td>
+                <td><button class="btn btn-danger" ng-click="ctrl.deleteSong(song)" ng-disabled="song.isDisabled || !song.available"><far name="trash-alt"></far></td>
             </tr>
         </table>
         <div class="row">

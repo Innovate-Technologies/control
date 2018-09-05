@@ -23,7 +23,7 @@
                         e-required>
                             <h4><span class="label label-info" ng-style="{background: tag.color, color: ctrl.colorService.getFontColor(tag.color)}"><fa name="tag" fw></fa> {{tag.name}}</span></h4>
                     </span>
-                    <button class="btn btn-default pull-right no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.removeTag(tag)"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-default pull-right no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.removeTag(tag)"><far name="trash-alt"></far></button>
                     <div class="clearfix"></div>
                     <div class="input-group" ng-hide="!editableForm.$visible">
                         <input id="color" placeholder="#123456" name="color" colorpicker type="text" class="form-control" ng-model="tag.color" required pattern="^#(?:[0-9a-fA-F]{3}){2}$">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="row" ng-show="!editableForm.$visible">
                     <div class="col-sm-12">
-                        <button type="button" class="btn btn-block btn-default" ng-click="editableForm.$show()"><i class="fa fa-edit"></i> Edit</button>
+                        <button type="button" class="btn btn-block btn-default" ng-click="editableForm.$show()"><far name="edit"></far> Edit</button>
                     </div>
                 </div>
             </div>
