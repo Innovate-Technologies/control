@@ -28,7 +28,7 @@
                                 <i class="fa fa-upload"></i>&nbsp;&nbsp;<input id="logo" accept="image/x-png" type="file" ngf-select ngf-change="onLogoUpload($files)">
                                 <span class="text-muted" ng-show="isUploadingLogo"> ({{uploadProgressLogo}}%)...</span>
                                 <span class="text-success" ng-hide="isUploadingLogo || !logoUploaded"> <fa name="check"></fa></span>
-                                <button ng-show="settings.logo" type="button" ng-click="removeLogo()" class="btn btn-link"><fa name="trash-o" class="text-danger"></fa></button>
+                                <button ng-show="settings.logo" type="button" ng-click="removeLogo()" class="btn btn-link"><fa name="trash-alt" class="text-danger"></fa></button>
                             </span>
                         </div>
                         <p class="help-block">The logo image that will be shown when the player is large enough. Optional.</p>
@@ -42,7 +42,7 @@
                                 <i class="fa fa-upload"></i>&nbsp;&nbsp;<input id="nocover" accept="image/x-png" type="file" ngf-select ngf-change="onNocoverUpload($files)">
                                 <span class="text-muted" ng-show="isUploadingNocover"> ({{uploadProgressNocover}}%)...</span>
                                 <span class="text-success" ng-hide="isUploadingNocover || !nocoverUploaded"> <fa name="check"></fa></span>
-                                <button ng-show="settings.nocover" type="button" ng-click="removeNocover()" class="btn btn-link"><fa name="trash-o" class="text-danger"></fa></button>
+                                <button ng-show="settings.nocover" type="button" ng-click="removeNocover()" class="btn btn-link"><fa name="trash-alt" class="text-danger"></fa></button>
                             </span>
                         </div>
                         <p class="help-block">This image that will be shown when the system can't find any artwork. This will also change in Centova Cast within one hour. Optional.</p>

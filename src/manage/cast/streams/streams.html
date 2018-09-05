@@ -17,7 +17,7 @@
                     <h4 class="list-group-item-heading">
                         <span editable-select="stream.stream" e-ng-options="streamName as streamName for streamName in ctrl.streamNames" e-style="display: inline-block !important; width: 95%; float: left;" e-required>
                             {{stream.stream}}
-                            <span class="label label-info pull-right" ng-show="stream.primary"><fa name="check-circle-o" fw></fa> Primary</span>
+                            <span class="label label-info pull-right" ng-show="stream.primary"><fa name="check-circle" fw></fa> Primary</span>
                         </span>
                         <button class="btn btn-default pull-right no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.removeStream(stream)"><far name="trash-alt"></far></button>
                         <div class="clearfix"></div>

@@ -14,7 +14,7 @@ export default angular.module("control.dj.continuous.clocks", [])
       DjManageService.addItem({
         sectionId: "continuous",
         name: "Clocks",
-        icon: "clock-o",
+        icon: "clock",
         route: {
           subPathName: "clocks",
           name: "clocks",
