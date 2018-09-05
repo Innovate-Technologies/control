@@ -90,6 +90,8 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $q, $scope
       return $q.reject();
     }
 
+    const passwords = [];
+
     for (let stream of this.streams) {
       if (stream.isRelay) {
         if (!stream.relay) {
@@ -115,6 +117,16 @@ export default /*@ngInject*/ function (config, ConfigService, $alert, $q, $scope
         }
       } else {
         stream.relay = "";
+        if (passwords.includes(stream.password)) {
+          $alert({
+            content: "All passwords have to be unique",
+            type: "danger",
+            duration: 5,
+          });
+          this.disableForm = false;
+          return $q.reject();
+        }
+        passwords.push(stream.password);
       }
     }
 
