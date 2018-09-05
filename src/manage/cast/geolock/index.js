@@ -11,8 +11,8 @@ export default angular.module("control.manage.cast.geolock", [])
         sectionId: "cast",
         name: "GeoLock",
         iconHtml: `<span class="geolock-icon-container">
-      <i class="fa fa-globe fa-fw"></i>
-      <i class="fa fa-lock"></i>
+      <i class="fas fa-globe fa-fw"></i>
+      <i class="fas fa-lock fa-xs"></i>
     </span>
     `,
         order: 50,
