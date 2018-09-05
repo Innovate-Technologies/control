@@ -97,11 +97,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <button type="submit" class="btn btn-block btn-primary"><fa name="save"></fa> Save settings</button>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <button type="button" class="btn btn-danger btn-block" ng-click="removeSettings()" ng-disabled="form.$invalid"><fa name="trash-o"></fa> Remove settings</button>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-block btn-success" ng-click="tweetNow()" ng-disabled="form.$invalid || !nowPlayingState"><fa name="paper-plane"></fa> Tweet now</button>
                     </div>
                 </div>
                 <br>
