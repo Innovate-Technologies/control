@@ -10,7 +10,7 @@ export default angular.module("control.manage.extra-services.np-tweets", [])
       ManageService.addItem({
         sectionId: "extra-services",
         name: "#NowPlaying",
-        icon: "twitter",
+        iconHtml: '<i class="fab fa-twitter"></i>',
         route: {
           subPathName: "now-playing-tweets",
           name: "nowPlayingTweets",
