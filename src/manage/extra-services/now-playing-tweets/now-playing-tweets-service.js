@@ -5,6 +5,9 @@ export default /*@ngInject*/ function NowPlayingTweetsServiceFactory($http, ENV,
       settings.disableReason = "";
       return $http.put(ENV.apiEndpoint + "/control/now-playing-tweets/settings/" + username, settings);
     },
+    tweetNow: function (username) {
+      return $http.post(ENV.apiEndpoint + "/control/now-playing-tweets/tweet/" + username, {});
+    },
     enable: function (username, settings) {
       this.invalidateCache();
       settings.isEnabled = true;

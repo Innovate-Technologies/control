@@ -105,4 +105,20 @@ export default /*@ngInject*/ function ($rootScope, $scope, NowPlayingTweetsServi
       $scope.submitting = false;
     });
   };
+
+  $scope.tweetNow = function () {
+    NowPlayingTweetsService.tweetNow($rootScope.service.username).then(() => {
+      $alert({
+        content: "A tweet has been sent!",
+        type: "success",
+        duration: 5,
+      });
+    }, () => {
+      $alert({
+        content: "Something went wrong sending your tweet",
+        type: "danger",
+        duration: 10,
+      });
+    });
+  };
 }
