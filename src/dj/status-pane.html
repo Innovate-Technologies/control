@@ -31,9 +31,9 @@
             <img ng-src="{{(DjStatusCtrl.current.artwork || 'https://photon.shoutca.st/cdn.shoutca.st/noalbum.png') + '?w=200'}}" class="img-responsive"></img>
           </div>
           <div class="col-sm-8">
-            <p class="song-title">{{DjStatusCtrl.current.song}}</p>
-            <p>{{DjStatusCtrl.current.artist}}</p>
-            <p>{{DjStatusCtrl.current.album}}</p>
+            <p class="song-title song-info">{{DjStatusCtrl.current.song}}</p>
+            <p class="song-info">{{DjStatusCtrl.current.artist}}</p>
+            <p class="song-info">{{DjStatusCtrl.current.album}}</p>
             <p>
               
             </p>
@@ -54,8 +54,8 @@
               <img ng-src="{{(song.artwork || 'https://photon.shoutca.st/cdn.shoutca.st/noalbum.png') + '?w=200'}}" class="img-responsive"></img>
             </div>
             <div class="col-sm-9">
-              <p class="song-title">{{song.song}}</p>
-              <p>{{song.artist}}</p>
+              <p class="song-title song-info">{{song.song}}</p>
+              <p class="song-info">{{song.artist}}</p>
             </div>
           </div>
         </li>
