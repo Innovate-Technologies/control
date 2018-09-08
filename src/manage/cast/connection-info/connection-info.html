@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-sm-8">
                 <h4>Connection Protocol</h4>
-                <span class="text-warning" ng-show="ctrl.protocol === 'Icecast'"><fa name="warning"></fa> The Icecast prototol may not work properly in all encoders.</span>
+                <span class="text-warning" ng-show="ctrl.protocol === 'Icecast'"><fa name="warning"></fa> The Icecast prototol on port 80 may not work properly in all encoders.</span>
             </div>
             <div class="col-sm-4">
                 <div class="btn-group-container">
@@ -45,7 +45,7 @@
             <h4>{{stream.stream}}</h4>
             <p><strong>Type: </strong>Icecast (v2)</p>
             <p><strong>Hostname: </strong>{{ctrl.config.username}}.radioca.st</p>
-            <p><strong>Port: </strong>80</p>
+            <p><strong>Port: </strong>80 or {{ctrl.config.input.SHOUTcast + 50}}</p>
             <p><strong>Mount point: </strong>/live/{{stream.stream}}</p>
             <p><strong>Username: </strong>source</p>
             <p><strong>Password: </strong><code>{{stream.password}}</code></p>
