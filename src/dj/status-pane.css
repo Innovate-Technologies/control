@@ -18,3 +18,7 @@ p.starting {
 i.starting {
     color: green;
 }
+
+p.song-info {
+    margin-bottom: 0px;
+}
