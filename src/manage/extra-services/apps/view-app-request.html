@@ -35,7 +35,7 @@ If you think this is a mistake, please <a href="https://my.shoutca.st/submittick
             ng-click="!ctrl.shouldBlockEditing(ctrl.app).blocked && editableForm.$show()"
             ng-class="{ disabled: ctrl.shouldBlockEditing(ctrl.app).blocked }"
             bs-tooltip data-title="{{ctrl.shouldBlockEditing(ctrl.app).blocked ? ctrl.shouldBlockEditing(ctrl.app).reason : ''}}" data-container="body">
-              <i class="fa fa-edit"></i> Edit</button>
+              <far name="edit"></far> Edit</button>
         </div>
         <div class="right flex-auto no-transition visible-md visible-lg" ng-show="editableForm.$visible">
           <button type="submit" class="btn btn-primary broad-button">
@@ -170,7 +170,7 @@ If you think this is a mistake, please <a href="https://my.shoutca.st/submittick
                                     {{tab.type|appTabType}}
                                     <span class="label label-info" ng-show="tab.label" bs-tooltip data-title="Custom label for {{tab.type|appTabType}}"><i class="fa fa-tag"></i> {{tab.label}}</span>
                                 </span>
-                                <button class="btn btn-default pull-right no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.removeTab(tab)"><i class="fa fa-trash-o"></i></button>
+                                <button class="btn btn-default pull-right no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.removeTab(tab)"><far name="trash-alt"></far></button>
                                 <div class="clearfix"></div>
                             </h5>
                             <p class="no-transition"><span editable-text="tab.value" e-placeholder="Username only for social tabs; full URL for websites">{{tab.value}}</span></p>
@@ -196,7 +196,7 @@ If you think this is a mistake, please <a href="https://my.shoutca.st/submittick
     </div>
 </div>
 <div class="no-transition hidden-md hidden-lg" ng-hide="editableForm.$visible">
-    <button ng-show="!editableForm.$visible" class="btn btn-default btn-block" ng-click="!ctrl.shouldBlockEditing(ctrl.app).blocked && editableForm.$show()" ng-class="{ disabled: ctrl.shouldBlockEditing(ctrl.app).blocked }" bs-tooltip data-title="{{ctrl.shouldBlockEditing(ctrl.app).blocked ? ctrl.shouldBlockEditing(ctrl.app).reason : ''}}" data-container="body"><i class="fa fa-edit"></i> Edit</button>
+    <button ng-show="!editableForm.$visible" class="btn btn-default btn-block" ng-click="!ctrl.shouldBlockEditing(ctrl.app).blocked && editableForm.$show()" ng-class="{ disabled: ctrl.shouldBlockEditing(ctrl.app).blocked }" bs-tooltip data-title="{{ctrl.shouldBlockEditing(ctrl.app).blocked ? ctrl.shouldBlockEditing(ctrl.app).reason : ''}}" data-container="body"><far name="edit"></far> Edit</button>
 </div>
 
 <br>

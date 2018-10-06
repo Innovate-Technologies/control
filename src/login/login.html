@@ -17,7 +17,7 @@
     <div class="panel-body text-center">
         <h2 class="font-diavlo">SHOUTca.st Control</h2>
         <div id="alert-log-in" flash-alert active-class="in alert" class="animated-custom fade text-left">
-            <p class="alert-message"><i class="fa alert-icon-{{flash.type}}"></i> {{ flash.message }}</p>
+            <p class="alert-message"><i class="far alert-icon-{{flash.type}}"></i> {{ flash.message }}</p>
         </div>
         <form id="form-login" name="loginForm" ng-submit="logIn(credentials)">
             <fieldset ng-disabled="isLoading">
@@ -29,7 +29,7 @@
                     <label class="sr-only" for="login-password">Password</label>
                     <input class="form-control input-lg" type="password" required name="password" placeholder="Password" id="login-password" ng-model="credentials.password">
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa fa-sign-in"></i> Log In</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="far fa-sign-in"></i> Log In</button>
             </fieldset>
         </form>
     </div>

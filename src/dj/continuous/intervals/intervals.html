@@ -22,7 +22,7 @@
                         <span editable-text="interval.name" e-placeholder="Interval name" e-style="display: inline-block !important; width: 95%; float: left;" e-required>
                             {{interval.name}}
                         </span>
-                        <button class="btn btn-default pull-right no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.removeInterval(interval)"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-default pull-right no-transition" type="button" ng-hide="!editableForm.$visible" ng-click="ctrl.removeInterval(interval)"><far name="trash-alt"></far></button>
                         <div class="clearfix"></div>
                     </h4>
                     <p ng-show="editableForm.$visible">Type:<br><select class="editable-input form-control" ng-model="interval.intervalType"><option ng-repeat="option in ctrl.intervalTypes" value="{{option.value}}" ng-selected="interval.intervalType === option.value">{{option.text}}</option></select></p>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="row" ng-show="!editableForm.$visible">
                     <div class="col-sm-12">
-                        <button type="button" class="btn btn-block btn-default" ng-click="editableForm.$show()"><i class="fa fa-edit"></i> Edit</button>
+                        <button type="button" class="btn btn-block btn-default" ng-click="editableForm.$show()"><far name="edit"></far> Edit</button>
                     </div>
                 </div>
             </div>

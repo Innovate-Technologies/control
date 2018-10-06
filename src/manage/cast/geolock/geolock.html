@@ -65,11 +65,11 @@
             <div class="col-sm-6">
                 <button type="submit"
                     ng-disabled="!ctrl.areSettingsValid() || ctrl.areSettingsSaved()"
-                    class="btn btn-block btn-primary"><fa name="save"></fa>
+                    class="btn btn-block btn-primary"><far name="save"></far>
                     {{ ctrl.areSettingsSaved() ? 'Settings saved' : 'Save settings' }}</button>
             </div>
             <div class="col-sm-6">
-                <button type="button" class="btn btn-danger btn-block" ng-click="ctrl.removeSettings()" ng-disabled="!ctrl.areServerSettingsValid()"><fa name="trash-o"></fa> Remove settings</button>
+                <button type="button" class="btn btn-danger btn-block" ng-click="ctrl.removeSettings()" ng-disabled="!ctrl.areServerSettingsValid()"><far name="trash-alt"></far> Remove settings</button>
             </div>
         </div>
     </fieldset>

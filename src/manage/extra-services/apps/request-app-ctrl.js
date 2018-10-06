@@ -298,7 +298,7 @@ export default /*@ngInject*/ function (
     {
       template: `<div class="form-group">
 <div class="col-sm-offset-3 col-sm-9">
-    <p class="help-block"><fa name="lightbulb-o"></fa> Only one additional link is required. Please open a ticket <b>immediately after submission</b> if you need more than 3 additional links.</p>
+    <p class="help-block"><fa name="lightbulb"></fa> Only one additional link is required. Please open a ticket <b>immediately after submission</b> if you need more than 3 additional links.</p>
 </div>
 </div>`,
     },
