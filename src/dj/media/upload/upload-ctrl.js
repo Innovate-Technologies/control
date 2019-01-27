@@ -32,7 +32,17 @@ export default /*@ngInject*/ function ($scope, FileUploader, ENV, localStorageSe
     for (let tag of vm.tags) {
       postTags.push(tag._id);
     }
-    item.formData.push({ tags: JSON.stringify(postTags) });
+    let hadTags = false;
+    for (let data of item.formData) {
+      if (data.tags) {
+        data.tags = JSON.stringify(postTags);
+        hadTags = true;
+      }
+    }
+
+    if (!hadTags) {
+      item.formData.push({ tags: JSON.stringify(postTags) });
+    }
 
     item.headers.Authorization = `Bearer ${localStorageService.get("sessionData").token}`;
   };
