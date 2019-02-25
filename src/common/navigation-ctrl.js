@@ -80,7 +80,7 @@ export default /*@ngInject*/ function (
         return;
       }
       $alert({
-        content: "Apologies, but something went wrong. Please reload the page and try again. If this persists, please check status.shoutca.st for network issues and let us know.",
+        content: `Apologies, but something went wrong (status: ${response.status} error: ${response.body}). Please reload the page and try again. If this persists, please check status.shoutca.st for network issues and let us know.`,
         type: "danger",
         duration: 600,
       });
