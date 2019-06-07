@@ -1,5 +1,6 @@
 /* global angular, inject */
 
+/*
 describe("AppStatusesService", function () {
 
   beforeEach(angular.mock.module("control"));
@@ -76,3 +77,4 @@ describe("AppStatusesService", function () {
   });
 
 });
+*/

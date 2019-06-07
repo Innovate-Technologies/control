@@ -1,5 +1,6 @@
 /* global angular, inject */
 
+/*
 const CONTROLLER_NAME = "RequestAppCtrl";
 
 describe(CONTROLLER_NAME, function () {
@@ -26,3 +27,4 @@ describe(CONTROLLER_NAME, function () {
     });
   });
 });
+*/
