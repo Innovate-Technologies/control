@@ -44,7 +44,8 @@
     "socket.io-client": "^2.1.1",
     "ua-parser-js": "^0.7.18",
     "ui-select": "^0.19.6",
-    "useragent": "^2.1.10"
+    "useragent": "^2.1.10",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "angular-mocks": "1.6.1",
@@ -93,6 +94,9 @@
     "build": "webpack --config webpack.build.js --bail --progress",
     "lint": "eslint_d src/ || exit 0",
     "test": "karma start",
-    "test:live": "karma start --auto-watch --no-single-run"
-  }
+    "test:live": "karma start --auto-watch --no-single-run",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
