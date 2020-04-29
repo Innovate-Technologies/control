@@ -36,7 +36,7 @@
     "checklist-model": "^0.11.0",
     "flag-icon-css": "^2.8.0",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.11",
     "mdi": "^1.7.22",
     "moment": "^2.22.2",
