@@ -36,7 +36,7 @@
     "checklist-model": "^0.11.0",
     "flag-icon-css": "^2.8.0",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.11",
     "mdi": "^1.7.22",
     "moment": "^2.22.2",
@@ -44,7 +44,8 @@
     "socket.io-client": "^2.1.1",
     "ua-parser-js": "^0.7.18",
     "ui-select": "^0.19.6",
-    "useragent": "^2.1.10"
+    "useragent": "^2.1.10",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "angular-mocks": "1.6.1",
@@ -93,6 +94,9 @@
     "build": "webpack --config webpack.build.js --bail --progress",
     "lint": "eslint_d src/ || exit 0",
     "test": "karma start",
-    "test:live": "karma start --auto-watch --no-single-run"
-  }
+    "test:live": "karma start --auto-watch --no-single-run",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
