@@ -41,7 +41,7 @@
     "mdi": "^1.7.22",
     "moment": "^2.22.2",
     "ngmap": "1.17.8",
-    "socket.io-client": "^2.1.1",
+    "socket.io-client": "^4.0.0",
     "ua-parser-js": "^0.7.18",
     "ui-select": "^0.19.6",
     "useragent": "^2.1.10"
