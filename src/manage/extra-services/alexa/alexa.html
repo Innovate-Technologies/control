@@ -1,0 +1,192 @@
+<section class="panel panel-default">
+    <div class="panel-body">
+        <h4>Alexa skill</h4>
+        <p class="service-description">Allow people to listen to your station on every Amazon Echo</p>
+        <p>The Alexa skill allows users of the Amazon Echo to listen to your radio station on their Echo devices,</p>
+        <p>It will also enable them to interact with your station using only their voice.</p>
+    </div>
+</section>
+
+<div id="alert-now-playing-box" flash-alert active-class="in alert" class="animated-custom fade">
+    <p class="alert-message">
+        <i class="fa alert-icon-{{flash.type}}"></i> {{ flash.message }}</p>
+</div>
+
+<div class="alert alert-danger" ng-show="settings.status == 'rejected'">
+    <p>
+        <i class="fas fa-times-circle"></i> Your skill has been rejected for the following reason: "{{settings.rejectReason}}". You can re-submit by making the required changes.</p>
+</div>
+
+<div class="alert alert-success" ng-show="settings.status == 'in-review'">
+    <p>
+        <i class="far fa-clock"></i> Your skill is under review.</p>
+</div>
+
+<div class="alert alert-success" ng-show="settings.status == 'processing' || settings.status == 'approved'">
+    <p>
+        <i class="far fa-clock"></i> Your skill is being built and reviewed by Amazon. This can take up to one week.</p>
+</div>
+
+<div class="alert alert-info">
+    <p>
+        <fa name="warning"></fa> During the beta test only English will work.</p>
+</div>
+
+<section class="panel panel-default">
+    <div class="panel-body">
+        <h4 class="card-header pull-left">General Settings</h4>
+        <div class="clearfix"></div>
+        <br>
+        <form class="form-horizontal" novalidate role="form" name="form" ng-hide="unauthorised">
+            <fieldset ng-disabled="submitting">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group" show-errors>
+                            <label for="station-name" class="col-sm-4 control-label">Station name</label>
+                            <div class="col-sm-12">
+                                <input type="text" id="station-name" placeholder="Station name" class="form-control" ng-model="settings.name" name="station-name"
+                                    required>
+                                <p class="help-block">This name will be the name of your Alexa Skill.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6" show-errors>
+                        <label for="logo" class="control-label">Logo</label>
+                        <div class="input-group" ngf-drop ngf-change="onLogoUpload($files)">
+                            <input class="form-control hide" type="hidden" value="{{settings.logo}}" ng-model="settings.logo" name="logo" required>
+                            <p class="text-success" ng-show="settings.logo && !showUploadControls">
+                                <fa name="check"></fa> Logo saved
+                                <button type="button" ng-click="showUploadControls = true" class="btn btn-link">Upload another one</button> or
+                                <button type="button" ng-click="removeLogo()" class="btn btn-link">remove it</button>
+                            </p>
+                            <span ng-show="!settings.logo || (settings.logo && showUploadControls)">
+                                <i class="fa fa-upload"></i>&nbsp;&nbsp;
+                                <input id="logo" accept="image/x-png" type="file" ngf-select ngf-change="onLogoUpload($files)">
+                                <span class="text-muted" ng-show="isUploadingLogo"> ({{uploadProgressLogo}}%)...</span>
+                                <span class="text-success" ng-hide="isUploadingLogo || !logoUploaded">
+                                    <fa name="check"></fa>
+                                </span>
+                                <button ng-show="settings.logo" type="button" ng-click="removeLogo()" class="btn btn-link">
+                                    <fa name="trash-o" class="text-danger"></fa>
+                                </button>
+                            </span>
+                        </div>
+                        <p class="help-block">The logo image will be shown in the Amazon Store. A size of 500x500px is recommended.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 pull-right">
+                        <button type="submit" class="btn btn-block btn-primary" ng-disabled="form.$invalid" ng-click="saveGeneralSettings()">
+                            <fa name="save"></fa> Save settings</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <br>
+            </fieldset>
+        </form>
+    </div>
+</section>
+
+<div ng-repeat="language in languages">
+    <section class="panel panel-default">
+        <div class="panel-body">
+            <form class="form-horizontal" novalidate role="form" name="form" ng-hide="unauthorised">
+                <h4 class="card-header pull-left">{{ language.name }}</h4>
+                <div class="pull-right">
+                    <div toggle-switch class="switch-success switch-large" ng-model="languageEnabled[language.code]" on-label="Enabled" off-label="Disabled"></div>
+                </div>
+                <div class="clearfix"></div>
+                <br>
+                <fieldset ng-disabled="submitting" ng-show="languageEnabled[language.code]">
+                    <div class="well">
+                        <p>Here's what a conversation might look like:</p>
+                        <blockquote class="no-margin-bottom">
+                            <p class="alexa-question">
+                                <i class="fas fa-angle-double-right"></i> Alexa, open {{settingsPerLanguage[language.code].invocationName || "&lt;Invocation name&gt;"}}</p>
+                            <p>{{settingsPerLanguage[language.code].intro || "&lt;Intro text&gt;"}}</p>
+                            <p class="alexa-question">
+                                <i class="fas fa-angle-double-right"></i> Alexa, play</p>
+                            <p>**Plays super awesome radio**</p>
+                            <p class="alexa-question">
+                                <i class="fas fa-angle-double-right"></i> Alexa, help</p>
+                            <p>{{settingsPerLanguage[language.code].help || "&lt;Help text&gt;"}}</p>
+                            <p class="alexa-question">
+                                <i class="fas fa-angle-double-right"></i> Alexa, ask {{settingsPerLanguage[language.code].invocationName || "&lt;Invocation name&gt;"}}
+                                which song is playing</p>
+                            <p>Currently, Never Gonna Give You Up by Rick Astley is playing</p>
+                        </blockquote>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group" show-errors>
+                                <label for="invocation-name" class="col-sm-2 control-label">Invocation name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="invocation-name" placeholder="Invocation name" class="form-control" ng-model="settingsPerLanguage[language.code].invocationName"
+                                        name="invocation-name" required>
+                                    <p class="help-block">This is the name to opem your skill, usually the name of your station. You might want
+                                        to make it easy to pronounce. Invocation names can
+                                        <strong>not</strong> contain any of the Alexa skill launch phrases such as
+                                        <code>launch</code>
+                                        <code>ask</code>
+                                        <code>tell</code>
+                                        <code>load</code>
+                                        <code>begin</code>, an
+                                        <code>enable</code>. Wake words including
+                                        <code>Alexa</code>
+                                        <code>Amazon</code>
+                                        <code>Echo</code>
+                                        <code>Computer</code>, or the word
+                                        <code>skill</code> or
+                                        <code>app</code>, are not allowed
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group" show-errors>
+                                <label for="intro" class="col-sm-2 control-label">Intro</label>
+                                <div class="col-sm-10">
+                                    <textarea rows="4" id="intro" class="form-control" ng-model="settingsPerLanguage[language.code].intro" name="intro" required></textarea>
+                                    <p class="help-block">This text will be said when opening the skill. It should help the users to navigate to use the skill’s functionality</p>
+                                </div>
+                            </div>
+                            <div class="form-group" show-errors>
+                                <label for="help" class="col-sm-2 control-label">Help</label>
+                                <div class="col-sm-10">
+                                    <textarea rows="4" id="help" class="form-control" ng-model="settingsPerLanguage[language.code].help" name="help" required></textarea>
+                                    <p class="help-block">This text will be said when asking for help. This
+                                        <strong>must contain more info</strong> about the skill than the into text</p>
+                                </div>
+                            </div>
+                            <div class="form-group" show-errors>
+                                <label for="description" class="col-sm-2 control-label">Description</label>
+                                <div class="col-sm-10">
+                                    <textarea rows="4" id="description" class="form-control" ng-model="settingsPerLanguage[language.code].description" name="description"
+                                        required></textarea>
+                                    <p class="help-block">This is the description of your skill in the Amazon Store.</p>
+                                </div>
+                            </div>
+                            <div class="form-group" show-errors>
+                                <label for="shortDescription" class="col-sm-2 control-label">Short Description</label>
+                                <div class="col-sm-10">
+                                    <textarea rows="4" id="shortDescription" class="form-control" ng-model="settingsPerLanguage[language.code].shortDescription"
+                                        name="shortDescription" required></textarea>
+                                    <p class="help-block">This is the short version of the description of your skill in the Amazon Store.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-block btn-primary" ng-disabled="form.$invalid" ng-click="saveLanguageSettings(language.code)">
+                                <fa name="save"></fa> Save skill</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-danger btn-block" ng-click="removeLanguageSettings(language.code)">
+                                <fa name="trash-o"></fa> Remove skill</button>
+                        </div>
+                    </div>
+                    <br>
+                </fieldset>
+            </form>
+        </div>
+    </section>
+</div>
